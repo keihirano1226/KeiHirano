@@ -1,0 +1,15 @@
+OpenPose_NeckEuclidean,94.50277400801414
+OpenPose_RShoulderEuclidean,89.42676309383927
+OpenPose_LshoulderEuclidean,89.84990599217937
+OpenPose_RElbowEuclidean,104.75899283572689
+OpenPose_LElobowEuclidean,93.63278681048494
+OpenPose_RWristEuclidean,58.783709430789536
+OpenPose_LWristEuclidean,62.95284776267984
+OpenPose_MidHipEuclidean,131.14435203885608
+OpenPose_RHipEuclidean,98.88546119026495
+OpenPose_LHipEuclidean,136.17874828215557
+OpenPose_RKneeEuclidean,124.45882748706848
+OpenPose_LKneeEuclidean,118.56465854037184
+OpenPose_RAnkleEuclidean,84.81418338913507
+OpenPose_LAnkleEuclidean,117.96354918885535
+OpenPose_MPJPEEuclidean,117.96354918885535
