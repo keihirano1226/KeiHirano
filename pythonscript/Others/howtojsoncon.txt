@@ -1,0 +1,6 @@
+jsonconverter.pyの使い方
+
+実行方法
+python3 jsonconverter.py 元のjsonfileが追いてある場所　変換後のjsonfileと関節リストのcsvを置く場所
+
+今回の場合はとりあえず、姿勢の検証なので前後の人のタグが安定しない問題は無視
