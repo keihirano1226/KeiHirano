@@ -79,6 +79,7 @@ int main()
 
   std::ifstream stream("/home/kei/document/experiments/2019.07.08/backwalk/test.csv");
   std::string line;
+  std::string line2;
   //2dのOpenPoseでディテクトされた情報を格納するための配列
   //int data[460][50];
   //3dの推定した三次元座標を格納するための配列
@@ -92,20 +93,36 @@ int main()
 
   //2dのOpenPoseでディテクトされた情報を格納するための配列
   int data[267][50];
+  float thickness;
+  float thickdata[1][25];
   //3dの推定した三次元座標を格納するための配列
   float posedata[267][75];
-
   while ( getline(stream, line) ) {
     col = 0;
     // delimを区切り文字として切り分け、intに変換してdata[][]に格納する
     for ( std::string::size_type spos, epos = 0;
         (spos = line.find_first_not_of(delim, epos)) != std::string::npos;) {
       std::string token = line.substr(spos,(epos = line.find_first_of(delim, spos))-spos);
-      data[row][col++] = stoi(token);
+      data[row][col++] = std::stoi(token);
     }
     ++row;
   }
+  char *endptr;
+  std::ifstream stream2("/home/kei/document/experiments/2019.07.08/backwalk/bodythickness.csv");
+  while ( getline(stream2, line2) ) {
+    col = 0;
+    // delimを区切り文字として切り分け、intに変換してdata[][]に格納する
+    for ( std::string::size_type spos, epos = 0;
+        (spos = line2.find_first_not_of(delim, epos)) != std::string::npos;) {
+      std::string token = line2.substr(spos,(epos = line2.find_first_of(delim, spos))-spos);
+      thickness = stof(token);
+      thickdata[0][col++] = thickness;
+      printf("thickness%f",thickdata[0][col-1]);
+    }
 
+  }
+
+  //const std::string delim = ",";
   // よめたかな?
   int j = 0;
   FILE *fp;
@@ -118,7 +135,7 @@ int main()
     for ( col = 0; col < 50; col = col + 2 ) {
       cv::Mat depthtest ;
       cv::Mat depthMat ;
-      depthtest =  cv::imread( "/home/kei/document/experiments/2019.07.08/backwalk/depth_mirror/" + oss.str() + ".png",2);
+      depthtest =  cv::imread( "/home/kei/document/experiments/2019.07.08/backwalk/depth_mirror/" + oss.str() + ".tiff",2);
       depthtest.convertTo(depthMat, CV_32FC1);
       //depthMat = depthMat * 255.0f;
       libfreenect2::Frame depth(512, 424, 4, depthMat.data);
@@ -132,23 +149,25 @@ int main()
         posedata[row1][col + 1] = y;
         posedata[row1][col + 2] = z;
         fprintf(fp,"%f,%f,%f,",x,y,z);
+        printf("%fmm\n",thickdata[0][col]);
         //printf("r = %d, c = %d\n",r,c);
         //printf("x = %f,y = %f,z = %f\n",x,y,z);
       }else{
-        puts("x = 0,y = 0,z = 0\n");
+        //puts("x = 0,y = 0,z = 0\n");
+        printf("%fmm\n",thickdata[0][col]);
         posedata[row1][col] = 0.0f;
         posedata[row1][col + 1] = 0.0f;
         posedata[row1][col + 2] = 0.0f;
         x = 0.0f;
         y = 0.0f;
         z = 0.0f;
-        fprintf(fp,"%f,%f,%f,",x,y,z);
+        //fprintf(fp,"%f,%f,%f,",x,y,z);
       }
 
       //std::cout << data[row][col] << " ";
-    }printf("%d's Frame\n", j);
+    }//printf("%d's Frame\n", j);
     j = j + 1;
-    fprintf(fp,"\n");;
+    //fprintf(fp,"\n");;
 
     std::cout << std::endl;
   }
