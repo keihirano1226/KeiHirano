@@ -4,3 +4,4 @@ study and research
 Kinect及びdepthデータを扱う関係のスクリプトがC++の中に
 それ以外のものは，pythonscriptの中に
 pythonスクリプトは，基本的には扱うものとかで場合分けしている．
+基本的にはタイトルのまんまのスクリプトであることが多い．
