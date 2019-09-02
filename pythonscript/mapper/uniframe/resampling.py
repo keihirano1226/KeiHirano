@@ -18,7 +18,7 @@ def dfSpline(dataFrame, f):
     for column_name, item in dataFrame.iteritems():
         if(column_name == 'Unnamed: 0'):
             continue
-        index_new, item_ = spline3(time,item.tolist(),1000,3)
+        index_new, item_ = spline3(time,item.tolist(),f,3)
         output[column_name] = item_
 
     return output
