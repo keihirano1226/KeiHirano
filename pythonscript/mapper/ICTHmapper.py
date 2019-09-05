@@ -88,12 +88,24 @@ for subject in subjectlist:
                         com_pose = df2[bodycolumns]
                         Diff = pose - com_pose
                         Diff = Diff.abs()
+                        joint_num = 0
+                        for dis_mat in Dis_Mat_list:
+                            distance_sum = 0
+                            for Diff_row in range(len(Diff)):
+                                Diff_joint_X = Diff.iat[Diff_row,3*joint_num]
+                                Diff_joint_Y = Diff.iat[Diff_row,3*joint_num+1]
+                                Diff_joint_Z = Diff.iat[Diff_row,3*joint_num+2]
+                                distance_sum+= np.sqrt(Diff_joint_X**2+Diff_joint_Y**2+Diff_joint_Z**2)
+                            dis_mat[col:col+1,row:row+1] = distance_sum
+                            joint_num+=1
                         Diff_vec = Diff.sum()
                         index = 0
+                        """
                         for dis_mat in Dis_Mat_list:
                             print(Diff_vec[index])
                             dis_mat[col:col+1,row:row+1] = np.sqrt(Diff_vec[3*index]**2 + Diff_vec[3*index+1]**2 + Diff_vec[3*index+2]**2)
                             index+=1
+                        """
                         row += 1
                     j2 += 1
                 i2 += 1
@@ -123,7 +135,7 @@ dendrogram(result,labels=df.columns)
 plt.rcParams['font.size'] = 10 #フォントサイズを設定
 plt.title("Dendrogram")
 # plt.show()
-plt.savefig("./test.png")
+plt.savefig("./test2.png")
 
 NUM_CLUSTERS_RANGE = range(2,motion_num)
 silhouette_coefficient = []
