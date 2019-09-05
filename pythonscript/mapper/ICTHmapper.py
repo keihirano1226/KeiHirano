@@ -66,9 +66,12 @@ i1 = 2
 col = 0
 indexlist = []
 for subject in subjectlist:
+    #全被験者のうちのある被験者(subject)
     j1 = 1
     for motion in subject:
+        #ある被験者のうちのある座り方(motion)
         for num in motion:
+            #ある座り方のうちnum試行目
             csvpass = sys.argv[1] + "subject" + str(i1) + "/motion" + str(j1) + "/" + str(num) + "/UnifiedPose.csv"
             df1 = pd.read_csv(csvpass)
             pose = df1[bodycolumns]
@@ -116,17 +119,18 @@ print(darray.shape)
 result = linkage(darray, method = "average")
 print(result)
 dendrogram(result,labels=df.columns)
-plt.rcParams["font.family"] = "Times New Roman"
+# plt.rcParams["font.family"] = "Times New Roman"
 plt.rcParams['font.size'] = 10 #フォントサイズを設定
 plt.title("Dendrogram")
-plt.show()
+# plt.show()
+plt.savefig("./test.png")
 
 NUM_CLUSTERS_RANGE = range(2,motion_num)
 silhouette_coefficient = []
 davies_bouldin_index = []
 for num in NUM_CLUSTERS_RANGE:
     labels = fcluster(result, t=num, criterion='maxclust')
-    silhouette_coefficient.append(silhouette_score(Distance, labels))
+    silhouette_coefficient.append(silhouette_score(Distance, labels, metric='precomputed' ))
     davies_bouldin_index.append(davies_bouldin_score(Distance, labels))
 
 fig = plt.figure()
@@ -145,4 +149,4 @@ host.legend(lines,
             bbox_to_anchor=(0, 0.1),
             loc='upper left')
 
-fig.savefig("/home/kei/document/experiments/method/test.png")
+fig.savefig(sys.argv[1] + "test.png")
