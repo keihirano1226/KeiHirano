@@ -1,10 +1,10 @@
 import plotly
 import pandas as pd
-import plotly.plotly as py
 import plotly.graph_objs as go
-plotly.tools.set_credentials_file(username='KeiHirano', api_key='krRfYzDQXbS3sZcZcpAf')
+import chart_studio
 import numpy as np
-
+chart_studio.tools.set_credentials_file(username='KeiHirano', api_key='EKBajhoT1wQuu2vSg3A8')
+import chart_studio.plotly as py
 class Bone:
     def __init__(self,frame,color):
         self.xyz0 = np.reshape(frame, (14,3))
@@ -101,22 +101,17 @@ class Bone:
             marker=dict(
                 size=5,
                 line=dict(
-                    color='#377eb8',
+                    color=self.a,
                     width=100
                 ),
                 opacity=0.8
             )
             )
         self.trace2 = go.Scatter3d(
-            x=self.x1,
-            y=self.y1,
-            z=self.z1,
-            mode='lines',
-                line=dict(
-                    color=self.a,
-                    width=10
-                ),
-                opacity=0.8
+            x = self.x0[0:2],
+            y = self.y0[0:2],
+            z = self.z0[0:2],
+            mode='lines'
             )
         self.trace3 = go.Scatter3d(
             x=self.x2,
@@ -250,6 +245,9 @@ class Bone:
                 ),
                 opacity=0.8
             )
+        self.bonelist = [self.trace2,self.trace3,self.trace4,\
+        self.trace5,self.trace6,self.trace7,self.trace8,self.trace9,\
+        self.trace10,self.trace11,self.trace12,self.trace13,self.trace14]
 class PoseReader():
     def __init__(self, csvpass, FrameNumber):
         self.csv = csvpass
@@ -271,7 +269,7 @@ class PoseReader():
 #df1 = pd.read_csv("/home/kei/document/experiments/2019.06.25/data2/3dboneRotated.csv")
 
 #df2 = pd.read_csv("/home/kei/document/experiments/2019.06.25/data3/3dboneRotated.csv")
-csvpass1 = "/home/kei/document/experiments/2019.06.25/data2/GroundedPose.csv"
+csvpass1 = "/home/kei/document/experiments/method/1,3_result/AveragePose1.csv"
 csvpass2 = "/home/kei/document/experiments/2019.06.25/data3/GroundedPose.csv"
 posture1 = PoseReader(csvpass1,7)#真ん中
 posture2 = PoseReader(csvpass1,15)#後ろ
@@ -281,40 +279,19 @@ bone1 = Bone(posture1.Frame,'#0000ff')
 bone2 = Bone(posture2.Frame,'#008000')
 bone3 = Bone(posture3.Frame,'#ffff00')
 #print(frame)
-
-data = [bone1.trace1,bone1.trace2,bone1.trace3,bone1.trace4,\
-bone1.trace5,bone1.trace6,bone1.trace7,bone1.trace8,bone1.trace9,\
-bone1.trace10,bone1.trace11,bone1.trace12,bone1.trace13,bone1.trace14,\
-bone2.trace1,bone2.trace2,bone2.trace3,bone2.trace4,\
-bone2.trace5,bone2.trace6,bone2.trace7,bone2.trace8,bone2.trace9,\
-bone2.trace10,bone2.trace11,bone2.trace12,bone2.trace13,bone2.trace14,\
-bone3.trace1,bone3.trace2,bone3.trace3,bone3.trace4,\
-bone3.trace5,bone3.trace6,bone3.trace7,bone3.trace8,bone3.trace9,\
-bone3.trace10,bone3.trace11,bone3.trace12,bone3.trace13,bone3.trace14\
-]
-
+#data1 = []
+data1 = [bone1.trace2]
 """
-layout = go.Layout(
-    margin=dict(
-        l=0,
-        r=0,
-        b=0,
-        t=0
-    )
-)
+data1.append(bone2.bonelist)
+data1.append(bone3.bonelist)
 """
+
 layout = go.Layout(
-                    scene = dict(
-                    xaxis = dict(
-                        nticks=4, range = [-1.25,1.25],),
-                    yaxis = dict(
-                        nticks=4, range = [-1.25,1.25],),
-                    zaxis = dict(
-                        nticks=4, range = [-1.25,1.25],),),
-                    width=700,
                     margin=dict(
                     r=0, l=0,
-                    b=0, t=0)
+                    b=0, t=0),
+                    scene=dict(aspectmode='cube'),
+                    showlegend=False,
                   )
-fig = go.Figure(data=data, layout=layout)
-py.iplot(fig, filename='simple-3d-scatter')
+fig = go.Figure(data=data1, layout=layout)
+py.iplot(fig, filename='test2')

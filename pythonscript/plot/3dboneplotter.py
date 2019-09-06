@@ -1,10 +1,10 @@
 import plotly
 import pandas as pd
-import plotly.plotly as py
 import plotly.graph_objs as go
-plotly.tools.set_credentials_file(username='KeiHirano', api_key='krRfYzDQXbS3sZcZcpAf')
+import chart_studio
 import numpy as np
-
+chart_studio.tools.set_credentials_file(username='KeiHirano', api_key='EKBajhoT1wQuu2vSg3A8')
+import chart_studio.plotly as py
 df = pd.read_csv("/home/kei/document/experiments/2019.06.25/data2/3dboneRotated.csv")
 print(df)
 body = df.drop("Frame", axis = 1)
