@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from scipy.cluster.hierarchy import linkage, dendrogram
 from scipy.cluster.hierarchy import fcluster
 from sklearn.metrics import silhouette_score, davies_bouldin_score
+from tqdm import tqdm
 
 """全部の動作を使った場合
 subject2 = ((2,3,7,8),(4,5),(1,2,5,6,7))
@@ -22,12 +23,13 @@ motion_num = 29
 subjectlist = (subject2, subject3,subject4)
 
 i = 2
-for subject in subjectlist:
+print("データ読み込み中...")
+for subject in tqdm(subjectlist):
     j = 1
     for motion in subject:
         for num in motion:
             csvpass = sys.argv[1] + "subject" + str(i) + "/motion" + str(j) + "/" + str(num) + "/3dboneRotated.csv"
-            print(csvpass)
+            # print(csvpass)
             dfpose = pd.read_csv(csvpass)
             unidf = rs.dfSpline(dfpose, 200)
             unidf.to_csv(sys.argv[1] + "subject" + str(i) + "/motion" + str(j) + "/" + str(num) + "/UnifiedPose.csv",index = 0)
@@ -68,7 +70,8 @@ indexlist = []
 for subject in subjectlist:
     #全被験者のうちのある被験者(subject)
     j1 = 1
-    for motion in subject:
+    print("被験者{}の処理中".format(i1))
+    for motion in tqdm(subject):
         #ある被験者のうちのある座り方(motion)
         for num in motion:
             #ある座り方のうちnum試行目
@@ -83,7 +86,7 @@ for subject in subjectlist:
                 for com_motion in com_subject:
                     for com_num in com_motion:
                         com_csvpass = sys.argv[1] + "subject" + str(i2) + "/motion" + str(j2) + "/" + str(com_num) + "/UnifiedPose.csv"
-                        print(com_csvpass)
+                        # print(com_csvpass)
                         df2 = pd.read_csv(com_csvpass)
                         com_pose = df2[bodycolumns]
                         Diff = pose - com_pose
@@ -135,7 +138,7 @@ dendrogram(result,labels=df.columns)
 plt.rcParams['font.size'] = 10 #フォントサイズを設定
 plt.title("Dendrogram")
 # plt.show()
-plt.savefig("./test2.png")
+plt.savefig("./dendrogram.png")
 
 NUM_CLUSTERS_RANGE = range(2,motion_num)
 silhouette_coefficient = []
