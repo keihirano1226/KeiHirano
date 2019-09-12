@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 import plotly.offline as offline
 from joint_vector import JointVector
-from body_columns import MainJointAngleList, joint2coordinate
+from body_columns import MainJointAngleList, joint2coordinate, bodycolumns
 
 csvpass1 = "/home/kei/document/experiments/method/1,3_result/AveragePose1.csv"
 csvpass2 = "/home/kei/document/experiments/method/1,3_result/AveragePose2.csv"
@@ -14,7 +14,7 @@ posedf2 = pd.read_csv(csvpass2, index_col = 0)
 clusterlist = [posedf1, posedf2]
 data = []
 body = posedf1[bodycolumns].values
-for i in range(len(OpenPoseJoint)):
+for i in range(14):
 
     xs = body[:,3*i]
     ys = body[:,3*i+1]
