@@ -90,5 +90,5 @@ print(result)
 dendrogram(result,labels=df.columns)
 plt.rcParams["font.family"] = "Times New Roman"
 plt.rcParams['font.size'] = 10 #フォントサイズを設定
-plt.title("Dendrogram")
-plt.show()
+plt.ylabel("distance")
+plt.savefig("elder.png")

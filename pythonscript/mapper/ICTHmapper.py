@@ -133,10 +133,11 @@ print(result)
 dendrogram(result,labels=df.columns)
 # plt.rcParams["font.family"] = "Times New Roman"
 plt.rcParams['font.size'] = 10 #フォントサイズを設定
-plt.title("Dendrogram")
+#plt.title("Dendrogram")
+plt.ylabel("distance")
 # plt.show()
 plt.savefig("./test2.png")
-
+"""
 NUM_CLUSTERS_RANGE = range(2,motion_num)
 silhouette_coefficient = []
 davies_bouldin_index = []
@@ -162,3 +163,4 @@ host.legend(lines,
             loc='upper left')
 
 fig.savefig(sys.argv[1] + "test.png")
+"""

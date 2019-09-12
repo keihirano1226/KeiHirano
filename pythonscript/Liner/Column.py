@@ -49,7 +49,7 @@ df = pd.read_csv(csvfile, header = None)
 df = df.drop(75, axis = 1)
 #時間カラムの作成
 Frame = list()
-for i in range(df.shape[1]):
+for i in range(df.shape[0]):
     frame = i
     Frame.append(frame)
 s = pd.DataFrame(Frame, columns = ["Frame"])
