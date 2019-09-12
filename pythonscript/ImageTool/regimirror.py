@@ -7,7 +7,7 @@ from tqdm import tqdm
 basePath = sys.argv[1]
 
 i = 0
-filelist = glob.glob(basePath+'/regi/*.jpg')
+filelist = glob.glob(basePath+'/regi2/*.jpg')
 filelist.sort()
 for filename in tqdm(filelist):
     im = Image.open(filename)

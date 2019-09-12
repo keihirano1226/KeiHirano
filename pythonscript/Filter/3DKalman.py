@@ -3,7 +3,7 @@ import pandas as pd
 import Kalman
 import sys
 
-csvpass = sys.argv[1] + "3DInterrupt.csv"
+csvpass = sys.argv[1] + "3DInterrupt2.csv"
 df = pd.read_csv(csvpass)
 df2 = df.Frame.values
 df2 = np.reshape(df2, (len(df2), 1))
