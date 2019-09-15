@@ -77,7 +77,7 @@ int main()
   libfreenect2::Frame undistorted(512, 424, 4), registered(512, 424, 4), depth2rgb(1920, 1080 + 2, 4);;
   cv::Mat depthmatUndistorted, rgbd, rgbd2;
 
-  std::ifstream stream("/home/kei/document/experiments/BioEngen/MA336_4/test.csv");
+  std::ifstream stream("/home/kei/document/experiments/BioEngen/MA330_14/test.csv");
   std::string line;
   //2dのOpenPoseでディテクトされた情報を格納するための配列
   //int data[460][50];
@@ -91,9 +91,9 @@ int main()
   puts("hello");
 
   //2dのOpenPoseでディテクトされた情報を格納するための配列
-  int data[76][50];
+  int data[91][50];
   //3dの推定した三次元座標を格納するための配列
-  float posedata[76][75];
+  float posedata[91][75];
 
   while ( getline(stream, line) ) {
     col = 0;
@@ -109,16 +109,16 @@ int main()
   // よめたかな?
   int j = 0;
   FILE *fp;
-  fp=fopen("/home/kei/document/experiments/BioEngen/MA336_4/save.csv","w");
+  fp=fopen("/home/kei/document/experiments/BioEngen/MA330_14/save.csv","w");
   for ( row1 = 0; row1 < row ; ++row1  ) {
-    static int i = 1512;//抽出を始める画像の番号
+    static int i = 0;//抽出を始める画像の番号
 
     std::ostringstream oss;
     oss << std::setfill( '0' ) << std::setw( 10 ) << i++;
     for ( col = 0; col < 50; col = col + 2 ) {
       cv::Mat depthtest ;
       cv::Mat depthMat ;
-      depthtest =  cv::imread( "/home/kei/document/experiments/BioEngen/MA336_4/depth_mirror/" + oss.str() + ".png",2);
+      depthtest =  cv::imread( "/home/kei/document/experiments/BioEngen/MA330_14/depth_mirror/" + oss.str() + ".png",2);
       depthtest.convertTo(depthMat, CV_32FC1);
       //depthMat = depthMat * 255.0f;
       libfreenect2::Frame depth(512, 424, 4, depthMat.data);

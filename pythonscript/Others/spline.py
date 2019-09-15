@@ -1,5 +1,5 @@
 import pandas as pd
-df = pd.read_csv('3DPose2.csv',index_col = 0)
+df = pd.read_csv('3DFiltered.csv',index_col = 0)
 df1 = df.replace(0.000, pd.np.nan)
 df1 = df1.replace('nan', pd.np.nan)
 df1 = df1.interpolate('spline', order=2, limit_direction='both')
@@ -11,7 +11,6 @@ for column_name, item in df1.iteritems():
     #print(column_name)
     print(item)
     item = item.interpolate('spline', order=2)
-""" 
+"""
 print(df1)
 df1.to_csv('PoseSplineOut.csv')
-

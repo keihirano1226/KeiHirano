@@ -9,10 +9,10 @@ import re
 from tqdm import tqdm
 import numpy as np
 basepass = sys.argv[1]
-"""
+
 os.mkdir(basepass + "regi2")
 os.mkdir(basepass + "color2")
-"""
+
 colorpass = glob.glob(basepass + "color/*.jpg")
 colorpass.sort()
 j = 0
