@@ -77,7 +77,7 @@ int main()
   libfreenect2::Frame undistorted(512, 424, 4), registered(512, 424, 4), depth2rgb(1920, 1080 + 2, 4);;
   cv::Mat depthmatUndistorted, rgbd, rgbd2;
 
-  std::ifstream stream("/home/kei/document/experiments/2019.06.25/data3/2DGround.csv");
+  std::ifstream stream("/home/kei/document/experiments/BioEngen/ana/2DGround.csv");
   std::string line;
   //2dのOpenPoseでディテクトされた情報を格納するための配列
   //int data[460][50];
@@ -111,11 +111,11 @@ int main()
   // よめたかな?
   //int j = 0;
   FILE *fp;
-  fp=fopen("/home/kei/document/experiments/2019.06.25/data3/3DGround.csv","w");
+  fp=fopen("/home/kei/document/experiments/BioEngen/ana/3DGround.csv","w");
   cv::Mat depthtest ;
   cv::Mat depthMat ;
   //depth画像を読み込む
-  depthtest =  cv::imread( "/home/kei/document/experiments/2019.06.25/data3/depth_mirror/0000000001.png",2);
+  depthtest =  cv::imread( "/home/kei/document/experiments/BioEngen/MA330_11/depth_mirror/0000000750.png",2);
   depthtest.convertTo(depthMat, CV_32FC1);
   int row1 = 0;
   int col1 = 0;

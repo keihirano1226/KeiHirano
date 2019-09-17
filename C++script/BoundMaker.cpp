@@ -37,10 +37,10 @@ int main(void)
 {
     mouseParam mouseEvent;
     FILE *fp;
-    fp=fopen("/home/kei/document/experiments/2019.06.25/data3/2DGround.csv","w");
+    fp=fopen("/home/kei/document/experiments/BioEngen/ana/2DGround.csv","w");
     //入力画像
     cv::Mat inputimg;
-    inputimg = cv::imread("/home/kei/document/experiments/2019.06.25/data3/regi_mirror/0000000001.jpg",1);
+    inputimg = cv::imread("/home/kei/document/experiments/BioEngen/MA330_11/regi_mirror/0000000750.jpg",1);
 
     //表示するウィンドウ名
     cv::String showing_name = "input";
