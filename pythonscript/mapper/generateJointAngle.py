@@ -1,8 +1,8 @@
 import pandas as pd
 import numpy as np
 import sys
-from joint_vector import JointVector
-from body_columns import MainJointAngleList, joint2coordinate
+from BodyColumn import body_columns as bc
+from BodyColumn import joint_vector
 from tqdm import tqdm
 from subject_list import subjectlist
 
@@ -14,11 +14,11 @@ for subject_index, subject in enumerate(tqdm(subjectlist), 2):
             csvpass = sys.argv[1] + "subject" + str(subject_index) + "/motion" + str(motion_index) + "/" + str(num) + "/UnifiedPose.csv"
             unidf = pd.read_csv(csvpass)
             jointdf = pd.DataFrame()
-            for sp, gp1, gp2 in MainJointAngleList:
+            for sp, gp1, gp2 in bc.MainJointAngleList:
                 #関節角への変換
-                jv = JointVector(unidf[joint2coordinate(sp)].values,
-                                unidf[joint2coordinate(gp1)].values,
-                                unidf[joint2coordinate(gp2)].values)
+                jv = joint_vector.JointVector(unidf[bc.joint2coordinate(sp)].values,
+                                unidf[bc.joint2coordinate(gp1)].values,
+                                unidf[bc.joint2coordinate(gp2)].values)
                 jointdf[sp] = jv.compute_angle()
             jointdf.to_csv(sys.argv[1] + "subject" + str(subject_index) + "/motion" + str(motion_index) + "/" + str(num) + "/JointAngle.csv",index = 0)
 

@@ -5,7 +5,7 @@ import scipy.spatial.distance as distance
 import matplotlib.pyplot as plt
 from scipy.cluster.hierarchy import linkage, dendrogram
 from tqdm import tqdm
-from body_columns import MainJointAngleList, Dis_Mat_list
+from BodyColumn import body_columns as bc
 from subject_list import subjectlist, motion_num
 
 df = pd.DataFrame()
@@ -25,9 +25,9 @@ print("距離行列計算中...")
 for index in tqdm(range(len(list_data))):
     for col in range(8):
         M = np.reshape(list_data[index], (29, 8))[:,col].reshape(29,1)
-        Dis_Mat_list[col] += distance.cdist(M, M, metric='euclidean')
+        bc.Dis_Mat_list[col] += distance.cdist(M, M, metric='euclidean')
 
-darray = distance.squareform(sum(Dis_Mat_list))
+darray = distance.squareform(sum(bc.Dis_Mat_list))
 result = linkage(darray, method = "average")
 # print(result)
 dendrogram(result)
