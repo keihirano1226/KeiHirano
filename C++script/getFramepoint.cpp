@@ -76,7 +76,7 @@ int main()
   libfreenect2::Registration* registration = new libfreenect2::Registration(dev->getIrCameraParams(), dev->getColorCameraParams());
   libfreenect2::Frame undistorted(512, 424, 4), registered(512, 424, 4), depth2rgb(1920, 1080 + 2, 4);;
   cv::Mat depthmatUndistorted, rgbd, rgbd2;
-  std::ifstream stream("/home/kei/document/experiments/2019.06.06/backwalk/Grid.csv");
+  std::ifstream stream("/home/kei/document/experiments/BioEngen/ana/2DGround.csv");
   std::string line;
   const std::string delim = ",";
   int row = 0;
@@ -95,11 +95,11 @@ int main()
     ++row;
   }
   FILE *fp;
-  fp=fopen("/home/kei/document/experiments/2019.06.06/backwalk/3points3d.csv","w");
+  fp=fopen("/home/kei/document/experiments/BioEngen/ana/3points3d.csv","w");
   cv::Mat depthtest ;
   cv::Mat depthMat ;
   //depth画像を読み込む
-  depthtest =  cv::imread( "/home/kei/document/experiments/2019.06.06/backwalk/depth_mirror/0000000001.tiff",2);
+  depthtest =  cv::imread( "/home/kei/document/experiments/BioEngen/MA330_11/depth_mirror/0000000750.png",2);
   depthtest.convertTo(depthMat, CV_32FC1);
   libfreenect2::Frame depth(512, 424, 4, depthMat.data);
   registration->undistortDepth(&depth, &undistorted);
