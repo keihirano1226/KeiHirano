@@ -4,8 +4,7 @@ import datetime
 import pandas as pd
 import numpy as np
 import plotly.offline as offline
-from joint_vector import JointVector
-from body_columns import MainJointAngleList, joint2coordinate, bodycolumns
+from BodyColumn import body_columns as bc
 
 csvpass1 = "/home/kei/document/experiments/method/1,3_result/AveragePose1.csv"
 csvpass2 = "/home/kei/document/experiments/method/1,3_result/AveragePose2.csv"
@@ -13,7 +12,7 @@ posedf1 = pd.read_csv(csvpass1, index_col = 0)
 posedf2 = pd.read_csv(csvpass2, index_col = 0)
 clusterlist = [posedf1, posedf2]
 data = []
-body = posedf1[bodycolumns].values
+body = posedf1[bc.bodycolumns].values
 for i in range(14):
 
     xs = body[:,3*i]
