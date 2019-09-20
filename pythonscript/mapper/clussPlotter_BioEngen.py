@@ -16,13 +16,13 @@ productdf = pd.read_csv(csvpass3)
 clusterlist = [posedf1, posedf2]
 data = []
 #body = posedf1[bodycolumns].values
-#body1 = posedf1.loc[:,["MidHipX","MidHipY","MidHipZ"]].values
-body1 = posedf1.values
-body2 = posedf2.values
-#body2 = posedf2.loc[:,["MidHipX","MidHipY","MidHipZ"]].values
+body1 = posedf1.loc[:,["MidHipX","MidHipY","MidHipZ"]].values
+#body1 = posedf1.values
+#body2 = posedf2.values
+body2 = posedf2.loc[:,["MidHipX","MidHipY","MidHipZ"]].values
 
 product = productdf.values
-for i in range(9):
+for i in range(1):
 
     xs = body1[:,3*i]
     ys = body1[:,3*i+1]
@@ -38,7 +38,7 @@ for i in range(9):
                 opacity=0.8
             )
         ))
-for i in range(9):
+for i in range(1):
 
     xs = body2[:,3*i]
     ys = body2[:,3*i+1]
@@ -59,9 +59,9 @@ cube1 = go.Mesh3d(
     x = [0,0,0.44,0.44,0,0,0.44,0.44],
     y = [-0.18,0.586,-0.18,0.586,-0.18,0.586,-0.18,0.586],
     z = [0,0,0,0,-0.44,-0.44,-0.44,-0.44],
-    i=[0,1,0,1,1,3,0,2,4,5,2,3],
-    j=[1,2,1,4,3,7,2,4,5,6,3,6],
-    k=[2,3,4,5,5,5,4,6,6,7,6,7],
+    i=[0,1,1,1,1,3,0,2,4,5,2,3],
+    j=[1,3,0,4,3,7,2,6,5,6,3,7],
+    k=[2,2,4,5,5,5,4,4,6,7,6,6],
     opacity=1,
     color='cyan'
     )
@@ -70,9 +70,9 @@ cube2 = go.Mesh3d(
     x = [0.44,0.44,0.83,0.83,0.44,0.44,0.83,0.83],
     y = [-0.17,-0.15,-0.17,-0.15,-0.17,-0.15,-0.17,-0.15],
     z = [0.31,0.31,0.31,0.31,0,0,0,0],
-    i=[0,1,0,1,1,3,0,2,4,5,2,3],
-    j=[1,2,1,4,3,7,2,4,5,6,3,6],
-    k=[2,3,4,5,5,5,4,6,6,7,6,7],
+    i=[0,1,1,1,1,3,0,2,4,5,2,3],
+    j=[1,3,0,4,3,7,2,6,5,6,3,7],
+    k=[2,2,4,5,5,5,4,4,6,7,6,6],
     opacity=1,
     color='cyan'
     )
@@ -87,4 +87,4 @@ layout = go.Layout(
     # xyz軸のスケールを統一
 )
 fig = go.Figure(data=data, layout=layout)
-offline.plot(fig, filename='/home/kei/document/experiments/BioEngen/ana/result/AllCluster.html',auto_open=False)
+offline.plot(fig, filename='/home/kei/document/experiments/BioEngen/ana/result/MidHip.html',auto_open=False)
