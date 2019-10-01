@@ -14,15 +14,17 @@
 #include <opencv2/opencv.hpp>
 
 int stoi(std::string str){
-int ret;
-std::stringstream ss;
-ss << str;
-ss >> ret;
-return ret;
+  int ret;
+  std::stringstream ss;
+  ss << str;
+  ss >> ret;
+  return ret;
 }
 
 int main()
 {
+  char filepath[256];
+  const char expath[] = "/home/shoda/Documents/MA330_11";
   bool enable_rgb = false;
   bool enable_depth =false;
   //libfreenect2::setGlobalLogger(libfreenect2::createConsoleLogger(libfreenect2::Logger::Debug));
@@ -77,7 +79,8 @@ int main()
   libfreenect2::Frame undistorted(512, 424, 4), registered(512, 424, 4), depth2rgb(1920, 1080 + 2, 4);;
   cv::Mat depthmatUndistorted, rgbd, rgbd2;
 
-  std::ifstream stream("/home/kei/document/experiments/BioEngen/MA330_14/test.csv");
+  sprintf(filepath, "%s/test.csv", expath);
+  std::ifstream stream(filepath);
   std::string line;
   //2dのOpenPoseでディテクトされた情報を格納するための配列
   //int data[460][50];
@@ -91,9 +94,9 @@ int main()
   puts("hello");
 
   //2dのOpenPoseでディテクトされた情報を格納するための配列
-  int data[91][50];
+  int data[197][50];
   //3dの推定した三次元座標を格納するための配列
-  float posedata[91][75];
+  float posedata[197][75];
 
   while ( getline(stream, line) ) {
     col = 0;
@@ -109,7 +112,8 @@ int main()
   // よめたかな?
   int j = 0;
   FILE *fp;
-  fp=fopen("/home/kei/document/experiments/BioEngen/MA330_14/save.csv","w");
+  sprintf(filepath, "%s/save.csv", expath);
+  fp=fopen( filepath, "w");
   for ( row1 = 0; row1 < row ; ++row1  ) {
     static int i = 0;//抽出を始める画像の番号
 
@@ -118,7 +122,8 @@ int main()
     for ( col = 0; col < 50; col = col + 2 ) {
       cv::Mat depthtest ;
       cv::Mat depthMat ;
-      depthtest =  cv::imread( "/home/kei/document/experiments/BioEngen/MA330_14/depth_mirror/" + oss.str() + ".png",2);
+      depthtest =  cv::imread( std::string(expath) + "/depth_mirror/" + oss.str() + ".png",2);
+
       depthtest.convertTo(depthMat, CV_32FC1);
       //depthMat = depthMat * 255.0f;
       libfreenect2::Frame depth(512, 424, 4, depthMat.data);
