@@ -1,0 +1,31 @@
+calibration with bouguet, based on first calibration example
+
+*	image names
+
+*	extract grid corners
+	witx = winty = 5
+	automatic square counting mechanism, []=default
+	dX = 81.1
+	dY = 81
+	initial guess for distortion, []=no
+
+*	calibration
+	check no of gradient descent iterations and pixel error
+
+	reproject on images
+	check scatter plot of reprojection error
+
+	show extrinsic
+
+*	recomp. corners
+	projection of 3D grid or manual click, []=auto
+
+*	calibration
+	check no of gradient descent iterations and pixel error
+
+*	save
+
+	analyse error
+
+	show extrinsic
+
