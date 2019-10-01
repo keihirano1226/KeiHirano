@@ -84,7 +84,7 @@ int main()
     //rgbtest = cv::imread( "/home/kei/document/C++script/KinectOneStream/jpg/" + oss.str() + ".jpg");
     //cv::imread( "/home/kei/document/experiments/2019.01.15/10jpg/" + oss.str() + ".jpg" ).convertTo(rgbMat, CV_8UC4);
     //rgbtest = cv::imread( "/home/kei/document/experiments/2019.02.02/motion/1.squat/jpg/" + oss.str() + ".jpg" );
-    rgbtest = cv::imread( "/home/kei/document/experiments/BioEngen/MA330_14/color2/" + oss.str() + ".jpg" );
+    rgbtest = cv::imread( "/home/kei/document/experiments/BioEngen/MA330_11/color2/" + oss.str() + ".jpg" );
     printf("%d\n", rgbtest.type());
     cv::cvtColor(rgbtest, rgbMat, cv::COLOR_BGR2BGRA);
     //cv::imread( "/home/kei/document/C++script/KinectOneStream/jpg/" + oss.str() + ".jpg" ).convertTo(rgbMat, CV_8UC4);

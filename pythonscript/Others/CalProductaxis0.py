@@ -54,13 +54,13 @@ Rvector = np.r_[Xaxis,Yaxis,Zaxis]
 R = np.reshape(Rvector,(3, 3))
 axisData = pd.DataFrame(R, index = ["X","Y","Z"], columns = ["x","y","z"])
 axisData.to_csv(sys.argv[1] + "axisData.csv")
-points = pd.read_csv(sys.argv[1] + "3points3d.csv", names = ("x", "y", "z"))
-#points = pd.read_csv(sys.argv[1] + "/3DGround.csv", names = ("x", "y", "z"))
+#points = pd.read_csv(sys.argv[1] + "3points3d.csv", names = ("x", "y", "z"))
+points = pd.read_csv("/home/kei/document/experiments/BioEngen/MA330_11/product/3DGround.csv", names = ("x", "y", "z"))
 points3d = points.values
 points3d = -Origin + points3d
 points_tra = np.dot(R, points3d.T)
 tra_points = pd.DataFrame(points_tra.T, columns = points.columns)
-tra_points.to_csv(sys.argv[1] + "/tra_handle_points.csv", index = 0)
+tra_points.to_csv("/home/kei/document/experiments/BioEngen/MA330_11/product/tra_3dpoints.csv", index = 0)
 """
 subject2 = ((2,3,7,8),(4,5),(1,2,5,6,7))
 subject3 = ((1,2,3,4,6),(1,2,3,4,5),(1,2,3,4,5))
