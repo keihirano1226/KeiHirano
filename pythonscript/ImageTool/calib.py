@@ -38,7 +38,21 @@ def calc_proj_dist(data):
     #rpy = tf.transformations.euler_from_matrix(mat)
     return camera,dist
 
-def calc_regi_image(depth, color)
+def calc_regi_image(depth, ir_camera, color, color_camera):
+    x_d = 0
+    y_d = 0
+    cx_d = ir_camera[0,2]
+    cy_d = ir_camera[1,2]
+    fx_d = ir_camera[0,0]
+    fy_d = ir_camera[1,1]
+    cx_rgb = color_camera[0,2]
+    cy_rgb = color_camera[1,2]
+    fx_rgb = color_camera[0,0]
+    fy_rgb = color_camera[1,1]
+    ir_h, ir_w = depth.shape[:2]
+    for y_d in range(ir_h):
+        for x_d in range(ir_w):
+            P3D = np.array([])
 
 if __name__ == "__main__":
     pose_data = read_calib_pose("./cali_test/calib_pose.yaml")
@@ -60,5 +74,3 @@ if __name__ == "__main__":
     cv2.imwrite("calitest.png",ir_undistorted)
     cv2.imwrite("calitest2.jpg",color_undistorted)
     """
-    x_d = 0
-    y_d = 0
