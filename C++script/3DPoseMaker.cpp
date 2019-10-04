@@ -98,8 +98,8 @@ int main()
   const string delim = ",";
 
   int row = 0;
+  int col = 0;
   int row1 = 0;
-  int col;
   puts("hello");
 
   //2dのOpenPoseでディテクトされた情報を格納するための配列
@@ -107,17 +107,23 @@ int main()
   //3dの推定した三次元座標を格納するための配列
   float posedata[197][75];
 
-  while ( getline(stream, line) ) {
-    col = 0;
-    // delimを区切り文字として切り分け、intに変換してdata[][]に格納する
-    for ( string::size_type spos, epos = 0; (spos = line.find_first_not_of(delim, epos)) != string::npos;) {
-      string token = line.substr(spos,(epos = line.find_first_of(delim, spos))-spos);
-      data[row][col++] = stoi(token);
-    }
-    ++row;
+  while(getline(stream, line))
+  {
+      string tmp = "";
+      istringstream stream(line);
+
+      // 区切り文字がなくなるまで文字を区切っていく
+      while (getline(stream, tmp, ','))
+      {
+          // 区切られた文字がtmpに入る
+          data[row][col] = stoi(tmp);
+          col++;
+      }
+
+      col = 0;
+      row++;  // 次の人の配列に移る
   }
 
-  // よめたかな?
   int j = 0;
   FILE *fp;
   sprintf(filepath, "%s/save.csv", expath);
