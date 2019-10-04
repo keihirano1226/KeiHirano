@@ -99,7 +99,6 @@ int main()
 
   int row = 0;
   int col = 0;
-  int row1 = 0;
   puts("hello");
 
   //2dのOpenPoseでディテクトされた情報を格納するための配列
@@ -124,13 +123,11 @@ int main()
       row++;  // 次の人の配列に移る
   }
 
-  int j = 0;
   FILE *fp;
   sprintf(filepath, "%s/save.csv", expath);
   fp=fopen( filepath, "w");
-  for ( row1 = 0; row1 < row ; ++row1  ) {
+  for ( int row1 = 0; row1 < row ; ++row1  ) {
     static int i = 0;//抽出を始める画像の番号
-
     ostringstream oss;
     oss << setfill( '0' ) << setw( 10 ) << i++;
     for ( col = 0; col < 50; col = col + 2 ) {
@@ -165,14 +162,10 @@ int main()
       }
 
       //cout << data[row][col] << " ";
-    }printf("%d's Frame\n", j);
-    j = j + 1;
-    fprintf(fp,"\n");;
+    }printf("%d's Frame\n", row1);
+    fprintf(fp,"\n");
 
-    cout << endl;
   }
-
-
 
   return 0;
 }
