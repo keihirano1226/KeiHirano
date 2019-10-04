@@ -1,0 +1,29 @@
+{
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "3Dpose build",
+            "command": "/usr/bin/g++",
+            "args": [
+                "-g",
+                "${file}",
+                "-I/usr/local/include/opencv2",
+                "-I/usr/local/include/opencv",
+                "-I/home/shoda/freenect2/include",
+                "-L/usr/local/lib",
+                "-lopencv_core",
+                "-lopencv_imgcodecs",
+                "-lopencv_highgui",
+                "-lopencv_imgproc",
+                "-L/home/shoda/freenect2/lib",
+                "-lfreenect2",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}"
+            ],
+            "options": {
+                "cwd": "/usr/bin"
+            }
+         }
+    ],
+    "version": "2.0.0"
+}
