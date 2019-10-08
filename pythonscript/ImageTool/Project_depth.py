@@ -13,3 +13,4 @@ if __name__ == '__main__':
     basepass = sys.argv[1]
     depthimage_pass = sys.ragv[1] + depth_mirror
     csvpass = sys.argv[1] + "/pos/pos.csv"
+    csvpass =
