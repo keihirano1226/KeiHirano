@@ -1,5 +1,6 @@
 #jsonfileを読み込んで一人の人の時系列データ行列に変換するためのコード
 #python3 path/to/jsonfile directry
+#入力 python3 csvposer.py path/to/experiment peopleID startframe endframe
 #出力　output.csv(最新式のopenposeの出力を記録したもの)　outputcon.csv(これは旧式のopenposeの出力形式になるように変換を加えたもの)
 import glob
 import json

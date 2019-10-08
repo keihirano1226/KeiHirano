@@ -3,7 +3,7 @@
 import glob
 import json
 import sys
-sys.path.remove('/opt/ros/kinetic/lib/python2.7/dist-packages')
+# sys.path.remove('/opt/ros/kinetic/lib/python2.7/dist-packages')
 from enum import Enum
 import cv2
 import numpy as np

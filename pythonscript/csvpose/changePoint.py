@@ -7,5 +7,6 @@ import sys
 df = pd.read_csv(sys.argv[1] + '/output2.csv')
 df_neckx = df['Necky']
 plt.figure()
+df_neckx.plot()
 plt.savefig('neckMotion.png')
 print(df.info())
