@@ -74,7 +74,7 @@ InitialNum = round(float(fileNumberList[0]), 0)
 print("最初の数字は" + str(InitialNum))
 j = 0
 for JpgName in tqdm(jpg_file_list):
-
+    """
     if InitialNum in fileNumberList:
         print("今回は" + str(InitialNum) + "を見ました")
         print("いまマッチングした数は" + str(InitialNum))
@@ -85,8 +85,12 @@ for JpgName in tqdm(jpg_file_list):
         cv2.imwrite(colorpass + str(j).zfill(10) + '.jpg',color)
         j += 1
     InitialNum += 1
+    """
+    color  = cv2.imread(JpgName)
+    cv2.imwrite(colorpass + str(j).zfill(10) + '.jpg',color)
+    j += 1
 
 #print("hello")
 df = pd.DataFrame(fileNumberList)
-df.to_csv("/home/kei/document/experiments/2019.06.25/data/time.csv")
+df.to_csv("/home/kei/document/experiments/Hamano/H5test/time.csv")
 #数が二枚合わない。→多分、最初のdepthの枚数があってないことが問題。

@@ -84,13 +84,13 @@ int main()
     //rgbtest = cv::imread( "/home/kei/document/C++script/KinectOneStream/jpg/" + oss.str() + ".jpg");
     //cv::imread( "/home/kei/document/experiments/2019.01.15/10jpg/" + oss.str() + ".jpg" ).convertTo(rgbMat, CV_8UC4);
     //rgbtest = cv::imread( "/home/kei/document/experiments/2019.02.02/motion/1.squat/jpg/" + oss.str() + ".jpg" );
-    rgbtest = cv::imread( "/home/kei/document/experiments/BioEngen/MA330_11/color2/" + oss.str() + ".jpg" );
+    rgbtest = cv::imread( "/home/kei/document/experiments/Hamano/H5_1/color2/" + oss.str() + ".jpg" );
     printf("%d\n", rgbtest.type());
     cv::cvtColor(rgbtest, rgbMat, cv::COLOR_BGR2BGRA);
     //cv::imread( "/home/kei/document/C++script/KinectOneStream/jpg/" + oss.str() + ".jpg" ).convertTo(rgbMat, CV_8UC4);
 
     //depthtest =  cv::imread( "/home/kei/document/experiments/BioEngen/16pngtest.png",2);
-    depthtest =  cv::imread( "/home/kei/document/experiments/BioEngen/MA330_14/depth/" + oss.str() + ".png",2);
+    depthtest =  cv::imread( "/home/kei/document/experiments/Hamano/H5_1/depth/" + oss.str() + ".png",2);
     //depthtest =  cv::imread( "/home/kei/document/C++script/depth/" + oss.str() + ".tiff");
     depthtest.convertTo(depthMat, CV_32FC1);
     //depthMat = depthMat * 4096.0f;
@@ -146,7 +146,7 @@ int main()
     //cv::imshow("registered", rgbd);
     //cv::imshow("depth2RGB", rgbd2 / 4096.0f);
     //cv::imwrite("/home/kei/document/C++script/undistorted/" + oss.str() + ".png",depthmatUndistorted / 256.0f);
-    cv::imwrite("/home/kei/document/experiments/BioEngen/MA330_14/regi2/" + oss.str() + ".jpg",rgbd);
+    cv::imwrite("/home/kei/document/experiments/Hamano/H5_1/regi2/" + oss.str() + ".jpg",rgbd);
     //rgbd2 = rgbd2 / 256.0f;
     rgbd2.convertTo(Wrgbd, CV_16UC1);
     //cv::imwrite("/home/kei/document/experiments/2019.02.02/切り出し/1.squat/registered/" + oss.str() + ".tiff",Wrgbd);

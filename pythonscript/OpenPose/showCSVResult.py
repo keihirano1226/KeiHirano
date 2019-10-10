@@ -119,7 +119,8 @@ for i,imgFileName in enumerate(imageFileList):
     #poseData = data[Tag]
     df1 = df[i:i+1]
     poseData = df1.values.tolist()
-    #print(len(poseData))
+    #print(i)
+    print(poseData)
     #poseData[JOINT.Neck.value*3], poseData[JOINT.Neck.value*3+1], poseData[JOINT.Neck.value*3+2] という書き方で関節の座標値やその座標値の信頼度を取得できる。
     """
     print("========People%d==============="%peopleID)
