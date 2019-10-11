@@ -26,7 +26,7 @@ int stoi(string str){
 int main()
 {
   char filepath[256];
-  const char expath[] = "/home/shoda/Documents/MA330_11";
+  const char expath[] = "/home/kei/document/experiments/Hamano/H5_1/";
   bool enable_rgb = false;
   bool enable_depth =false;
   //libfreenect2::setGlobalLogger(libfreenect2::createConsoleLogger(libfreenect2::Logger::Debug));
@@ -102,9 +102,9 @@ int main()
   puts("hello");
 
   //2dのOpenPoseでディテクトされた情報を格納するための配列
-  int data[197][50];
+  int data[111][50];
   //3dの推定した三次元座標を格納するための配列
-  float posedata[197][75];
+  float posedata[111][75];
 
   while(getline(stream, line))
   {
@@ -122,7 +122,8 @@ int main()
       col = 0;
       row++;  // 次の人の配列に移る
   }
-
+  puts("hello");
+  printf("%d\n",data[0][1]);
   FILE *fp;
   sprintf(filepath, "%s/save.csv", expath);
   fp=fopen( filepath, "w");

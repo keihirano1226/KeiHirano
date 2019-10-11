@@ -20,7 +20,7 @@ for jpg_pass in tqdm(colorpass):
     im = cv2.imread(jpg_pass)
     rows= im.shape[0]
     cols = im.shape[1]
-    M = np.float32([[1,0,10],[0,1,-15]])
+    M = np.float32([[1,0,0],[0,1,-15]])
     dst = cv2.warpAffine(im, M, (cols,rows))
     cv2.imwrite(basepass + "/color2/" + str(j).zfill(10) + ".jpg",dst)
     j+=1
