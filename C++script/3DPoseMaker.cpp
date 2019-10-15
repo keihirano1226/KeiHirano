@@ -135,7 +135,6 @@ int main()
       cv::Mat depthtest ;
       cv::Mat depthMat ;
       depthtest =  cv::imread( string(expath) + "/depth_mirror/" + oss.str() + ".png",2);
-
       depthtest.convertTo(depthMat, CV_32FC1);
       //depthMat = depthMat * 255.0f;
       libfreenect2::Frame depth(512, 424, 4, depthMat.data);

@@ -13,8 +13,13 @@
 #include <fstream>
 #include <iostream>
 #include <cstdio>
-
+//椅子の座標変換用に点群を取得する場合，
+//座面を囲うことが出来る2点
+//背もたれを囲うための点を2点
+//椅子，もしくはベッドの際を表す三次元点を6点
+//クリックして取得する
 //マウス入力用のパラメータ
+using namespace std;
 struct mouseParam {
     int x;
     int y;
@@ -35,13 +40,15 @@ void CallBackFunc(int eventType, int x, int y, int flags, void* userdata)
 
 int main(void)
 {
+    char filepath[256];
+    const char expath[] = "/home/kei/document/experiments/Hamano/H5_1/";
     mouseParam mouseEvent;
     FILE *fp;
-    fp=fopen("/home/kei/document/experiments/BioEngen/MA330_11/product/2DGround.csv","w");
+    sprintf(filepath, "%s/2DGround.csv", expath);
+    fp=fopen( filepath, "w");
     //入力画像
     cv::Mat inputimg;
-    inputimg = cv::imread("/home/kei/document/experiments/BioEngen/MA330_11/regi_test/regi_test_flip.jpg",1);
-
+    inputimg = cv::imread( string(expath) + "/regi_mirror/0000000186.jpg",1);
     //表示するウィンドウ名
     cv::String showing_name = "input";
 
