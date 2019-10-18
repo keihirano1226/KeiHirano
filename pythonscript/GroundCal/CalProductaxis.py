@@ -58,7 +58,7 @@ zaxis = vertical_detect(df_z)
 xaxis = vertical_detect(df_x)
 #データをベクトルに変換
 verVec = -zaxis[0:3]
-DirVec = xaxis[0:3]
+DirVec = -xaxis[0:3]
 #背もたれの法線ベクトルをx軸、座面の鉛直方向をz軸として定義
 TemXaxis = DirVec / np.linalg.norm(DirVec)
 Zaxis = verVec / np.linalg.norm(verVec)
@@ -78,15 +78,7 @@ Rvector = np.r_[Xaxis,Yaxis,Zaxis]
 R = np.reshape(Rvector,(3, 3))
 axisData = pd.DataFrame(R, index = ["X","Y","Z"], columns = ["x","y","z"])
 axisData.to_csv(sys.argv[1] + "axisData.csv")
-
-#edge.csvの最初の三次元座標は椅子の手すりの根本を指している．
-#人体の肩幅平均は
-#https://www.airc.aist.go.jp/dhrt/91-92/fig/91-92_anthrop_manual.pdf
-#によると，男女平均して0.35445 m
-edge_vec = 0.177225 * Yaxis
-#大腿骨の長さ分y軸方向にもずらした部分を原点に設定したい
-Femur_vec = 0.432 * -Xaxis
-Origin = df_edge[0:1].values + edge_vec + Femur_vec
+Origin = df_edge[0:1].values
 Pose_tra = CoordinateTra(df_pose, Origin, R)
 Pose_tra.to_csv(sys.argv[1] + "3dboneRotated.csv", index = 0)
 
