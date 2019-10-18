@@ -26,7 +26,7 @@ return ret;
 int main()
 {
   char filepath[256];
-  const char expath[] = "/home/kei/document/experiments/Hamano/H5_1/";
+  const char expath[] = "/home/kei/document/experiments/PI/PI08_1/";
   bool enable_rgb = false;
   bool enable_depth =false;
   //libfreenect2::setGlobalLogger(libfreenect2::createConsoleLogger(libfreenect2::Logger::Debug));
@@ -132,7 +132,7 @@ int main()
   cv::Mat depthtest ;
   cv::Mat depthMat ;
   //depth画像を読み込む
-  depthtest =  cv::imread( string(expath) + "/depth_mirror/0000000186.png",2);
+  depthtest =  cv::imread( string(expath) + "/depth_mirror/0000001100.png",2);
   depthtest.convertTo(depthMat, CV_32FC1);
   int row1 = 0;
   int col1 = 0;
@@ -157,18 +157,22 @@ int main()
       printf("%d,%d\n",col1,row1);
       registration->undistortDepth(&depth, &undistorted);
       registration->getPointXYZ(&undistorted,row1,col1,x,y,z);
+
       if (isnan(x) != true){
         //fprintf(fp,"%f,%f,%f,%d,%d\n",x,y,z,col1,row1);
         fprintf(fp2,"%f,%f,%f\n",x,y,z);
+
       }
 
     }
   }
-  for (int k = 4; k < 9; k++){
+  for (int k = 4; k < 10; k++){
     registration->getPointXYZ(&undistorted,data[k][1],data[k][0],x,y,z);
+    puts("heiio");
     if (isnan(x) != true){
       //fprintf(fp,"%f,%f,%f,%d,%d\n",x,y,z,col1,row1);
       fprintf(fp3,"%f,%f,%f\n",x,y,z);
+      puts("書きました");
     }
   }
 

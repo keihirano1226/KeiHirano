@@ -89,8 +89,6 @@ for JpgName in tqdm(jpg_file_list):
     color  = cv2.imread(JpgName)
     cv2.imwrite(colorpass + str(j).zfill(10) + '.jpg',color)
     j += 1
-
+    
 #print("hello")
 df = pd.DataFrame(fileNumberList)
-df.to_csv("/home/kei/document/experiments/Hamano/H5test/time.csv")
-#数が二枚合わない。→多分、最初のdepthの枚数があってないことが問題。

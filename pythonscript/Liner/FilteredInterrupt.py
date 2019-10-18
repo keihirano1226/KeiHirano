@@ -1,6 +1,6 @@
 import pandas as pd
 import sys
-df = pd.read_csv(sys.argv[1] + '3DFiltered.csv')
+df = pd.read_csv(sys.argv[1] + '3dboneRotated.csv')
 #df = pd.read_csv(sys.argv[1] + 'output.csv')
 df1 = df.replace(0.000, pd.np.nan)
 df1 = df1.interpolate(limit_direction='both')
@@ -14,4 +14,4 @@ for column_name, item in df1.iteritems():
     item = item.interpolate('spline', order=2)
 """
 print(df1)
-df1.to_csv(sys.argv[1] + '3DFiltered2.csv', index = 0)
+df1.to_csv(sys.argv[1] + '3DInterrupt2.csv', index = 0)
