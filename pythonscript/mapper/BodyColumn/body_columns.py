@@ -2,6 +2,7 @@ import numpy as np
 from subject_list import motion_num
 #距離行列計算用
 OpenPoseJoint = ["Neck","RSholder","LSholder","RElbow","LElbow","LWrist","RWrist","MidHip","RHip","LHip","RKnee","LKnee","RAnkle","LAnkle"]
+KinectJoint = ["SPINE_BASE","SPINE_MID","NECK","HEAD","SHOULDER_LEFT","ELBOW_LEFT","WRIST_LEFT","HAND_LEFT","SHOULDER_RIGHT","ELBOW_RIGHT","WRIST_RIGHT","HAND_RIGHT","HIP_LEFT","KNEE_RIGHT", "ANKLE_RIGHT", "FOOT_RIGHT", "SPINE_SHOULDER", "HAND_TIP_LEFT", "THUMB_LEFT", "HAND_TIP_RIGHT", "THUMB_RIGHT"]
 Coordinate = ["X","Y","Z"]
 bodycolumns = []
 

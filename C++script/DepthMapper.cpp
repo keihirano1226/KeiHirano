@@ -13,6 +13,9 @@
 #include <fstream>
 #include <iostream>
 #include <cstdio>
+
+using namespace std;
+
 int main()
 {
   bool enable_rgb = false;
@@ -27,10 +30,10 @@ int main()
   config.MinDepth = 0.5f;
   config.MaxDepth = 8.0f;
 
-  std::string serial = freenect2.getDefaultDeviceSerialNumber();
+  string serial = freenect2.getDefaultDeviceSerialNumber();
   if(freenect2.enumerateDevices() == 0)
   {
-    std::cout << "no device connected!" << std::endl;
+    cout << "no device connected!" << endl;
     return -1;
   }
   if (serial == "")
@@ -63,15 +66,15 @@ int main()
     if (!dev->startStreams(enable_rgb, enable_depth))
       return -1;
   }
-  std::cout << "device serial: " << dev->getSerialNumber() << std::endl;
-  std::cout << "device firmware: " << dev->getFirmwareVersion() << std::endl;
+  cout << "device serial: " << dev->getSerialNumber() << endl;
+  cout << "device firmware: " << dev->getFirmwareVersion() << endl;
   libfreenect2::Registration* registration = new libfreenect2::Registration(dev->getIrCameraParams(), dev->getColorCameraParams());
   libfreenect2::Frame undistorted(512, 424, 4), registered(512, 424, 4), depth2rgb(1920, 1080 + 2, 4);;
   cv::Mat depthmatUndistorted, rgbd, rgbd2;
   while(true){
     static int i = 1;
-    std::ostringstream oss;
-    oss << std::setfill( '0' ) << std::setw( 10 ) << i++;
+    ostringstream oss;
+    oss << setfill( '0' ) << setw( 10 ) << i++;
 
     //画像フォルダがあるパスを指定する部分
     cv::Mat rgbMat ;
@@ -84,11 +87,17 @@ int main()
     //rgbtest = cv::imread( "/home/kei/document/C++script/KinectOneStream/jpg/" + oss.str() + ".jpg");
     //cv::imread( "/home/kei/document/experiments/2019.01.15/10jpg/" + oss.str() + ".jpg" ).convertTo(rgbMat, CV_8UC4);
     //rgbtest = cv::imread( "/home/kei/document/experiments/2019.02.02/motion/1.squat/jpg/" + oss.str() + ".jpg" );
+    // rgbtest = cv::imread( "/home/kei/document/experiments/Hamano/H5_1/color2/" + oss.str() + ".jpg" );
+    //rgbtest = cv::imread( "/home/shoda/Documents/mitsu/color/" + oss.str() + ".jpg" );
+    
     rgbtest = cv::imread( "/home/kei/document/experiments/PI/PI08_1/color2/" + oss.str() + ".jpg" );
     printf("%d\n", rgbtest.type());
     cv::cvtColor(rgbtest, rgbMat, cv::COLOR_BGR2BGRA);
     //cv::imread( "/home/kei/document/C++script/KinectOneStream/jpg/" + oss.str() + ".jpg" ).convertTo(rgbMat, CV_8UC4);
 
+    //depthtest =  cv::imread( "C++script/16pngtest.png",2); //cleanなレジストレーション画像を作る用
+    // depthtest =  cv::imread( "/home/kei/document/experiments/Hamano/H5_1/depth/" + oss.str() + ".png",2);
+    // depthtest =  cv::imread( "/home/shoda/Documents/mitsu/depth/" + oss.str() + ".tiff", 2);
     //depthtest =  cv::imread( "/home/kei/document/experiments/BioEngen/16pngtest.png",2);
     depthtest =  cv::imread( "/home/kei/document/experiments/PI/PI08_1/depth/" + oss.str() + ".png",2);
     //depthtest =  cv::imread( "/home/kei/document/C++script/depth/" + oss.str() + ".tiff");
@@ -96,19 +105,19 @@ int main()
     //depthMat = depthMat * 4096.0f;
     puts("color");
     //
-    /*std::string filename = "/home/kei/document/experiments/2019.01.15/depth/" + oss.str() + ".tiff";
+    /*string filename = "/home/kei/document/experiments/2019.01.15/depth/" + oss.str() + ".tiff";
     printf("hello\n");
-    //std::string filename = "/home/kei/document/C++script/KinectOneStream/depth/" + oss.str() + ".tiff";
-    std::ifstream ifs (filename.c_str(),std::ios::in|std::ios::binary);
+    //string filename = "/home/kei/document/C++script/KinectOneStream/depth/" + oss.str() + ".tiff";
+    ifstream ifs (filename.c_str(),ios::in|ios::binary);
     if (!ifs)
     {
-      std::cerr << "Can't open the file\n";
+      cerr << "Can't open the file\n";
       return -1;
     }
     int len;
-    ifs.seekg (0, std::ios::end);
+    ifs.seekg (0, ios::end);
     len = ifs.tellg ();
-    ifs.seekg (0, std::ios::beg);
+    ifs.seekg (0, ios::beg);
     char* data= new char [len];
     ifs.read (data, len);
 
@@ -146,6 +155,9 @@ int main()
     //cv::imshow("registered", rgbd);
     //cv::imshow("depth2RGB", rgbd2 / 4096.0f);
     //cv::imwrite("/home/kei/document/C++script/undistorted/" + oss.str() + ".png",depthmatUndistorted / 256.0f);
+    // cv::imwrite("/home/kei/document/experiments/Hamano/H5_1/regi2/" + oss.str() + ".jpg",rgbd);
+    //cv::imwrite("/home/shoda/Documents/mitsu/regi_clean/" + oss.str() + ".jpg",rgbd);
+
     cv::imwrite("/home/kei/document/experiments/PI/PI08_1/regi2/" + oss.str() + ".jpg",rgbd);
     //rgbd2 = rgbd2 / 256.0f;
     rgbd2.convertTo(Wrgbd, CV_16UC1);
