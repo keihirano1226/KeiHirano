@@ -1,0 +1,3 @@
+OpenPoseJoint = ["Neck","RSholder","LSholder","RElbow","LElbow","LWrist","RWrist","MidHip","RHip","LHip","RKnee","LKnee","RAnkle","LAnkle"]
+KinectJoint = ["SPINE_BASE","SPINE_MID","NECK","HEAD","SHOULDER_LEFT","ELBOW_LEFT","WRIST_LEFT","HAND_LEFT","SHOULDER_RIGHT","ELBOW_RIGHT","WRIST_RIGHT","HAND_RIGHT","HIP_LEFT","KNEE_RIGHT", "ANKLE_RIGHT", "FOOT_RIGHT", "SPINE_SHOULDER", "HAND_TIP_LEFT", "THUMB_LEFT", "HAND_TIP_RIGHT", "THUMB_RIGHT"]
+map2openpose = {"SPINE_SHOULDER":"Neck", "SHOULDER_LEFT":"LSholder", "SHOULDER_RIGHT":"RSholder"}

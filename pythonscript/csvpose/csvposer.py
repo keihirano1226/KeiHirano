@@ -99,7 +99,7 @@ for i in range(StartFrame, EndFrame):
 
     if ver == 1:
         Tag = "pose_keypoints"
-    elif ver == 1.2:
+    else:
         Tag = "pose_keypoints_2d"
 
     peopleID = 0
