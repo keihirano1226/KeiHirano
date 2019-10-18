@@ -21,6 +21,7 @@ for jpg_pass in tqdm(colorpass):
     rows= im.shape[0]
     cols = im.shape[1]
     M = np.float32([[1,0, -4],[0,1,0]])
+    # M = np.float32([[1,0,25],[0,1,-10]])
     dst = cv2.warpAffine(im, M, (cols,rows))
     cv2.imwrite(basepass + "/regi_clean_fixed/" + str(j).zfill(10) + ".jpg",dst)
     j+=1

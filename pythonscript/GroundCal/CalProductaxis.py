@@ -2,6 +2,24 @@ import pandas as pd
 import numpy as np
 import sys
 import glob
+from sklearn.decomposition import PCA
+
+def vertical_detect(df):
+    data = df.values
+    df.columns = ['x','y','z']
+    #print(df)
+    z = df['z']
+    x1 = df.drop('z', axis=1)
+    x1['1'] = 1
+    t = z.values
+    X = x1.values
+    w = np.dot(np.linalg.inv(np.dot(X.T, X)), X.T)
+    w = np.dot(w,t)
+    #c = 1であると仮定
+    validata = np.insert(data,3,1,axis = 1)
+    param = np.array([-w[0],-w[1],1,-w[2]])
+    return param
+
 def CoordinateTra(df, Origin, R):
     body = df.drop(columns = "Frame")
     Time = df["Frame"]
@@ -20,22 +38,28 @@ def CoordinateTra(df, Origin, R):
     dfall.columns = df.columns
     return dfall
 
-#垂直ベクトル,進行方向ベクトルを読み込み
-csvfile1 = sys.argv[1] + "zaxis.csv"
-csvfile2 = sys.argv[1] + "xaxis.csv"
-csvfile3 = sys.argv[1] + "Origin.csv"
-df1 = pd.read_csv(csvfile1)
-df2 = pd.read_csv(csvfile2)
-df3 = pd.read_csv(csvfile3, header = None)
-Origin = df3.values
-
+def Edge_detect(df):
+    dfs = (df - df.mean()) / df.std()
+    pca = PCA(n_components=1)
+    feature = pca.fit(dfs)
+    feature = pca.transform(dfs)
+    edge_vec = pca.components_[0]
+    return edge_vec
+#z軸を計算するための平面，及びx軸を計算するための平面を読み込み
+csvfile1 = sys.argv[1] + "Zplane.csv"
+csvfile2 = sys.argv[1] + "Xplane.csv"
+csvfile3 = sys.argv[1] + "edge.csv"
+posefile = sys.argv[1] + "3DInterrupt.csv"
+df_z = pd.read_csv(csvfile1, header = None)
+df_x = pd.read_csv(csvfile2, header = None)
+df_edge = pd.read_csv(csvfile3, header = None)
+df_pose = pd.read_csv(posefile)
+zaxis = vertical_detect(df_z)
+xaxis = vertical_detect(df_x)
 #データをベクトルに変換
-verVec1 = -df1.values
-verVec = verVec1[0:1,0:3]
-print(verVec)
-DirVec = -df2.values
-DirVec = DirVec[0:1,0:3]
-#進行方向を仮のx軸、鉛直方向をz軸として定義
+verVec = -zaxis[0:3]
+DirVec = xaxis[0:3]
+#背もたれの法線ベクトルをx軸、座面の鉛直方向をz軸として定義
 TemXaxis = DirVec / np.linalg.norm(DirVec)
 Zaxis = verVec / np.linalg.norm(verVec)
 
@@ -54,28 +78,24 @@ Rvector = np.r_[Xaxis,Yaxis,Zaxis]
 R = np.reshape(Rvector,(3, 3))
 axisData = pd.DataFrame(R, index = ["X","Y","Z"], columns = ["x","y","z"])
 axisData.to_csv(sys.argv[1] + "axisData.csv")
+
+#edge.csvの最初の三次元座標は椅子の手すりの根本を指している．
+#人体の肩幅平均は
+#https://www.airc.aist.go.jp/dhrt/91-92/fig/91-92_anthrop_manual.pdf
+#によると，男女平均して0.35445 m
+edge_vec = 0.177225 * Yaxis
+#大腿骨の長さ分y軸方向にもずらした部分を原点に設定したい
+Femur_vec = 0.432 * -Xaxis
+Origin = df_edge[0:1].values + edge_vec + Femur_vec
+Pose_tra = CoordinateTra(df_pose, Origin, R)
+Pose_tra.to_csv(sys.argv[1] + "3dboneRotated.csv", index = 0)
+
+
+"""
 motion_list = glob.glob(sys.argv[1] + "MA*.csv")
 for motion in motion_list:
     dfpose = pd.read_csv(motion)
     Pose_tra = CoordinateTra(dfpose, Origin, R)
     pass_list = motion.split(".")
     Pose_tra.to_csv(pass_list[0] + "_rotated.csv", index = 0)
-"""
-subject2 = ((2,3,7,8),(4,5),(1,2,5,6,7))
-subject3 = ((1,2,3,4,6),(1,2,3,4,5),(1,2,3,4,5))
-subject4 = ((1,2,3,5,7),(1,2,3,7),(1,2,4,6,7))
-
-subjectlist = (subject2, subject3,subject4)
-i = 2
-for subject in subjectlist:
-    j = 1
-    for motion in subject:
-        for num in motion:
-            csvpass = sys.argv[1] + "subject" + str(i) + "/motion" + str(j) + "/" + str(num) + "/3DFiltered2.csv"
-            print(csvpass)
-            dfpose = pd.read_csv(csvpass)
-            Pose_tra =  CoordinateTra(dfpose, Origin, R)
-            Pose_tra.to_csv(sys.argv[1] + "subject" + str(i) + "/motion" + str(j) + "/" + str(num) + "/3dboneRotated.csv", index = 0)
-        j+=1
-    i+=1
 """

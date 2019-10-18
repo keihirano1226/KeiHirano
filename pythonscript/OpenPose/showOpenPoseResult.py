@@ -83,9 +83,9 @@ jointPairs = [(1,2), (1,5), (2,3), (3,4), (5,6), (6,7), (1,8), (8,9), (8,12), (9
 colors = [(255.,     0.,    85.), (255.,     0.,     0.), (255.,    85.,     0.), (255.,   170.,     0.), (255.,   255.,     0.), (170.,   255.,     0.), (85.,   255.,     0.), (0.,   255.,     0.), (0.,   255.,    85.), (0.,   255.,   170.), (0.,   255.,   255.), (0.,   170.,   255.), (0.,    85.,   255.), (0.,     0.,   255.), (255.,     0.,   170.), (170.,     0.,   255.), (255.,     0.,   255.), (85.,     0.,   255.)]
 
 
-jsonFileList = glob.glob(sys.argv[2]+"/*")
+jsonFileList = glob.glob(sys.argv[1]+"/json/*")
 jsonFileList.sort()
-imageFileList = glob.glob(sys.argv[1]+"/*")
+imageFileList = glob.glob(sys.argv[1]+"/regi_mirror/*")
 imageFileList.sort()
 
 cv2.namedWindow("img", cv2.WINDOW_NORMAL)
