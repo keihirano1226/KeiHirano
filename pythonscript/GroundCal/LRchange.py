@@ -10,11 +10,6 @@ OpenPoseJoint = ["Nose","Neck","LSholder","LElbow",\
 "LEye","REye","LEar","REar","RBigToe","RSmallToe","RHeel",\
 "LBigToe","LSmallToe","LHeel"]
 Coordinate = ["X","Y","Z"]
-bodycolumns = []
-for point in OpenPoseJoint:
-    for coordinate in Coordinate:
-        newcolumn = point + coordinate
-        bodycolumns.append(newcolumn)
 Folder_pass = sys.argv[1]
 csvpass = Folder_pass + "3DFiltered.csv"
 df = pd.read_csv(csvpass)
@@ -27,3 +22,11 @@ for i in range(25):
     joint = df.iloc[:,[3*i,3*i+1,3*i+2]].values
     joint = joint.T
     rotated_joint = np.dot(R,joint)
+    bodycolumns = []
+    for coordinate in Coordinate:
+        newcolumn = OpenPoseJoint[i] + coordinate
+        bodycolumns.append(newcolumn)
+    df_joint = pd.DataFrame(rotated_joint.T,columns = bodycolumns)
+    pose = pd.concat([pose,df_joint], axis=1)
+
+pose.to_csv(Folder_pass + "3DFiltered2.csv",index=0)

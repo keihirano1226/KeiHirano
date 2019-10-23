@@ -49,11 +49,13 @@ def Edge_detect(df):
 csvfile1 = sys.argv[1] + "Zplane.csv"
 csvfile2 = sys.argv[1] + "Xplane.csv"
 csvfile3 = sys.argv[1] + "edge.csv"
+"""
 posefile = sys.argv[1] + "3DInterrupt.csv"
+"""
 df_z = pd.read_csv(csvfile1, header = None)
 df_x = pd.read_csv(csvfile2, header = None)
 df_edge = pd.read_csv(csvfile3, header = None)
-df_pose = pd.read_csv(posefile)
+#df_pose = pd.read_csv(posefile)
 zaxis = vertical_detect(df_z)
 xaxis = vertical_detect(df_x)
 #データをベクトルに変換
@@ -79,15 +81,14 @@ R = np.reshape(Rvector,(3, 3))
 axisData = pd.DataFrame(R, index = ["X","Y","Z"], columns = ["x","y","z"])
 axisData.to_csv(sys.argv[1] + "axisData.csv")
 Origin = df_edge[0:1].values
+"""
 Pose_tra = CoordinateTra(df_pose, Origin, R)
 Pose_tra.to_csv(sys.argv[1] + "3dboneRotated.csv", index = 0)
-
-
 """
+
 motion_list = glob.glob(sys.argv[1] + "MA*.csv")
 for motion in motion_list:
     dfpose = pd.read_csv(motion)
     Pose_tra = CoordinateTra(dfpose, Origin, R)
     pass_list = motion.split(".")
     Pose_tra.to_csv(pass_list[0] + "_rotated.csv", index = 0)
-"""
