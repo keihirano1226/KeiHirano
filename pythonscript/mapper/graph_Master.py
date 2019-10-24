@@ -12,6 +12,7 @@ from sklearn.metrics import f1_score
 import glob
 import re
 from tqdm import tqdm
+from BodyColumn import Holding_joint as HJ
 df = pd.read_csv(sys.argv[1] + "result/Distance.csv", index_col=0)
 Distance = df.values
 darray = distance.squareform(Distance)
@@ -21,6 +22,7 @@ dendrogram(result,labels=df.columns)
 #plt.show()
 
 GT_labels = fcluster(result, t=2, criterion='maxclust')
+"""
 OpenPoseJoint = ["RSholder","LSholder","MidHip",\
 "RHip","LHip","RKnee","LKnee","RAnkle","LAnkle","RWrist",\
 "RElbow","LElbow","LWrist"]
@@ -30,10 +32,12 @@ for point in OpenPoseJoint:
     for coordinate in Coordinate:
         newcolumn = point + coordinate
         bodycolumns.append(newcolumn)
+"""
+OpenPoseJoint,bodycolumns,Dis_Mat_list = HJ.Member(7)
 
 fscorelist = []
 for joint in OpenPoseJoint:
-    csvpass = sys.argv[1] + "/result/" + joint + "_dis.csv"
+    csvpass = sys.argv[1] + "/HJ_result/" + joint + "_dis.csv"
     df_joint = pd.read_csv(csvpass, index_col=0)
     Distance_joint = df_joint.values
     darray_joint = distance.squareform(Distance_joint)
@@ -45,9 +49,9 @@ for joint in OpenPoseJoint:
     fscorelist.append(f_score)
 
 df_score_result = pd.DataFrame(data = fscorelist, index = OpenPoseJoint)
-df_score_result.to_csv(sys.argv[1] + "result/f_score.csv")
+df_score_result.to_csv(sys.argv[1] + "HJ_result/f_score.csv")
 df_labels = pd.DataFrame(data = GT_labels)
-df_labels.to_csv(sys.argv[1] + "result/label.csv")
+df_labels.to_csv(sys.argv[1] + "HJ_result/label.csv")
 indexlist = []
 motionlist = glob.glob("/home/kei/document/experiments/Master/Unified/*.csv")
 for motion in tqdm(motionlist):
@@ -71,4 +75,4 @@ for sub_index in motionlist:
         i+=1
 
 AveragePose = AveragePose / i
-AveragePose.to_csv(sys.argv[1] + "result/AveragePose2.csv")
+AveragePose.to_csv(sys.argv[1] + "HJ_result/AveragePose2.csv")
