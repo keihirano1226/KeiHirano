@@ -1,5 +1,5 @@
 #出力の中身を確認するためのプログラム
-# python3 showCSVResult.py 画像ファイルフォルダ　ファイルフォルダ
+# python3 showCSVResult.py 画像ファイルフォルダ output.csvの場所
 import glob
 import json
 import sys

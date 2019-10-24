@@ -13,6 +13,17 @@
             "args" : ["/home/shoda/Documents/mitsu"]
         },
         {
+            "name": "Python: csvposer.py",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args" : ["/home/shoda/Documents/mitsu",
+                      "0",
+                      "0",
+                      "200"]
+        },
+        {
             "name": "3Dpose build",
             "type": "cppdbg",
             "request": "launch",

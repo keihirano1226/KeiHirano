@@ -24,7 +24,7 @@ def depth_projection(pose_matrix,depth_image):
 
 if __name__ == '__main__':
     basepass = sys.argv[1]
-    depthimage_pass = basepass + "depth_mirror/0000000001.tiff"
+    depthimage_pass = basepass + "/render/0000000000_rendered.png"
     csvpass = sys.argv[1] + "/pos/pos.csv"
     df = pd.read_csv(csvpass, header = None)
     df = df.drop(df.columns[[0,1]], axis=1)
@@ -34,6 +34,6 @@ if __name__ == '__main__':
     depth_image =cv2.imread(depthimage_pass,cv2.IMREAD_COLOR)
     print(pose_matrix)
     projected_depth = depth_projection(pose_matrix,depth_image)
-    cv2.imwrite(basepass + "test.jpg",projected_depth)
+    cv2.imwrite(basepass + "/test.jpg",projected_depth)
 
     #print(projected_depth)
