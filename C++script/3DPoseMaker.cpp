@@ -26,7 +26,7 @@ int stoi(string str){
 int main()
 {
   char filepath[256];
-  const char expath[] = "/home/kei/document/experiments/PI/PI08_1/";
+  const char expath[] = "/home/shoda/Documents/mitsu";
   bool enable_rgb = false;
   bool enable_depth =false;
   //libfreenect2::setGlobalLogger(libfreenect2::createConsoleLogger(libfreenect2::Logger::Debug));
@@ -102,9 +102,9 @@ int main()
   puts("hello");
 
   //2dのOpenPoseでディテクトされた情報を格納するための配列
-  int data[122][50];
+  int data[63][50];
   //3dの推定した三次元座標を格納するための配列
-  float posedata[122][75];
+  float posedata[63][75];
 
   while(getline(stream, line))
   {
@@ -128,13 +128,13 @@ int main()
   sprintf(filepath, "%s/save.csv", expath);
   fp=fopen( filepath, "w");
   for ( int row1 = 0; row1 < row ; ++row1  ) {
-    static int i = 600;//抽出を始める画像の番号
+    static int i = 1;//抽出を始める画像の番号
     ostringstream oss;
     oss << setfill( '0' ) << setw( 10 ) << i++;
     for ( col = 0; col < 50; col = col + 2 ) {
       cv::Mat depthtest ;
       cv::Mat depthMat ;
-      depthtest =  cv::imread( string(expath) + "/depth_mirror/" + oss.str() + ".png",2);
+      depthtest =  cv::imread( string(expath) + "/depth_mirror/" + oss.str() + ".tiff",2);
       depthtest.convertTo(depthMat, CV_32FC1);
       //depthMat = depthMat * 255.0f;
       libfreenect2::Frame depth(512, 424, 4, depthMat.data);

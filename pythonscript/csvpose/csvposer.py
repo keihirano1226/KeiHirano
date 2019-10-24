@@ -68,13 +68,21 @@ class JOINTCON(Enum):
 #colors = [(255.,     0.,    85.), (255.,     0.,     0.), (255.,    85.,     0.), (255.,   170.,     0.), (255.,   255.,     0.), (170.,   255.,     0.), (85.,   255.,     0.), (0.,   255.,     0.), (0.,   255.,    85.), (0.,   255.,   170.), (0.,   255.,   255.), (0.,   170.,   255.), (0.,    85.,   255.), (0.,     0.,   255.), (255.,     0.,   170.), (170.,     0.,   255.), (255.,     0.,   255.), (85.,     0.,   255.)]
 #必要な列の組み合わせ(0~7,9~18)
 
-jsonFileList = glob.glob(sys.argv[1]+"/json/*")
+isFixed = 1 #アフィン変換されているか否か
+
+if isFixed:
+    jsonFileList = glob.glob(sys.argv[1]+"/json_fixed/*")
+    f1 = open(sys.argv[1] + '/output_fixed.csv','w')
+    f2 = open(sys.argv[1] +'/probability_fixed.csv','w') 
+else:
+    jsonFileList = glob.glob(sys.argv[1]+"/json/*")
+    f1 = open(sys.argv[1] + '/output.csv','w')
+    f2 = open(sys.argv[1] +'/probability.csv','w')
+
 jsonFileList.sort()
 FocusedPeopleID = int(sys.argv[2])
 #convertedfile= sys.argv[2] + "/converted"
 #os.mkdir(convertedfile)
-f1 = open(sys.argv[1] + '/output2.csv','w')
-f2 = open(sys.argv[1] +'/probability.csv','w')
 writer1 = csv.writer(f1, lineterminator='\n')
 writer2 = csv.writer(f2, lineterminator='\n')
 JointIndex = ['time']
@@ -181,4 +189,3 @@ for i in range(StartFrame, EndFrame):
         print(framelist)
 f1.close()
 f2.close()
-#df = pd.read_csv(sys.argv[1] + '/output2.csv')
