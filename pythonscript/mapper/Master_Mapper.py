@@ -11,7 +11,7 @@ import glob
 from tqdm import tqdm
 import re
 #from BodyColumn import Holding_joint as HJ
-from BodyColumn import Holding_joint as HJ
+from BodyColumn import Upper_joint as UJ
 motionlist = glob.glob("/home/kei/document/experiments/Master/*.csv")
 #namelist = [2,3,6,7,9,11,14]
 namelist = []
@@ -26,7 +26,7 @@ for motion in tqdm(motionlist):
     motion_num+=1
     namelist.append(name_component[-2])
 #選択した関節の数によって行列の数が変わるので，それに合わせて変更する
-OpenPoseJoint,bodycolumns,Dis_Mat_list = HJ.Member(motion_num)
+OpenPoseJoint,bodycolumns,Dis_Mat_list = UJ.Member(motion_num)
 
 Unified_motion_list = glob.glob("/home/kei/document/experiments/Master/Unified/*.csv")
 print(Unified_motion_list)
@@ -55,20 +55,22 @@ Dis_all = np.zeros((motion_num,motion_num))
 for dis_Mat in Dis_Mat_list:
     Dis_all += dis_Mat
     df_dis = pd.DataFrame(dis_Mat, columns = namelist, index = namelist)
-    df_dis.to_csv("/home/kei/document/experiments/Master/AJ_result/" + OpenPoseJoint[joint_num] + "_dis.csv")
+    df_dis.to_csv("/home/kei/document/experiments/Master/UJ_result/" + OpenPoseJoint[joint_num] + "_dis.csv")
     joint_num+=1
 Dis_all = pd.DataFrame(Dis_all, columns = namelist, index = namelist)
-Dis_all.to_csv("/home/kei/document/experiments/Master/AJ_result/Distance.csv")
+Dis_all.to_csv("/home/kei/document/experiments/Master/UJ_result/Distance.csv")
 Distance = Dis_all.values
 print(Distance)
 darray = distance.squareform(Distance)
 result = linkage(darray, method = "average")
-"""
-dendrogram(result,labels=namelist)
+
+
 plt.rcParams["font.family"] = "Times New Roman"
 plt.rcParams['font.size'] = 10 #フォントサイズを設定
+"""
+dendrogram(result,labels=namelist)
 plt.ylabel("distance")
-plt.savefig("/home/kei/document/experiments/Master/AJ_result/elder.png")
+plt.savefig("/home/kei/document/experiments/Master/UJ_result/elder.png")
 """
 NUM_CLUSTERS_RANGE = range(2,7)
 silhouette_coefficient = []
@@ -89,4 +91,4 @@ plt.legend(lines,
             bbox_to_anchor=(0, 0.1),
             loc='upper left')
 
-plt.savefig("/home/kei/document/experiments/Master/HJ_result/シルエット係数.png")
+plt.savefig("/home/kei/document/experiments/Master/UJ_result/シルエット係数.png")

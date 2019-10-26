@@ -12,7 +12,7 @@ from sklearn.metrics import f1_score
 import glob
 import re
 from tqdm import tqdm
-from BodyColumn import Holding_joint as HJ
+from BodyColumn import Upper_joint as UJ
 df = pd.read_csv(sys.argv[1] + "result/Distance.csv", index_col=0)
 Distance = df.values
 darray = distance.squareform(Distance)
@@ -33,11 +33,11 @@ for point in OpenPoseJoint:
         newcolumn = point + coordinate
         bodycolumns.append(newcolumn)
 """
-OpenPoseJoint,bodycolumns,Dis_Mat_list = HJ.Member(7)
+OpenPoseJoint,bodycolumns,Dis_Mat_list = UJ.Member(7)
 
 fscorelist = []
 for joint in OpenPoseJoint:
-    csvpass = sys.argv[1] + "/HJ_result/" + joint + "_dis.csv"
+    csvpass = sys.argv[1] + "/UJ_result/" + joint + "_dis.csv"
     df_joint = pd.read_csv(csvpass, index_col=0)
     Distance_joint = df_joint.values
     darray_joint = distance.squareform(Distance_joint)
@@ -49,9 +49,9 @@ for joint in OpenPoseJoint:
     fscorelist.append(f_score)
 
 df_score_result = pd.DataFrame(data = fscorelist, index = OpenPoseJoint)
-df_score_result.to_csv(sys.argv[1] + "HJ_result/f_score.csv")
+df_score_result.to_csv(sys.argv[1] + "UJ_result/f_score.csv")
 df_labels = pd.DataFrame(data = GT_labels)
-df_labels.to_csv(sys.argv[1] + "HJ_result/label.csv")
+df_labels.to_csv(sys.argv[1] + "UJ_result/label.csv")
 indexlist = []
 motionlist = glob.glob("/home/kei/document/experiments/Master/Unified/*.csv")
 for motion in tqdm(motionlist):
@@ -60,19 +60,23 @@ for motion in tqdm(motionlist):
 
 
 df_labels = pd.DataFrame(data = GT_labels, index = indexlist)
-df_labels.to_csv(sys.argv[1] + "result/label.csv")
-csvpass = sys.argv[1] + "Unified/H3_1.csv"
+df_labels.to_csv(sys.argv[1] + "UJ_result/label.csv")
+csvpass = sys.argv[1] + "Unified/H4_2.csv"
 dfpose = pd.read_csv(csvpass)
 dfpose = dfpose[bodycolumns]
 AveragePoseData = np.zeros((len(dfpose),len(dfpose.columns)))
 AveragePose = pd.DataFrame(data= AveragePoseData, columns = bodycolumns )
+j = 0
 i = 0
 for sub_index in motionlist:
     dfpose = pd.read_csv(sub_index)
     dfpose = dfpose[bodycolumns]
-    if df_labels.at[indexlist[i], 0] == 2:
+    print(df_labels.at[indexlist[j], 0])
+    if df_labels.at[indexlist[j], 0] == 1:
+        print("hello")
         AveragePose += dfpose
         i+=1
+    j+=1
 
 AveragePose = AveragePose / i
-AveragePose.to_csv(sys.argv[1] + "HJ_result/AveragePose2.csv")
+AveragePose.to_csv(sys.argv[1] + "UJ_result/AveragePose1.csv")
