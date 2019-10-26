@@ -45,7 +45,18 @@ def plotPosture(posedata):
             lineY.append(Frame_Pose.iat[0,3*j+2])
             lineZ.append(Frame_Pose.iat[0,3*j+3])
             ax.plot(lineX, lineY, lineZ, marker='None', linestyle='-',color = "b")
-
+        seat_x = [-0.5,0]
+        seat_y = [0,0.5]
+        X,Y = np.meshgrid(seat_x,seat_y)
+        Z = np.array([[-0.1, -0.1], [-0.1, -0.1]])
+        ax.plot_surface(X,Y,Z,alpha=0.7,color = "saddlebrown")
+        #ax.plot_surface(X,Y,-Z,alpha=0.7,color = "saddlebrown")
+        """
+        ax.plot_surface( X,  Z,  Y, alpha=0.7,color = "saddlebrown")
+        ax.plot_surface( X, -Z,  Y, alpha=0.7,color = "saddlebrown")
+        ax.plot_surface( Z,  X,  Y, alpha=0.7,color = "saddlebrown")
+        ax.plot_surface(-Z,  X,  Y, alpha=0.7,color = "saddlebrown")
+        """
         ax.set_xlim(-1,1)
         ax.set_ylim(-1,1)
         ax.set_zlim(-0.5,1.5)
