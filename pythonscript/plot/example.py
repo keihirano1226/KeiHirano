@@ -22,6 +22,11 @@ def plotPosture(posedata):
     ax = Axes3D(fig)
     #関節の座標値の入り方に注意
     #for frame in range(len(posedata)//15):
+    def RectangularPlot(X,Y,Z1,Z2):
+        print("hwill")
+        ax.plot_surface(X,Y,Z1,alpha=0.7,color = "saddlebrown")
+        ax.plot_surface(X,Y,Z2,alpha=0.7,color = "saddlebrown")
+
     for frame in range(int(len(posedata)/5)):
         Frame_Pose = posedata[5*frame:5*frame+1]
         X = []
@@ -45,18 +50,37 @@ def plotPosture(posedata):
             lineY.append(Frame_Pose.iat[0,3*j+2])
             lineZ.append(Frame_Pose.iat[0,3*j+3])
             ax.plot(lineX, lineY, lineZ, marker='None', linestyle='-',color = "b")
-        seat_x = [-0.5,0]
-        seat_y = [0,0.5]
-        X,Y = np.meshgrid(seat_x,seat_y)
-        Z = np.array([[-0.1, -0.1], [-0.1, -0.1]])
-        ax.plot_surface(X,Y,Z,alpha=0.7,color = "saddlebrown")
-        #ax.plot_surface(X,Y,-Z,alpha=0.7,color = "saddlebrown")
-        """
-        ax.plot_surface( X,  Z,  Y, alpha=0.7,color = "saddlebrown")
-        ax.plot_surface( X, -Z,  Y, alpha=0.7,color = "saddlebrown")
-        ax.plot_surface( Z,  X,  Y, alpha=0.7,color = "saddlebrown")
-        ax.plot_surface(-Z,  X,  Y, alpha=0.7,color = "saddlebrown")
-        """
+        origins = [[0,0,0],[0,0,-0.2],[0,0.65,-0.2],[-0.45,0,-0.2],[-0.45,0.65,-0.2],\
+        [0,0,0.25],[0,0.65,0.25]]
+        lengths = [[0.5,0.7,0.2],[0.05,0.05,0.5],[0.05,0.05,0.5],[0.05,0.05,0.5],[0.05,0.05,0.5],\
+        [0.5,0.05,0.25],[0.5,0.05,0.25]]
+        i = 0
+        color1 = "grey"
+        for origin in origins:
+            length = lengths[i]
+            #origin = [0,0,0]
+            #length = [0.5,0.5,0.2]
+            #ここから直方体を書くfor文の中身用の処理
+            x = [origin[0]-length[0],origin[0]]
+            y = [origin[1],origin[1]+length[1]]
+            z = [origin[2]-length[2],origin[2]]
+            X,Y = np.meshgrid(x,y)
+            Z1 = np.array([[origin[2]-length[2], origin[2]-length[2]], [origin[2]-length[2], origin[2]-length[2]]])
+            Z2 = np.array([[origin[2], origin[2]], [origin[2], origin[2]]])
+            ax.plot_surface(X,Y,Z1,alpha=0.7,color = color1)
+            ax.plot_surface(X,Y,Z2,alpha=0.7,color = color1)
+            X,Z = np.meshgrid(x,z)
+            Y1 = np.array([[origin[1]+length[1], origin[1]+length[1]], [origin[1]+length[1], origin[1]+length[1]]])
+            Y2 = np.array([[origin[1], origin[1]], [origin[1], origin[1]]])
+            ax.plot_surface(X,Y1,Z,alpha=0.7,color = color1)
+            ax.plot_surface(X,Y2,Z,alpha=0.7,color = color1)
+            Y,Z = np.meshgrid(y,z)
+            X1 = np.array([[origin[0]-length[0], origin[0]-length[0]], [origin[0]-length[0], origin[0]-length[0]]])
+            X2 = np.array([[origin[0], origin[0]], [origin[0], origin[0]]])
+            ax.plot_surface(X1,Y,Z,alpha=0.7,color = color1)
+            ax.plot_surface(X2,Y,Z,alpha=0.7,color = color1)
+            i+=1
+            #ここまでで、ひとつの直方体がかける。
         ax.set_xlim(-1,1)
         ax.set_ylim(-1,1)
         ax.set_zlim(-0.5,1.5)
