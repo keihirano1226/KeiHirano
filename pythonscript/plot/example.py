@@ -49,13 +49,13 @@ def plotPosture(posedata):
             lineX.append(Frame_Pose.iat[0,3*j+1])
             lineY.append(Frame_Pose.iat[0,3*j+2])
             lineZ.append(Frame_Pose.iat[0,3*j+3])
-            ax.plot(lineX, lineY, lineZ, marker='None', linestyle='-',color = "b")
-        origins = [[0,0,0],[0,0,-0.2],[0,0.65,-0.2],[-0.45,0,-0.2],[-0.45,0.65,-0.2],\
-        [0,0,0.25],[0,0.65,0.25]]
-        lengths = [[0.5,0.7,0.2],[0.05,0.05,0.5],[0.05,0.05,0.5],[0.05,0.05,0.5],[0.05,0.05,0.5],\
+            ax.plot(lineX, lineY, lineZ, marker='None', linestyle='-',color = "red")
+        origins = [[0,0,0],[0,0,-0.2],[0,0.85,-0.2],[-0.45,0,-0.2],[-0.45,0.85,-0.2],\
+        [0,0,0.25],[0,0.85,0.25]]
+        lengths = [[0.5,0.9,0.2],[0.05,0.05,0.5],[0.05,0.05,0.5],[0.05,0.05,0.5],[0.05,0.05,0.5],\
         [0.5,0.05,0.25],[0.5,0.05,0.25]]
         i = 0
-        color1 = "grey"
+        color1 = "ivory"
         for origin in origins:
             length = lengths[i]
             #origin = [0,0,0]
