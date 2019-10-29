@@ -26,7 +26,8 @@ return ret;
 int main()
 {
   char filepath[256];
-  const char expath[] = "/home/kei/document/experiments/Hamano/test/";
+  // const char expath[] = "/home/kei/document/experiments/Hamano/test/";
+  const char expath[] = "/home/shoda/Documents/mitsu/";
   bool enable_rgb = false;
   bool enable_depth =false;
   //libfreenect2::setGlobalLogger(libfreenect2::createConsoleLogger(libfreenect2::Logger::Debug));
@@ -132,7 +133,8 @@ int main()
   cv::Mat depthtest ;
   cv::Mat depthMat ;
   //depth画像を読み込む
-  depthtest =  cv::imread( string(expath) + "/depth_mirror/0000000160.png",2);
+  // depthtest =  cv::imread( string(expath) + "/depth_mirror/0000000160.png",2);
+  depthtest =  cv::imread( string(expath) + "/depth_mirror/0000000001.tiff",2);
   depthtest.convertTo(depthMat, CV_32FC1);
   int row1 = 0;
   int col1 = 0;
