@@ -1,3 +1,5 @@
+#解析用に関節の数を絞って平均動作を作成するためのスクリプト
+#別に絞らなくても，同じように動作を作成することは可能
 import pandas as pd
 import numpy as np
 import sys
@@ -63,6 +65,7 @@ df_labels = pd.DataFrame(data = GT_labels, index = indexlist)
 df_labels.to_csv(sys.argv[1] + "UJ_result/label.csv")
 csvpass = sys.argv[1] + "Unified/H4_2.csv"
 dfpose = pd.read_csv(csvpass)
+#関節数を指定する部分ココを消すことで，全関節を用いた平均動作が出来る．
 dfpose = dfpose[bodycolumns]
 AveragePoseData = np.zeros((len(dfpose),len(dfpose.columns)))
 AveragePose = pd.DataFrame(data= AveragePoseData, columns = bodycolumns )

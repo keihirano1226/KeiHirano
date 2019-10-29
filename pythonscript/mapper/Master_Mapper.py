@@ -27,7 +27,6 @@ for motion in tqdm(motionlist):
     namelist.append(name_component[-2])
 #選択した関節の数によって行列の数が変わるので，それに合わせて変更する
 OpenPoseJoint,bodycolumns,Dis_Mat_list = UJ.Member(motion_num)
-
 Unified_motion_list = glob.glob("/home/kei/document/experiments/Master/Unified/*.csv")
 print(Unified_motion_list)
 col = 0
@@ -67,11 +66,11 @@ result = linkage(darray, method = "average")
 
 plt.rcParams["font.family"] = "Times New Roman"
 plt.rcParams['font.size'] = 10 #フォントサイズを設定
-"""
+
 dendrogram(result,labels=namelist)
 plt.ylabel("distance")
 plt.savefig("/home/kei/document/experiments/Master/UJ_result/elder.png")
-"""
+
 NUM_CLUSTERS_RANGE = range(2,7)
 silhouette_coefficient = []
 davies_bouldin_index = []
