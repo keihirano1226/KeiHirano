@@ -33,7 +33,7 @@ __出力__ regiDir
 <br>
 
 2. レジストレーション画像アフィン変換(option)  
-[fixregi.py](pythonscript/ImageTool/fixregi.py)
+[fixregi.py](pythonscript/ImageTool/fixregi.py)  
 __入力__ colorDir depthDir  
 __出力__ regiDir  
 <br>
