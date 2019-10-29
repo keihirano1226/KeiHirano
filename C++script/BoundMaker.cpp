@@ -41,17 +41,20 @@ void CallBackFunc(int eventType, int x, int y, int flags, void* userdata)
 int main(void)
 {
     char filepath[256];
-    const char expath[] = "/home/kei/document/experiments/Hamano/test/";
+    // const char expath[] = "/home/kei/document/experiments/Hamano/test/";
+    const char expath[] = "/home/shoda/Documents/mitsu/";
+
     mouseParam mouseEvent;
     FILE *fp;
     sprintf(filepath, "%s/2DGround.csv", expath);
     fp=fopen( filepath, "w");
     //入力画像
     cv::Mat inputimg;
-    inputimg = cv::imread( string(expath) + "/regi_mirror/0000000160.jpg",1);
+    inputimg = cv::imread( string(expath) + "/regi_mirror/0000000000.jpg",1);
     //表示するウィンドウ名
     cv::String showing_name = "input";
-
+    
+    cv::namedWindow(showing_name, cv::WINDOW_NORMAL);
     //画像の表示
     cv::imshow("input", inputimg);
     //コールバックの設定
