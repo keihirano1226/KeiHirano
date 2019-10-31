@@ -103,7 +103,7 @@ edge.csvの一行目が原点を表す
 <br>
 
 13. 軸、回転行列R、製品座標系の姿勢データを生成する  
-[CalProductaxis.cpp](pythonscript/GroundCal/CalProductaxis.py)  
+[CalProductaxis.py](pythonscript/GroundCal/CalProductaxis.py)  
 __コード内入力__ basepath  
 __出力__ axisData.csv 3dboneRotated.csv  
 
