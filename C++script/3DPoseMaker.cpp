@@ -27,6 +27,7 @@ int main()
 {
   char filepath[256];
   const char expath[] = "/home/shoda/Documents/mitsu";
+  bool isFixed = true; //アフィン変換されているか否か
   bool enable_rgb = false;
   bool enable_depth =false;
   //libfreenect2::setGlobalLogger(libfreenect2::createConsoleLogger(libfreenect2::Logger::Debug));
@@ -88,7 +89,9 @@ int main()
   libfreenect2::Frame undistorted(512, 424, 4), registered(512, 424, 4), depth2rgb(1920, 1080 + 2, 4);;
   cv::Mat depthmatUndistorted, rgbd, rgbd2;
 
-  sprintf(filepath, "%s/test.csv", expath);
+  if (isFixed) sprintf(filepath, "%s/test_fixed.csv", expath);
+  else sprintf(filepath, "%s/test.csv", expath);
+
   ifstream stream(filepath);
   string line;
   //2dのOpenPoseでディテクトされた情報を格納するための配列
@@ -102,9 +105,9 @@ int main()
   puts("hello");
 
   //2dのOpenPoseでディテクトされた情報を格納するための配列
-  int data[63][50];
+  int data[200][50];
   //3dの推定した三次元座標を格納するための配列
-  float posedata[63][75];
+  float posedata[200][75];
 
   while(getline(stream, line))
   {
@@ -125,7 +128,10 @@ int main()
   puts("hello");
   printf("%d\n",data[0][1]);
   FILE *fp;
-  sprintf(filepath, "%s/save.csv", expath);
+  
+  if (isFixed) sprintf(filepath, "%s/save_fixed.csv", expath);
+  else sprintf(filepath, "%s/save.csv", expath);
+
   fp=fopen( filepath, "w");
   for ( int row1 = 0; row1 < row ; ++row1  ) {
     static int i = 1;//抽出を始める画像の番号

@@ -2,9 +2,6 @@ import pandas as pd
 import sys
 import csv
 from enum import Enum
-csvfile = sys.argv[1] + "save.csv"
-
-#df = pd.read_csv(csvfile)
 
 class JOINT(Enum):
     Nose = 0
@@ -39,6 +36,14 @@ class Coordinate(Enum):
     Z = 2
 
 
+isFixed = 1 #アフィン変換されているか否か
+if isFixed: 
+    csvfile = sys.argv[1] + "save_fixed.csv"
+else:
+    csvfile = sys.argv[1] + "save.csv"
+
+
+
 columnname = list()
 for joint in JOINT:
     for coordinate in Coordinate:
@@ -57,4 +62,9 @@ df.columns = columnname
 df = pd.concat([s, df], axis=1)
 #print(df.shape[1])
 #print(df)
-df.to_csv(sys.argv[1] + "3dbone.csv", index = 0)
+
+if isFixed: 
+    df.to_csv(sys.argv[1] + "3dbone_fixed.csv", index = 0)
+else:
+    df.to_csv(sys.argv[1] + "3dbone.csv", index = 0)
+
