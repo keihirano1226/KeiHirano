@@ -63,7 +63,7 @@ for motion in tqdm(motionlist):
 
 df_labels = pd.DataFrame(data = GT_labels, index = indexlist)
 df_labels.to_csv(sys.argv[1] + "UJ_result/label.csv")
-csvpass = sys.argv[1] + "Unified/H4_2.csv"
+csvpass = sys.argv[1] + "Unified/no9_2.csv"
 dfpose = pd.read_csv(csvpass)
 #関節数を指定する部分ココを消すことで，全関節を用いた平均動作が出来る．
 dfpose = dfpose[bodycolumns]
