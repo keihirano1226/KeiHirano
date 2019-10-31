@@ -61,7 +61,7 @@ xaxis = vertical_detect(df_x)
 #データをベクトルに変換
 verVec = -zaxis[0:3]
 DirVec = -xaxis[0:3]
-#背もたれの法線ベクトルをx軸、座面の鉛直方向をz軸として定義
+#背もたれの法線ベクトルを仮のx軸、座面の鉛直方向をz軸として定義
 TemXaxis = DirVec / np.linalg.norm(DirVec)
 Zaxis = verVec / np.linalg.norm(verVec)
 

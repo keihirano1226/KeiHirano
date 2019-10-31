@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "args" : ["/home/shoda/Documents/mitsu"]
+            "args" : ["/home/shoda/Documents/mitsu/"]
         },
         {
             "name": "Python: csvposer.py",
