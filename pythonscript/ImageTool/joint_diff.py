@@ -9,8 +9,6 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 from BodyColumn.body_columns import KinectJoint, map2openpose
 
-isFixed = 1 #アフィン変換されているか否か
-
 if __name__ == '__main__':
     basepass = sys.argv[1]
     depthimage_pass = basepass + "depth_mirror/0000000001.tiff"
@@ -36,10 +34,7 @@ if __name__ == '__main__':
 
         kinect_joint = np.concatenate([kinect_joint, pose_dict['SHOULDER_RIGHT'], pose_dict['SHOULDER_LEFT']])
 
-    if isFixed:
-        df = pd.read_csv(sys.argv[1] + "/output_fixed.csv") 
-    else:
-        df = pd.read_csv(sys.argv[1] + "/output.csv") 
+    df = pd.read_csv(sys.argv[1] + "/output.csv") 
     
     x = np.linspace(0,flamecnt,flamecnt)
     kinect_joint = np.reshape(kinect_joint, (flamecnt, 4))
@@ -66,9 +61,4 @@ if __name__ == '__main__':
     plt.gcf().subplots_adjust(bottom=0.35)
     plt.subplots_adjust(top=0.9)
     fig.align_labels()
-    if isFixed:
-        plt.savefig(sys.argv[1] + '/diff_fixed.png') 
-    else:
-        plt.savefig(sys.argv[1] + '/diff.png')
-    
-    # print(df[0:10].iloc[:, df.columns.str.startswith(map2openpose['SHOULDER_RIGHT'])].values)
+    plt.savefig(sys.argv[1] + '/diff.png')

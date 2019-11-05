@@ -23,11 +23,10 @@ ss >> ret;
 return ret;
 }
 
-int main()
+int main(int argc, const char *argv[])
 {
   char filepath[256];
-  // const char expath[] = "/home/kei/document/experiments/Hamano/test/";
-  const char expath[] = "/home/shoda/Documents/mitsu/";
+  string expath = argv[1];
   bool enable_rgb = false;
   bool enable_depth =false;
   //libfreenect2::setGlobalLogger(libfreenect2::createConsoleLogger(libfreenect2::Logger::Debug));
@@ -81,7 +80,7 @@ int main()
   libfreenect2::Registration* registration = new libfreenect2::Registration(dev->getIrCameraParams(), dev->getColorCameraParams());
   libfreenect2::Frame undistorted(512, 424, 4), registered(512, 424, 4), depth2rgb(1920, 1080 + 2, 4);;
   cv::Mat depthmatUndistorted, rgbd, rgbd2;
-  sprintf(filepath, "%s/2DGround.csv", expath);
+  sprintf(filepath, "%s/2DGround.csv", expath.c_str());
   ifstream stream(filepath);
   std::string line;
   //2dのOpenPoseでディテクトされた情報を格納するための配列
@@ -124,17 +123,17 @@ int main()
   FILE *fp;
   FILE *fp2;
   FILE *fp3;
-  sprintf(filepath, "%s/Zplane.csv", expath);
+  sprintf(filepath, "%s/Zplane.csv", expath.c_str());
   fp=fopen( filepath, "w");
-  sprintf(filepath, "%s/Xplane.csv", expath);
+  sprintf(filepath, "%s/Xplane.csv", expath.c_str());
   fp2=fopen( filepath, "w");
-  sprintf(filepath, "%s/edge.csv", expath);
+  sprintf(filepath, "%s/edge.csv", expath.c_str());
   fp3=fopen( filepath, "w");
   cv::Mat depthtest ;
   cv::Mat depthMat ;
   //depth画像を読み込む
   // depthtest =  cv::imread( string(expath) + "/depth_mirror/0000000160.png",2);
-  depthtest =  cv::imread( string(expath) + "/depth_mirror/0000000001.tiff",2);
+  depthtest =  cv::imread( expath + "/depth_mirror/0000000001.tiff",2);
   depthtest.convertTo(depthMat, CV_32FC1);
   int row1 = 0;
   int col1 = 0;

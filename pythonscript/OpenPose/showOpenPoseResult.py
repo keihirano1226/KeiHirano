@@ -10,6 +10,8 @@ import os
 import csv
 import pandas as pd
 import codecs
+from time import sleep 
+
 class JOINT(Enum):
     """もともとの北村先生からもらってた関節リスト
     Nose = 0
@@ -85,7 +87,7 @@ colors = [(255.,     0.,    85.), (255.,     0.,     0.), (255.,    85.,     0.)
 
 jsonFileList = glob.glob(sys.argv[1]+"/json/*")
 jsonFileList.sort()
-imageFileList = glob.glob(sys.argv[1]+"/regi_mirror/*")
+imageFileList = glob.glob(sys.argv[1]+"/regi_mirror_fixed/*")
 imageFileList.sort()
 
 cv2.namedWindow("img", cv2.WINDOW_NORMAL)
@@ -147,3 +149,7 @@ for i,imgFileName in enumerate(imageFileList):
     key = cv2.waitKey(0)
     if key == 27:
         break
+
+print("SUCCESS!!")
+print("Wait 5 seconds...")
+sleep(5)
