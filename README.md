@@ -12,13 +12,13 @@ __作業フローに変更や追加があったらREADMEを更新すること__
 
 ## 実験ディレクトリについては以下のフォルダ構成を守ること(2019/10/24現在)
 __予め以下のディレクトリを作っておくこと__
-(初期状態はcolorDirとdepthDirとposは中身がある状態)
+(初期状態はcolorDirとdepthDirとposは中身がある状態)  
 basepath/  
 ┠  color  
 ┠  depth  
 ┠  depth_mirror  
-┠  json
-┠  pos
+┠  json  
+┠  pos  
 ┠  regi  
 ┠  regi_mirror  
 ┠  regi_mirror_fixed  
