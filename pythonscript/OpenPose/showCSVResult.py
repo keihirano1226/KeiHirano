@@ -10,6 +10,7 @@ import numpy as np
 import os
 import csv
 import pandas as pd
+from time import sleep 
 
 class JOINT(Enum):
     """
@@ -121,6 +122,8 @@ for i,imgFileName in enumerate(imageFileList):
     poseData = df1.values.tolist()
     #print(i)
     print(poseData)
+    if not poseData:
+        break
     #poseData[JOINT.Neck.value*3], poseData[JOINT.Neck.value*3+1], poseData[JOINT.Neck.value*3+2] という書き方で関節の座標値やその座標値の信頼度を取得できる。
     """
     print("========People%d==============="%peopleID)
@@ -141,10 +144,14 @@ for i,imgFileName in enumerate(imageFileList):
             continue
 
         color = tuple(list(map(int, colors[0])))
-        frame = cv2.line(frame, pt1, pt2, color, 7)
+        frame = cv2.line(frame, pt1, pt2, color, 3)
     #cv2.putText(frame,str(peopleID),(int(poseData[JOINT.Neck.value*2]),int(poseData[JOINT.Neck.value*2+1])),cv2.FONT_HERSHEY_PLAIN,2,(255,255,0))
     peopleID += 1
     cv2.imshow("img",frame)
     key = cv2.waitKey(0)
     if key == 27:
         break
+
+print("SUCCESS!!")
+print("Wait 5 seconds...")
+sleep(5)

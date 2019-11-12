@@ -1,8 +1,3 @@
-#include <libfreenect2/libfreenect2.hpp>
-#include <libfreenect2/frame_listener_impl.h>
-#include <libfreenect2/registration.h>
-#include <libfreenect2/packet_pipeline.h>
-#include <libfreenect2/logger.h>
 #include <opencv2/core.hpp>
 #include <opencv2/highgui.hpp>
 #include <opencv2/imgcodecs.hpp>
@@ -38,19 +33,18 @@ void CallBackFunc(int eventType, int x, int y, int flags, void* userdata)
     ptr->flags = flags;
 }
 
-int main(void)
+int main(int argc, const char *argv[])
 {
     char filepath[256];
-    // const char expath[] = "/home/kei/document/experiments/Hamano/test/";
-    const char expath[] = "/home/shoda/Documents/mitsu/";
+    string expath = argv[1];
 
     mouseParam mouseEvent;
     FILE *fp;
-    sprintf(filepath, "%s/2DGround.csv", expath);
+    sprintf(filepath, "%s/2DGround.csv", expath.c_str());
     fp=fopen( filepath, "w");
     //入力画像
     cv::Mat inputimg;
-    inputimg = cv::imread( string(expath) + "/regi_mirror/0000000000.jpg",1);
+    inputimg = cv::imread( expath + "/regi_mirror_fixed/0000000000.jpg",1);
     //表示するウィンドウ名
     cv::String showing_name = "input";
     

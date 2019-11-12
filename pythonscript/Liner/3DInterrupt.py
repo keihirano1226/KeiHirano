@@ -1,6 +1,8 @@
 import pandas as pd
 import sys
+
 df = pd.read_csv(sys.argv[1] + '3dbone.csv')
+    
 #df = pd.read_csv(sys.argv[1] + 'output.csv')
 df1 = df.replace(0.000, pd.np.nan)
 df1 = df1.interpolate(limit_direction='both')
@@ -15,3 +17,4 @@ for column_name, item in df1.iteritems():
 """
 print(df1)
 df1.to_csv(sys.argv[1] + '3DInterrupt.csv', index = 0)
+    

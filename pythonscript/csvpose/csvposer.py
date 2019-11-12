@@ -70,14 +70,14 @@ class JOINTCON(Enum):
 
 isFixed = 1 #アフィン変換されているか否か
 
-if isFixed:
-    jsonFileList = glob.glob(sys.argv[1]+"/json_fixed/*")
-    f1 = open(sys.argv[1] + '/output_fixed.csv','w')
-    f2 = open(sys.argv[1] +'/probability_fixed.csv','w') 
-else:
-    jsonFileList = glob.glob(sys.argv[1]+"/json/*")
-    f1 = open(sys.argv[1] + '/output.csv','w')
-    f2 = open(sys.argv[1] +'/probability.csv','w')
+# if isFixed:
+#     jsonFileList = glob.glob(sys.argv[1]+"/json_fixed/*")
+#     f1 = open(sys.argv[1] + '/output_fixed.csv','w')
+#     f2 = open(sys.argv[1] +'/probability_fixed.csv','w') 
+# else:
+jsonFileList = glob.glob(sys.argv[1]+"/json/*")
+f1 = open(sys.argv[1] + '/output.csv','w')
+f2 = open(sys.argv[1] +'/probability.csv','w')
 
 jsonFileList.sort()
 FocusedPeopleID = int(sys.argv[2])
@@ -157,12 +157,12 @@ for i in range(StartFrame, EndFrame):
             current_Neck = np.array([twoDpose[2],twoDpose[3]])
             current_pelvis = np.array([twoDpose[16],twoDpose[17]])
             current_Spine = np.concatenate((current_Neck,current_pelvis),axis = 0)#今見ている姿勢を格納する行列
-            print(current_Spine)
-            print(type(twoDpose))
+            # print(current_Spine)
+            # print(type(twoDpose))
             past_Neck = np.array([before2DposeData[2],before2DposeData[3]])
             past_pelvis = np.array([before2DposeData[16],before2DposeData[17]])
             past_Spine = np.concatenate((past_Neck,past_pelvis),axis = 0)
-            print(past_Spine)
+            # print(past_Spine)
             DistanceVector = past_Spine - current_Spine
             #現在の他の関節の情報も取得する．
             #DistanceNorm = DistanceVector.flatten()
@@ -181,11 +181,16 @@ for i in range(StartFrame, EndFrame):
             del twoDpose[50]
         before2DposeData = min_pose
         #前のフレームのデータを誤差最小二次元関節データで上書き
-        print(before2DposeData)
-        print(MinDistance)
+        # print(before2DposeData)
+        # print(MinDistance)
         MinDistance = 1000
         print(i)
-        print(type(min_pose))
-        print(framelist)
+        # print(type(min_pose))
+        # print(framelist)
 f1.close()
 f2.close()
+
+#余計なものを省いたtest.csv作成
+testcsv = pd.read_csv(sys.argv[1] + '/output.csv')
+del testcsv['time']
+testcsv.to_csv(sys.argv[1] + '/test.csv', header=False, index=False)
