@@ -82,7 +82,7 @@ int main(int argc, const char *argv[])
     cv::Mat depthMat ;
     cv::Mat Wrgbd ;
 
-    rgbtest = cv::imread( basepath + "color/" + oss.str() + ".jpg" );
+    rgbtest = cv::imread( basepath + "color2/" + oss.str() + ".jpg" );
 
     // printf("%d\n", rgbtest.type());
 
@@ -104,7 +104,7 @@ int main(int argc, const char *argv[])
     // cv::Mat(undistorted.height, undistorted.width, CV_32FC1, undistorted.data).copyTo(depthmatUndistorted);
     cv::Mat(registered.height, registered.width, CV_8UC4, registered.data).copyTo(rgbd);
     // cv::Mat(depth2rgb.height, depth2rgb.width, CV_8UC4, depth2rgb.data).copyTo(rgbd2);
-    cv::imwrite(basepath + "regi/" + oss.str() + ".jpg",rgbd);
+    cv::imwrite(basepath + "regi2/" + oss.str() + ".jpg",rgbd);
 
     rgbd2.convertTo(Wrgbd, CV_16UC1);
     // printf("データ型は%d\n", Wrgbd.type());
