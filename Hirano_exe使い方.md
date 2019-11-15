@@ -14,7 +14,7 @@ basepath/
 また実行前に解析対象となるファイルのパスを変更しておく(8行目)
 ## 実行フロー
 
-1. マウス手動計測によるアフィン変換パラメータの取得
+1. マウス手動計測によるアフィン変換パラメータの取得  
 [fix_click.cpp](C++script/fix_click.cpp)
 __入力__basepath Image_num
 __出力__regi_2d_points.csv
