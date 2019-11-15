@@ -17,8 +17,8 @@ basepath/
 1. マウス手動計測によるアフィン変換パラメータの取得  
 [fix_click.cpp](C++script/fix_click.cpp)
 __入力__basepath Image_num
-__出力__regi_2d_points.csv
-<br>
-[click_plot.py](pythonscript/ImageTool/click_plot.py)
+__出力__regi_2d_points.csv    
+2. 手動計測した結果を画像で表示する．
+[click_plot.py](pythonscript/ImageTool/click_plot.py)  
 __入力__basepath Image_num
 __出力__regi_2d_points.csv
