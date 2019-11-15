@@ -14,13 +14,13 @@ __作業フローに変更や追加があったらREADMEを更新すること__
 __予め以下のディレクトリを作っておくこと__
 (初期状態はcolorDirとdepthDirとposは中身がある状態.その後正田方式を撮るか平野方式を取るかで出力されるファイルが異なる．)  
 basepath/  
-┠  color
+┠  color  
 ┠  color2  
 ┠  depth  
 ┠  depth_mirror  
 ┠  json  
 ┠  pos  
-┠  regi
+┠  regi  
 ┠  regi2    
 ┠  regi_mirror  
 ┠  regi_mirror_fixed  
