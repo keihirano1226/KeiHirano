@@ -10,33 +10,46 @@ pythonスクリプトは，基本的には扱うものとかで場合分けし�
 
 __作業フローに変更や追加があったらREADMEを更新すること__
 
-## 実験ディレクトリについては以下のフォルダ構成を守ること(2019/10/24現在)
+## 実験ディレクトリについては以下のフォルダ構成を守ること(2019/11/15現在)
 __予め以下のディレクトリを作っておくこと__
-(初期状態はcolorDirとdepthDirとposは中身がある状態)  
+(初期状態はcolorDirとdepthDirとposは中身がある状態.その後正田方式を撮るか平野方式を取るかで出力されるファイルが異なる．)  
 basepath/  
-┠  color  
+┠  color
+┠  color2  
 ┠  depth  
 ┠  depth_mirror  
 ┠  json  
 ┠  pos  
-┠  regi  
+┠  regi
+┠  regi2    
 ┠  regi_mirror  
 ┠  regi_mirror_fixed  
 ┗  render
 
-## 簡易作業フロー 
- 
+## 環境によるスクリプトの変更について
+python関係のスクリプトで，ROSシステムが入っているせいで，
+opencvのライブラリ使用時に追加で記述している部分が有る．
+[showOpenPoseResult.py](/pythonscript/OpenPose/showOpenPoseResult.py)などは，ROS有りの環境で使用する際には，[showOpenPoseResult_Hirano.py](/pythonscript/OpenPose/showOpenPoseResult_Hirano.py)など若干名称を変更したものを使用すること．引数や出力などは変わらない．なので，こちらは本人の許可がない限り変更しないこと．
+
+## 環境によるスクリプト
+## 動作作成シェルスクリプト
+[shoda_exe.sh](./shoda_exe.sh)
+[Hirano_exe.sh](./Hirano_exe.sh)
+両者でレジストレーション画像の生成方法に違いが有る．
+[Hirano_exe.sh](./Hirano_exe.sh)内での処理や作業フローについては，[Hirano_exe使い方.md](./Hirano_exe使い方.md)を参照
+## 簡易作業フロー
+
 1. レジストレーション画像生成  
 [DepthMapper.cpp](C++script/DepthMapper.cpp)    
 __コード内入力__ colorDir depthDir
 __入力__ basepath  
-__出力__ regiDir 
+__出力__ regiDir
 <br>
 
 1. ミラー画像生成  
-[regimirror.cpp](regimirror) 
+[regimirror.cpp](regimirror)
 __入力__ basepath
-__出力__ regiMirrorDir 
+__出力__ regiMirrorDir
 <br>
 
 2. レジストレーション画像アフィン変換(option)  
@@ -108,11 +121,11 @@ edge.csvの一行目が原点を表す
 13. 軸、回転行列R、製品座標系の姿勢データを生成する  
 [CalProductaxis.py](pythonscript/GroundCal/CalProductaxis.py)  
 __入力__ basepath  
-__出力__ axisData.csv 3dboneRotated.csv 
+__出力__ axisData.csv 3dboneRotated.csv
 
 (その他)動画，若しくは画像にモザイク処理を行う
 もし，顔にモザイク，もしくは黒塗りにした状態にして顔が見えないようにした動画を作成したい場合
 高齢者行動ライブラリで公開されていない自分で発掘した，若しくは別途自分で顔を消した動画を作成する必要が有る場合，
 対象の元画像に対してopenposeを使用し，Face_jsonというファイルにjsonファイルを格納し，
-python3 /pythonscript/Face_Mosaic.py 
+python3 /pythonscript/Face_Mosaic.py
 を実行すると顔に黒塗りした画像が生成できる．まだ，開発段階であるため稀に止まることがあるため鋭意開発を進めたい．
