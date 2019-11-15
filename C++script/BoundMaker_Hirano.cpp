@@ -37,17 +37,19 @@ int main(int argc, const char *argv[])
 {
     char filepath[256];
     string expath = argv[1];
-
+    int Image_num =  atoi(argv[2]);
+    ostringstream oss;
+    oss << setfill( '0' ) << setw( 10 ) << Image_num;
     mouseParam mouseEvent;
     FILE *fp;
     sprintf(filepath, "%s/2DGround.csv", expath.c_str());
     fp=fopen( filepath, "w");
     //入力画像
     cv::Mat inputimg;
-    inputimg = cv::imread( expath + "/regi_mirror_fixed/0000000000.jpg",1);
+    inputimg = cv::imread( expath + "/regi_mirror/" + oss.str() + ".jpg",1);
     //表示するウィンドウ名
     cv::String showing_name = "input";
-    
+
     cv::namedWindow(showing_name, cv::WINDOW_NORMAL);
     //画像の表示
     cv::imshow("input", inputimg);

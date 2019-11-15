@@ -27,6 +27,9 @@ int main(int argc, const char *argv[])
 {
   char filepath[256];
   string expath = argv[1];
+  int Image_num =  atoi(argv[2]);
+  ostringstream oss;
+  oss << setfill( '0' ) << setw( 10 ) << Image_num;
   bool enable_rgb = false;
   bool enable_depth =false;
   //libfreenect2::setGlobalLogger(libfreenect2::createConsoleLogger(libfreenect2::Logger::Debug));
@@ -97,7 +100,7 @@ int main(int argc, const char *argv[])
   //2dの矩形を図示するために必要な左上と右下を表す画像座標値。
   //xmin,ymin
   //xmax,ymax
-  int data[10][2];
+  int data[5][2];
   //3dの推定した三次元座標を格納するための配列
   //float posedata[90][75];
 
@@ -133,7 +136,7 @@ int main(int argc, const char *argv[])
   cv::Mat depthMat ;
   //depth画像を読み込む
   // depthtest =  cv::imread( string(expath) + "/depth_mirror/0000000160.png",2);
-  depthtest =  cv::imread( expath + "/depth_mirror/0000000001.tiff",2);
+  depthtest =  cv::imread( expath + "/depth_mirror/" + oss.str() + ".png",2);
   depthtest.convertTo(depthMat, CV_32FC1);
   int row1 = 0;
   int col1 = 0;
@@ -167,15 +170,13 @@ int main(int argc, const char *argv[])
 
     }
   }
-  for (int k = 4; k < 10; k++){
-    registration->getPointXYZ(&undistorted,data[k][1],data[k][0],x,y,z);
-    puts("heiio");
-    if (isnan(x) != true){
-      //fprintf(fp,"%f,%f,%f,%d,%d\n",x,y,z,col1,row1);
-      fprintf(fp3,"%f,%f,%f\n",x,y,z);
-      puts("書きました");
-    }
-  }
 
+  registration->getPointXYZ(&undistorted,data[4][1],data[4][0],x,y,z);
+  puts("heiio");
+  if (isnan(x) != true){
+    //fprintf(fp,"%f,%f,%f,%d,%d\n",x,y,z,col1,row1);
+    fprintf(fp3,"%f,%f,%f\n",x,y,z);
+    puts("書きました");
+  }
   return 0;
 }

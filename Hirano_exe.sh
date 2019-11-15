@@ -56,7 +56,7 @@ python3 pythonscript/csvpose/csvposer.py $basepath $id $startframe $endframe
 
 echo "showCSVResult.py"
 echo "Please check the result of people${id} (press any key)"
-python3 pythonscript/OpenPose/showCSVResult.py ${basepath}regi_mirror_fixed ${basepath}output.csv
+python3 pythonscript/OpenPose/showCSVResult.py ${basepath}regi_mirror/
 
 << COMMENTOUT
 kinectの推定関節と，openposeの推定関節の位置のズレを二次元平面上で計算するスクリプト
@@ -65,7 +65,7 @@ python3 pythonscript/ImageTool/joint_diff.py ${basepath}
 COMMENTOUT
 echo "3DPoseMaker.cpp"
 /usr/bin/g++ -g C++script/3DPoseMaker.cpp -I/usr/local/include/opencv2 -I/usr/local/include/opencv -I/home/kei/freenect2/include -L/usr/local/lib -lopencv_core -lopencv_imgcodecs -lopencv_highgui -lopencv_imgproc -L/home/kei/freenect2/lib -lfreenect2 -o C++script/3DPoseMaker
-C++script/3DPoseMaker $basepath
+C++script/3DPoseMaker $basepath $((endframe - startframe+1))
 
 echo "Column.py"
 python3 pythonscript/Liner/Column.py ${basepath}
@@ -79,12 +79,12 @@ esac
 
 echo "BoundMaker_Hirano.cpp"
 echo "Choose 10 points"
-/usr/bin/g++ -g C++script/BoundMaker.cpp -I/usr/local/include/opencv2 -I/usr/local/include/opencv -L/usr/local/lib -lopencv_core -lopencv_imgcodecs -lopencv_highgui -lopencv_imgproc -o C++script/BoundMaker
-C++script/BoundMaker $basepath
+/usr/bin/g++ -g C++script/BoundMaker_Hirano.cpp -I/usr/local/include/opencv2 -I/usr/local/include/opencv -I/home/kei/freenect2/include -L/usr/local/lib -lopencv_core -lopencv_imgcodecs -lopencv_highgui -lopencv_imgproc -L/home/kei/freenect2/lib -lfreenect2 -o C++script/BoundMaker_Hirano
+C++script/BoundMaker_Hirano $basepath $Image_num
 
 echo "3DChair.cpp"
-/usr/bin/g++ -g C++script/3DChair.cpp  --I/usr/local/include/opencv2 -I/usr/local/include/opencv -I/home/kei/freenect2/include -L/usr/local/lib -lopencv_core -lopencv_imgcodecs -lopencv_highgui -lopencv_imgproc -L/home/kei/freenect2/lib -lfreenect2 -o C++script/3DChair
-C++script/3DChair $basepath
+/usr/bin/g++ -g C++script/3DChair.cpp  -I/usr/local/include/opencv2 -I/usr/local/include/opencv -I/home/kei/freenect2/include -L/usr/local/lib -lopencv_core -lopencv_imgcodecs -lopencv_highgui -lopencv_imgproc -L/home/kei/freenect2/lib -lfreenect2 -o C++script/3DChair
+C++script/3DChair $basepath $Image_num
 
 echo "CalProductaxis.py"
 python3 pythonscript/GroundCal/CalProductaxis.py ${basepath}

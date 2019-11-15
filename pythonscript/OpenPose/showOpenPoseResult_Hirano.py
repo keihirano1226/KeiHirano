@@ -87,7 +87,7 @@ colors = [(255.,     0.,    85.), (255.,     0.,     0.), (255.,    85.,     0.)
 
 jsonFileList = glob.glob(sys.argv[1]+"/json/*")
 jsonFileList.sort()
-imageFileList = glob.glob(sys.argv[1]+"/regi_mirror_fixed/*")
+imageFileList = glob.glob(sys.argv[1]+"/regi_mirror/*")
 imageFileList.sort()
 
 cv2.namedWindow("img", cv2.WINDOW_NORMAL)
