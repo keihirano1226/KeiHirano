@@ -31,7 +31,6 @@ python関係のスクリプトで，ROSシステムが入っているせいで�
 opencvのライブラリ使用時に追加で記述している部分が有る．
 [showOpenPoseResult.py](/pythonscript/OpenPose/showOpenPoseResult.py)などは，ROS有りの環境で使用する際には，[showOpenPoseResult_Hirano.py](/pythonscript/OpenPose/showOpenPoseResult_Hirano.py)など若干名称を変更したものを使用すること．引数や出力などは変わらない．なので，こちらは本人の許可がない限り変更しないこと．
 
-## 環境によるスクリプト
 ## 動作作成シェルスクリプト
 [shoda_exe.sh](./shoda_exe.sh)
 [Hirano_exe.sh](./Hirano_exe.sh)
