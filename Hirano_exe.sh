@@ -5,7 +5,7 @@ echo "FOR HIRANO"
 #chmod +x Hirano_exe.sh
 #で実行権限を与える
 #実行前の段階で，画像の初期位置を合わせたregiというファイルができているところからスタート
-basepath="/home/kei/document/experiments/2019.11.12/"
+basepath="/home/kei/document/experiments/Hamano/H5_3/"
 openposeExeFile="./build/examples/openpose/openpose.bin"
 dx=3 #アフィン変換させる場合の並進成分
 << COMMENTOUT
@@ -29,6 +29,8 @@ python3 pythonscript/ImageTool/click_plot.py $basepath $Image_num
 echo "depth_click.cpp"
 /usr/bin/g++ -g C++script/depth_click.cpp -I/usr/local/include/opencv2 -I/usr/local/include/opencv -L/usr/local/lib -lopencv_core -lopencv_imgcodecs -lopencv_highgui -lopencv_imgproc -o C++script/depth_click
 C++script/depth_click $basepath $Image_num
+echo "check_click.py"
+python3 pythonscript/ImageTool/check_click.py $basepath
 echo "fixcolor.py"
 python3 pythonscript/ImageTool/fixcolor.py $basepath
 echo "FixMapper.cpp"

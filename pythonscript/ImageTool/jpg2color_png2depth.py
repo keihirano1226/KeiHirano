@@ -9,14 +9,6 @@ import re
 from tqdm import tqdm
 basepass = sys.argv[1]
 
-os.mkdir(basepass + "depth_mirror")
-os.mkdir(basepass + "depth")
-os.mkdir(basepass + "color_mirror")
-os.mkdir(basepass + "color")
-os.mkdir(basepass + "regi")
-os.mkdir(basepass + "regi_mirror")
-os.mkdir(basepass + "png")
-os.mkdir(basepass + "jpg")
 colorpass = glob.glob(basepass + "jpg_*")
 print(colorpass)
 for jpg_pass in tqdm(colorpass):
@@ -89,6 +81,6 @@ for JpgName in tqdm(jpg_file_list):
     color  = cv2.imread(JpgName)
     cv2.imwrite(colorpass + str(j).zfill(10) + '.jpg',color)
     j += 1
-    
+
 #print("hello")
 df = pd.DataFrame(fileNumberList)
