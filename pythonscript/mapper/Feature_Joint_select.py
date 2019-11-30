@@ -4,8 +4,8 @@ import sys
 import glob
 from BodyColumn import Upper_joint as UJ
 basepass = sys.argv[1]
-pose1 = pd.read_csv(basepass + "AveragePose1.csv")
-pose2 = pd.read_csv(basepass + "AveragePose2.csv")
+pose1 = pd.read_csv(basepass + "AveragePose1.csv",index_col = 0)
+pose2 = pd.read_csv(basepass + "AveragePose2.csv",index_col = 0)
 Distance_Mat = np.zeros((1,int(len(pose1.columns)/3)))
 diff = pose1-pose2
 diff_Mat = diff.values

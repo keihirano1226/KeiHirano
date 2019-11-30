@@ -105,7 +105,7 @@ def plotPosture(posedata1,posedata2,Feature_joint_list):
         ax.set_xticks(np.arange(-1, 1, step=0.5))
         ax.set_yticks(np.arange(-1, 1, step=0.5))
         ax.set_zticks(np.arange(0, 1.5, step=0.5))
-        ax.view_init(elev = 0, azim = 0)
+        ax.view_init(elev = 0, azim = -90)
         #ax.view_init(elev = 0, azim = -90)
         plt.pause(0.0001)
         #plt.pause(10)
@@ -116,5 +116,5 @@ if __name__ == '__main__':
     posedata1 = pd.read_csv(posepass1)
     posepass2 = basepass + "AveragePose2.csv"
     posedata2 = pd.read_csv(posepass2)
-    Feature_joint_list = [1,2]
+    Feature_joint_list = [0,2,3,4,5,6]
     plotPosture(posedata1,posedata2,Feature_joint_list)
