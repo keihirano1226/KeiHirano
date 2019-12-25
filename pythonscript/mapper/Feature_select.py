@@ -13,8 +13,8 @@ from BodyColumn import Upper_joint as UJ
 from scipy import stats
 basepath = "/home/kei/document/experiments/Master/"
 posepass = basepath + "Unified/"
-class1 = ["no33_1","no32_2"]
-class2 = ["no33_2","no31_1","no9_2","no9_1","no32_1"]
+class1 = ["no33_5","no33_3","no29_1"]
+class2 = ["no33_1","no32_2","no32_3","no9_2","no9_1","no30_1","no33_2","no31_1","no33_4","no32_1","no31_2","no31_3"]
 OpenPoseJoint,bodycolumns,Dis_Mat_list = UJ.Member(7)
 AveragePose1 = pd.read_csv(posepass + "AveragePose1.csv", index_col = 0)
 AveragePose2 = pd.read_csv(posepass + "AveragePose2.csv", index_col = 0)
@@ -25,7 +25,7 @@ j = 0
 for member in class1:
     dfpose = pd.read_csv(posepass + member + ".csv")
     dfpose = dfpose[bodycolumns]
-    diff = AveragePose2 - dfpose
+    diff = AveragePose1 - dfpose
     diff_Mat = diff.values
     for i in range(int(len(AveragePose1.columns)/3)):
         joint = diff_Mat[:,3*i:3*i+2]
@@ -36,7 +36,7 @@ j = 0
 for member in class2:
     dfpose = pd.read_csv(posepass + member + ".csv")
     dfpose = dfpose[bodycolumns]
-    diff = AveragePose2 - dfpose
+    diff = AveragePose1 - dfpose
     diff_Mat = diff.values
     for i in range(int(len(AveragePose1.columns)/3)):
         joint = diff_Mat[:,3*i:3*i+2]
@@ -49,6 +49,7 @@ df1.to_csv(basepath + "UJ_result/class1_diff.csv")
 df2.to_csv(basepath + "UJ_result/class2_diff.csv")
 p_Mat = np.zeros((1,int(len(AveragePose1.columns)/3)))
 j = 0
+# 参考サイト　https://qiita.com/suaaa7/items/745ac1ca0a8d6753cf60
 for joint in OpenPoseJoint:
     A = df1[joint].values
     B = df2[joint].values
@@ -74,4 +75,4 @@ for joint in OpenPoseJoint:
         print(a.pvalue)
     j+=1
 df = pd.DataFrame(p_Mat, columns = OpenPoseJoint)
-df.to_csv(basepath + "UJ_result/Feature_Joint.csv")
+df.to_csv(basepath + "UJ_result/Feature_Joint2.csv")

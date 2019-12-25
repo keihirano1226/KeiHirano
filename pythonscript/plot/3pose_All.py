@@ -10,7 +10,7 @@ import sys
 #https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/master/doc/output.md
 
 
-def plotPosture(posedata1,posedata2,Feature_joint_list):
+def plotPosture(posedata0,posedata1,posedata2,posedata3,Feature_joint_list):
     #jointPairs = [(0,1), (0,6), (6,5), (1,7), (7,8), (2,3), (2,4), (0,3),(1,4)]
     jointPairs = [(0,1),(0,10),(10,9),(1,11),(11,12),(0,3),(3,5),(5,7),(1,4),(4,6),(6,8),(2,3),(2,4)]
     #0:右肩,1:左肩，2:骨盤中央,3:右腰,4:左腰,5:右膝,6:左膝,7:右足首,8:左足首,9:右手首,10:右肘,11:左肘,12:左手首
@@ -23,8 +23,10 @@ def plotPosture(posedata1,posedata2,Feature_joint_list):
     #for frame in range(len(posedata)//15):
     for frame in range(int(len(posedata1)/5)):
         #全部で500フレームあるので、間引きして早送りで再生できるようにするスクリプト
+        Frame_Pose0 = posedata0[5*frame:5*frame+1]
         Frame_Pose1 = posedata1[5*frame:5*frame+1]
         Frame_Pose2 = posedata2[5*frame:5*frame+1]
+        Frame_Pose3 = posedata3[5*frame:5*frame+1]
         X = []
         Y = []
         Z = []
@@ -53,7 +55,27 @@ def plotPosture(posedata1,posedata2,Feature_joint_list):
             lineX2.append(Frame_Pose2.iat[0,3*j+1])
             lineY2.append(Frame_Pose2.iat[0,3*j+2])
             lineZ2.append(Frame_Pose2.iat[0,3*j+3])
-            ax.plot(lineX2, lineY2, lineZ2, marker='None', linestyle='-',color = "blue")
+            ax.plot(lineX2, lineY2, lineZ2, marker='None', linestyle='-',color = "cyan")
+            lineX3 = []
+            lineY3 = []
+            lineZ3 = []
+            lineX3.append(Frame_Pose3.iat[0,3*i+1])
+            lineY3.append(Frame_Pose3.iat[0,3*i+2])
+            lineZ3.append(Frame_Pose3.iat[0,3*i+3])
+            lineX3.append(Frame_Pose3.iat[0,3*j+1])
+            lineY3.append(Frame_Pose3.iat[0,3*j+2])
+            lineZ3.append(Frame_Pose3.iat[0,3*j+3])
+            ax.plot(lineX3, lineY3, lineZ3, marker='None', linestyle='-',color = "darkviolet")
+            lineX0 = []
+            lineY0 = []
+            lineZ0 = []
+            lineX0.append(Frame_Pose0.iat[0,3*i+1])
+            lineY0.append(Frame_Pose0.iat[0,3*i+2])
+            lineZ0.append(Frame_Pose0.iat[0,3*i+3])
+            lineX0.append(Frame_Pose0.iat[0,3*j+1])
+            lineY0.append(Frame_Pose0.iat[0,3*j+2])
+            lineZ0.append(Frame_Pose0.iat[0,3*j+3])
+            ax.plot(lineX0, lineY0, lineZ0, marker='None', linestyle='-',color = "blue")
         #関節同士を実線で結ぶ部分
         #特徴関節の経路を点線で描画するもの
         for Feature_joint in Feature_joint_list:
@@ -105,15 +127,19 @@ def plotPosture(posedata1,posedata2,Feature_joint_list):
         ax.set_yticks(np.arange(-1, 1, step=0.5))
         ax.set_zticks(np.arange(0, 1.5, step=0.5))
         #ax.view_init(elev = 6, azim = 0)
-        ax.view_init(elev = 0, azim = -90)
+        ax.view_init(elev = 0, azim = 0)
         plt.pause(0.0001)
         #plt.pause(10)
         plt.cla()
 if __name__ == '__main__':
     basepass = sys.argv[1]
-    posepass1 = basepass + "AveragePose1.1.csv"
+    posepass0 = basepass + "AveragePose2.1.0.csv"
+    posedata0 = pd.read_csv(posepass0)
+    posepass1 = basepass + "AveragePose2.1.1.csv"
     posedata1 = pd.read_csv(posepass1)
-    posepass2 = basepass + "AveragePose2.1.csv"
+    posepass2 = basepass + "AveragePose2.1.2.csv"
     posedata2 = pd.read_csv(posepass2)
+    posepass3 = basepass + "AveragePose2.1.3.csv"
+    posedata3 = pd.read_csv(posepass3)
     Feature_joint_list = []
-    plotPosture(posedata1,posedata2,Feature_joint_list)
+    plotPosture(posedata0,posedata1,posedata2,posedata3,Feature_joint_list)

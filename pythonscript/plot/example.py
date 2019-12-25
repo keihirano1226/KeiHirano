@@ -116,5 +116,5 @@ if __name__ == '__main__':
     posedata1 = pd.read_csv(posepass1)
     posepass2 = basepass + "AveragePose2.csv"
     posedata2 = pd.read_csv(posepass2)
-    Feature_joint_list = [0,2,3,4,5,6]
+    Feature_joint_list = [0,1,2,3,7]
     plotPosture(posedata1,posedata2,Feature_joint_list)

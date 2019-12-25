@@ -5,9 +5,10 @@ echo "FOR HIRANO"
 #chmod +x Hirano_exe.sh
 #で実行権限を与える
 #実行前の段階で，画像の初期位置を合わせたregiというファイルができているところからスタート
-basepath="/home/kei/document/experiments/Hamano/H5_3/"
+basepath="/home/kei/document/experiments/Hamano/H2_1/"
 openposeExeFile="./build/examples/openpose/openpose.bin"
 dx=3 #アフィン変換させる場合の並進成分
+mkdir ${basepath}/color2/
 << COMMENTOUT
 解析に際して，記録しているdepth画像の枚数と，color画像の枚数が大幅にずれている場合，
 画像解析(画像内である物体が動き出した瞬間や被験者が動き出した瞬間を確認して合わせる)

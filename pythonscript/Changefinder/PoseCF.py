@@ -11,12 +11,14 @@ np.random.normal(1.3, 0.05, 300)])
 """
 csvpass = sys.argv[1] + "3DFiltered.csv"
 df = pd.read_csv(csvpass)
-
-data = df.LSholderX.diff()
+"""
+data = df.MidHipZ.diff()
+data = data.diff()
+data = data.fillna(method='bfill')
+"""
+data = df.RSholderZ
 data2 = data.drop(data.index[[0]])
-"""
-data = df.LSholderX.values
-"""
+
 print(data)
 cf = changefinder.ChangeFinder(r=0.2, order=1, smooth=5)
 

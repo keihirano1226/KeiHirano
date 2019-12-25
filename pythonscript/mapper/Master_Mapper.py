@@ -66,12 +66,14 @@ result = linkage(darray, method = "average")
 
 plt.rcParams["font.family"] = "Times New Roman"
 plt.rcParams['font.size'] = 10 #フォントサイズを設定
-
+"""
 dendrogram(result,labels=namelist)
 plt.ylabel("distance")
-plt.savefig("/home/kei/document/experiments/Master/UJ_result/elder.png")
+plt.show()
+#plt.savefig("/home/kei/document/experiments/Master/UJ_result/elder.png")
 
-NUM_CLUSTERS_RANGE = range(2,7)
+"""
+NUM_CLUSTERS_RANGE = range(2,13)
 silhouette_coefficient = []
 davies_bouldin_index = []
 for num in NUM_CLUSTERS_RANGE:

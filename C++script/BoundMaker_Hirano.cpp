@@ -63,7 +63,7 @@ int main(int argc, const char *argv[])
         if (mouseEvent.event == cv::EVENT_LBUTTONDOWN) {
             //クリック後のマウスの座標を出力
             std::cout << mouseEvent.x << " , " << mouseEvent.y << std::endl;
-            if (beforeX != mouseEvent.x and beforeY != mouseEvent.y) {
+            if (beforeX != mouseEvent.x or beforeY != mouseEvent.y) {
               fprintf(fp,"%d,%d\n",mouseEvent.x,mouseEvent.y);
               beforeX = mouseEvent.x;
               beforeY = mouseEvent.y;
