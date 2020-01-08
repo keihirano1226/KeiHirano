@@ -5,7 +5,7 @@ echo "FOR HIRANO"
 #chmod +x Hirano_exe.sh
 #で実行権限を与える
 #実行前の段階で，画像の初期位置を合わせたregiというファイルができているところからスタート
-basepath="/home/kei/document/experiments/Hamano/H2_1/"
+basepath="/home/kei/document/experiments/Hamano/H1_4/"
 openposeExeFile="./build/examples/openpose/openpose.bin"
 dx=3 #アフィン変換させる場合の並進成分
 mkdir ${basepath}/color2/
@@ -89,8 +89,8 @@ echo "3DChair.cpp"
 /usr/bin/g++ -g C++script/3DChair.cpp  -I/usr/local/include/opencv2 -I/usr/local/include/opencv -I/home/kei/freenect2/include -L/usr/local/lib -lopencv_core -lopencv_imgcodecs -lopencv_highgui -lopencv_imgproc -L/home/kei/freenect2/lib -lfreenect2 -o C++script/3DChair
 C++script/3DChair $basepath $Image_num
 
-echo "CalProductaxis.py"
-python3 pythonscript/GroundCal/CalProductaxis.py ${basepath}
+echo "FixProductaxis.py"
+python3 pythonscript/GroundCal/FixProductaxis.py ${basepath}
 
 echo "Do you want to open Blender?: [Y/n]"
 read ANSWER3

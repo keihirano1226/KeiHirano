@@ -30,9 +30,11 @@ for index in tqdm(range(len(list_data))):
 darray = distance.squareform(sum(bc.Dis_Mat_list))
 result = linkage(darray, method = "average")
 # print(result)
-dendrogram(result)
+df2 = pd.read_csv(sys.argv[1] + "1,3_result/Distance.csv", index_col=0)
+dendrogram(result,labels=df2.columns)
 plt.rcParams['font.size'] = 10 #フォントサイズを設定
+plt.rcParams["font.family"] = "Times New Roman"
 plt.title("Dendrogram")
 # plt.show()
-plt.savefig("./dendrogram_by_angle.png")
+plt.show("./dendrogram_by_angle.png")
 print("関節角を使った階層型クラスタリングが成功しました")
