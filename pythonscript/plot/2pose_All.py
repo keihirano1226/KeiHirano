@@ -111,9 +111,9 @@ def plotPosture(posedata1,posedata2,Feature_joint_list):
         plt.cla()
 if __name__ == '__main__':
     basepass = sys.argv[1]
-    posepass1 = basepass + "AveragePose1.1.csv"
+    posepass1 = basepass + "no31_1.csv"
     posedata1 = pd.read_csv(posepass1)
-    posepass2 = basepass + "AveragePose2.1.csv"
+    posepass2 = basepass + "no9_2.csv"
     posedata2 = pd.read_csv(posepass2)
     Feature_joint_list = []
     plotPosture(posedata1,posedata2,Feature_joint_list)

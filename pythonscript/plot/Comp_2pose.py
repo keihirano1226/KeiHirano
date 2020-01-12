@@ -21,10 +21,12 @@ def plotPosture(posedata1,posedata2):
     ax = Axes3D(fig)
     #関節の座標値の入り方に注意
     #for frame in range(len(posedata)//15):
-    for frame in range(int(len(posedata1)/5)):
+    for frame in range(int(len(posedata1))):
         #全部で500フレームあるので、間引きして早送りで再生できるようにするスクリプト
         Frame_Pose1 = posedata1[5*frame:5*frame+1]
         Frame_Pose2 = posedata2[5*frame:5*frame+1]
+        Frame_Pose1 = posedata1[1*frame:1*frame+1]
+        Frame_Pose2 = posedata2[1*frame:1*frame+1]
         X = []
         Y = []
         Z = []
@@ -61,6 +63,7 @@ def plotPosture(posedata1,posedata2):
         [0.5,0.05,0.25],[0.5,0.05,0.25]]
         i = 0
         color1 = "ivory"
+        """
         for origin in origins:
             length = lengths[i]
             #origin = [0,0,0]
@@ -87,22 +90,28 @@ def plotPosture(posedata1,posedata2):
             ax.plot_surface(X2,Y,Z,alpha=alpha1,color = color1)
             i+=1
             #ここまでで、ひとつの直方体がかける。
+        """
         ax.set_xlim(-1,1)
         ax.set_ylim(-1,1)
         ax.set_zlim(-0.5,1.5)
         ax.set_xticks(np.arange(-1, 1, step=0.5))
         ax.set_yticks(np.arange(-1, 1, step=0.5))
         ax.set_zticks(np.arange(0, 1.5, step=0.5))
-        ax.view_init(elev = 6, azim = 0)
+        ax.view_init(elev = -90, azim = -90)
+        plt.savefig("/home/kei/document/pose/" + str(frame).zfill(10) + ".png")
+        plt.cla()
         #ax.view_init(elev = 0, azim = -90)
+        """
         plt.pause(0.0001)
         #plt.pause(10)
         plt.cla()
+        """
+
 if __name__ == '__main__':
     basepass = sys.argv[1]
-    posepass1 = basepass + "H3_1.csv"
+    posepass1 = basepass + "3DFiltered2.csv"
     posedata1 = pd.read_csv(posepass1)
-    posepass2 = basepass + "MA330_2.csv"
+    posepass2 = basepass + "3DFiltered1.csv"
     posedata2 = pd.read_csv(posepass2)
     Feature_joint_list = [1,2]
     plotPosture(posedata1,posedata2)
