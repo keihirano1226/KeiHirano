@@ -11,8 +11,8 @@ import glob
 from tqdm import tqdm
 import re
 #from BodyColumn import Holding_joint as HJ
-from BodyColumn import Upper_joint as UJ
-motionlist = glob.glob("/home/kei/document/experiments/Master/*.csv")
+from BodyColumn import All_joint as AJ
+motionlist = glob.glob("/home/kei/document/experiments/Master2/*.csv")
 #namelist = [2,3,6,7,9,11,14]
 namelist = []
 motion_num = 0
@@ -22,12 +22,12 @@ for motion in tqdm(motionlist):
     motionpass_list = motion.split(".")
     subject_list = motion.split("/")
     name_component = re.split("[./]", motion)
-    unidf.to_csv("/home/kei/document/experiments/Master/Unified/" + subject_list[-1] ,index = 0)
+    unidf.to_csv("/home/kei/document/experiments/Master2/Unified/" + subject_list[-1] ,index = 0)
     motion_num+=1
     namelist.append(name_component[-2])
 #選択した関節の数によって行列の数が変わるので，それに合わせて変更する
-OpenPoseJoint,bodycolumns,Dis_Mat_list = UJ.Member(motion_num)
-Unified_motion_list = glob.glob("/home/kei/document/experiments/Master/Unified/*.csv")
+OpenPoseJoint,bodycolumns,Dis_Mat_list = AJ.Member(motion_num)
+Unified_motion_list = glob.glob("/home/kei/document/experiments/Master2/Unified/*.csv")
 print(Unified_motion_list)
 col = 0
 for Unified_motion in tqdm(Unified_motion_list):
@@ -54,10 +54,10 @@ Dis_all = np.zeros((motion_num,motion_num))
 for dis_Mat in Dis_Mat_list:
     Dis_all += dis_Mat
     df_dis = pd.DataFrame(dis_Mat, columns = namelist, index = namelist)
-    df_dis.to_csv("/home/kei/document/experiments/Master/UJ_result/" + OpenPoseJoint[joint_num] + "_dis.csv")
+    df_dis.to_csv("/home/kei/document/experiments/Master2/AJ_result/" + OpenPoseJoint[joint_num] + "_dis.csv")
     joint_num+=1
 Dis_all = pd.DataFrame(Dis_all, columns = namelist, index = namelist)
-Dis_all.to_csv("/home/kei/document/experiments/Master/UJ_result/Distance.csv")
+Dis_all.to_csv("/home/kei/document/experiments/Master2/AJ_result/Distance.csv")
 Distance = Dis_all.values
 print(Distance)
 darray = distance.squareform(Distance)
@@ -65,15 +65,14 @@ result = linkage(darray, method = "average")
 
 
 plt.rcParams["font.family"] = "Times New Roman"
-plt.rcParams['font.size'] = 10 #フォントサイズを設定
-"""
+plt.rcParams['font.size'] = 14 #フォントサイズを設定
+
 dendrogram(result,labels=namelist)
 plt.ylabel("distance")
-plt.show()
+#plt.show()
 #plt.savefig("/home/kei/document/experiments/Master/UJ_result/elder.png")
-
-"""
-NUM_CLUSTERS_RANGE = range(2,13)
+plt.cla()
+NUM_CLUSTERS_RANGE = range(2,24)
 silhouette_coefficient = []
 davies_bouldin_index = []
 for num in NUM_CLUSTERS_RANGE:
@@ -92,4 +91,11 @@ plt.legend(lines,
             bbox_to_anchor=(0, 0.1),
             loc='upper left')
 
-plt.savefig("/home/kei/document/experiments/Master/UJ_result/シルエット係数.png")
+#plt.savefig("/home/kei/document/experiments/Master2/AJ_result/シルエット係数.png")
+#print(silhouette_coefficient)
+GT_labels1 = fcluster(result, t=2, criterion='maxclust')
+GT_labels2 = fcluster(result, t=11, criterion='maxclust')
+df = pd.DataFrame(GT_labels1,index = namelist,columns = ["class"])
+df.to_csv("/home/kei/document/experiments/Master2/AJ_result/2class_labels.csv")
+df2 = pd.DataFrame(GT_labels2,index = namelist,columns = ["class"])
+df2.to_csv("/home/kei/document/experiments/Master2/AJ_result/11class_labels.csv")

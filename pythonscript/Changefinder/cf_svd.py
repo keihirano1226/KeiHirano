@@ -67,17 +67,19 @@ for w1 in range(1,6):
   A = sst(Joint,w1*3)
   x =[]
   for i in range(len(A)):
-    x.append(i+w1*3)
+    x.append((i+w1*3)/30)
   print(x)
-  plt.rcParams["font.size"] = 14
+  plt.rcParams['figure.figsize'] = [6.4, 4.8]
+  plt.rcParams["font.size"] = 20
   plt.rcParams['font.family'] = 'Times New Roman'
   plt.rcParams["xtick.direction"] = "in"               #x軸の目盛線が内向き('in')か外向き('out')か双方向か('inout')
   plt.rcParams["ytick.direction"] = "in"               #y軸の目盛線が内向き('in')か外向き('out')か双方向か('inout')
   plt.xlabel('time')
   plt.ylabel("score")
+  plt.xlim(0,max(x))
   plots = plt.plot(x, A)
   plt.ticklabel_format(style="sci",  axis="y",scilimits=(0,0))
-  plt.savefig(basepass + "start_change" + str(w1*3) + ".png")
+  plt.savefig(basepass + "start_change" + str(w1*3) + ".png", bbox_inches='tight', pad_inches=0.1)
   plt.cla()
   df = pd.DataFrame(A,index = x,columns = [str(w1*3)])
   if w1 ==1:
@@ -88,17 +90,20 @@ for w1 in range(1,6):
   A = sst(Joint1,w1*3)
   x =[]
   for i in range(len(A)):
-    x.append(i+w1*3)
+    x.append((i+w1*3)/30)
   print(x)
-  plt.rcParams["font.size"] = 14
+  plt.rcParams['figure.figsize'] = [6.4, 4.8]
+  plt.rcParams["font.size"] = 20
   plt.rcParams['font.family'] = 'Times New Roman'
   plt.rcParams["xtick.direction"] = "in"               #x軸の目盛線が内向き('in')か外向き('out')か双方向か('inout')
   plt.rcParams["ytick.direction"] = "in"               #y軸の目盛線が内向き('in')か外向き('out')か双方向か('inout')
   plt.xlabel('time')
   plt.ylabel("score")
+  plt.xlim(0,max(x))
   plots = plt.plot(x, A)
+
   plt.ticklabel_format(style="sci",  axis="y",scilimits=(0,0))
-  plt.savefig(basepass + "end_change" + str(w1*3) + ".png")
+  plt.savefig(basepass + "end_change" + str(w1*3) + ".png", bbox_inches='tight', pad_inches=0.1)
   plt.cla()
   df = pd.DataFrame(A,index = x,columns = [str(w1*3)])
   if w1 ==1:
@@ -109,17 +114,19 @@ for w1 in range(1,6):
   A = sst(Joint_diff,w1*3)
   x =[]
   for i in range(len(A)):
-    x.append(i+w1*3)
+    x.append((i+w1*3)/30)
   print(x)
-  plt.rcParams["font.size"] = 14
+  plt.rcParams['figure.figsize'] = [6.4, 4.8]
+  plt.rcParams["font.size"] = 20
   plt.rcParams['font.family'] = 'Times New Roman'
   plt.rcParams["xtick.direction"] = "in"               #x軸の目盛線が内向き('in')か外向き('out')か双方向か('inout')
   plt.rcParams["ytick.direction"] = "in"               #y軸の目盛線が内向き('in')か外向き('out')か双方向か('inout')
   plt.xlabel('time')
   plt.ylabel("score")
+  plt.xlim(0,max(x))
   plots = plt.plot(x, A)
   plt.ticklabel_format(style="sci",  axis="y",scilimits=(0,0))
-  plt.savefig(basepass + "start_diff_change" + str(w1*3) + ".png")
+  plt.savefig(basepass + "start_diff_change" + str(w1*3) + ".png", bbox_inches='tight', pad_inches=0.1)
   plt.cla()
   df = pd.DataFrame(A,index = x,columns = [str(w1*3)])
   if w1 ==1:
@@ -130,17 +137,19 @@ for w1 in range(1,6):
   A = sst(Joint1_diff,w1*3)
   x =[]
   for i in range(len(A)):
-    x.append(i+w1*3)
+    x.append((i+w1*3)/30)
   print(x)
-  plt.rcParams["font.size"] = 14
+  plt.rcParams['figure.figsize'] = [6.4, 4.8]
+  plt.rcParams["font.size"] = 20
   plt.rcParams['font.family'] = 'Times New Roman'
   plt.rcParams["xtick.direction"] = "in"               #x軸の目盛線が内向き('in')か外向き('out')か双方向か('inout')
   plt.rcParams["ytick.direction"] = "in"               #y軸の目盛線が内向き('in')か外向き('out')か双方向か('inout')
   plt.xlabel('time')
   plt.ylabel("score")
+  plt.xlim(0,max(x))
   plots = plt.plot(x, A)
   plt.ticklabel_format(style="sci",  axis="y",scilimits=(0,0))
-  plt.savefig(basepass + "end__diff_change" + str(w1*3) + ".png")
+  plt.savefig(basepass + "end__diff_change" + str(w1*3) + ".png", bbox_inches='tight', pad_inches=0.1)
   plt.cla()
   df = pd.DataFrame(A,index = x,columns = [str(w1*3)])
   if w1 ==1:

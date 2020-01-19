@@ -1,6 +1,6 @@
 import sys
 import glob
-from PIL import Image
+from PIL import Image, ImageOps
 import os
 """
 img = Image.open('0000000001.jpg')
@@ -18,5 +18,6 @@ for image in image_file_list:
     img = Image.open(image)
     width,height = 1920,1080
     img = img.resize((width,height))
-    img.save(sys.argv[1] + 'color/'+ str(i).zfill(10) + '.jpg')
+    im_mirror = ImageOps.mirror(img)
+    im_mirror.save(sys.argv[1] + 'color/'+ str(i).zfill(10) + '.jpg')
     i += 1

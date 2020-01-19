@@ -4,7 +4,7 @@ echo "FOR HIRANO"
 #実行前に
 #chmod +x regitest_exe.sh
 #画像のスタート位置を決めるためのシェルスクリプト
-basepath="/home/kei/document/experiments/Hamano/H3_4/"
+basepath="/home/kei/document/experiments/Hamano/shoda/"
 folder1=regi
 if [ ! -d ${basepath%/}${folder1} ]; then
   mkdir ${basepath}/regi

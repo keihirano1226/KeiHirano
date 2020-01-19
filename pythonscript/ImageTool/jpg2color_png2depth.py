@@ -39,7 +39,7 @@ fileNumberList = list()
 fileNumbertxt = list()
 for ImageName in tqdm(image_file_list):
 
-    Num = re.split('[._]',ImageName)
+    Num = re.split('[._/]',ImageName)
     Image = cv2.imread(ImageName,2)
     if int(int(Num[-2]) > beforeNum):
         #filename = str(second) + "." + str(round(float(Num[-2])/30,3))

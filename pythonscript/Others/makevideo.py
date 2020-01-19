@@ -4,7 +4,7 @@ import cv2
 import glob
 from PIL import Image, ImageOps
 fourcc = cv2.VideoWriter_fourcc(*'DIVX')
-video = cv2.VideoWriter('output2.avi', fourcc, 30, (1920, 1080))
+video = cv2.VideoWriter(sys.argv[1] + 'front.avi', fourcc, 30, (1920, 1080))
 
 #fourcc = cv2.VideoWriter_fourcc('m','p','4','v')
 #video = cv2.VideoWriter('registered.mp4', fourcc, 20.0, (512, 424))

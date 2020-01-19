@@ -21,12 +21,12 @@ def plotPosture(posedata1,posedata2):
     ax = Axes3D(fig)
     #関節の座標値の入り方に注意
     #for frame in range(len(posedata)//15):
-    for frame in range(int(len(posedata1))):
+    for frame in range(int(len(posedata1)/5)):
         #全部で500フレームあるので、間引きして早送りで再生できるようにするスクリプト
         Frame_Pose1 = posedata1[5*frame:5*frame+1]
         Frame_Pose2 = posedata2[5*frame:5*frame+1]
-        Frame_Pose1 = posedata1[1*frame:1*frame+1]
-        Frame_Pose2 = posedata2[1*frame:1*frame+1]
+        Frame_Pose1 = posedata1[5*frame:5*frame+1]
+        Frame_Pose2 = posedata2[5*frame:5*frame+1]
         X = []
         Y = []
         Z = []
@@ -97,8 +97,8 @@ def plotPosture(posedata1,posedata2):
         ax.set_xticks(np.arange(-1, 1, step=0.5))
         ax.set_yticks(np.arange(-1, 1, step=0.5))
         ax.set_zticks(np.arange(0, 1.5, step=0.5))
-        ax.view_init(elev = -90, azim = -90)
-        plt.savefig("/home/kei/document/pose/" + str(frame).zfill(10) + ".png")
+        ax.view_init(elev = 0, azim = 0)
+        plt.savefig("/home/kei/document/experiments/Master2/AJ_result/product_coor/" + str(frame).zfill(10) + ".png")
         plt.cla()
         #ax.view_init(elev = 0, azim = -90)
         """
@@ -109,9 +109,9 @@ def plotPosture(posedata1,posedata2):
 
 if __name__ == '__main__':
     basepass = sys.argv[1]
-    posepass1 = basepass + "3DFiltered2.csv"
+    posepass1 = basepass + "H3_1.csv"
     posedata1 = pd.read_csv(posepass1)
-    posepass2 = basepass + "3DFiltered1.csv"
+    posepass2 = basepass + "MA330_2.csv"
     posedata2 = pd.read_csv(posepass2)
     Feature_joint_list = [1,2]
     plotPosture(posedata1,posedata2)

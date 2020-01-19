@@ -5,7 +5,7 @@ echo "FOR HIRANO"
 #chmod +x Hirano_exe.sh
 #で実行権限を与える
 #実行前の段階で，画像の初期位置を合わせたregiというファイルができているところからスタート
-basepath="/home/kei/document/experiments/Hamano/H3_4/"
+basepath="/home/kei/document/experiments/Hamano/shoda/"
 openposeExeFile="./build/examples/openpose/openpose.bin"
 dx=3 #アフィン変換させる場合の並進成分
 mkdir ${basepath}/color2/

@@ -82,14 +82,14 @@ def plotPosture(posedata1):
         ax.set_xticks(np.arange(-1, 1, step=0.5))
         ax.set_yticks(np.arange(-1, 1, step=0.5))
         ax.set_zticks(np.arange(0, 1.5, step=0.5))
-        ax.view_init(elev = 30, azim = 0)
+        #ax.view_init(elev = 30, azim = 0)
         #ax.view_init(elev = 0, azim = -90)
         plt.pause(0.0001)
         #plt.pause(10)
         plt.cla()
 if __name__ == '__main__':
     basepass = sys.argv[1]
-    posepass1 = basepass + "H4_2.csv"
+    posepass1 = basepass + "3DFiltered.csv"
     posedata1 = pd.read_csv(posepass1)
     Feature_joint_list = [1,2]
     plotPosture(posedata1)

@@ -12,7 +12,7 @@ import sys
 
 def plotPosture(posedata1,posedata2,Feature_joint_list):
     #jointPairs = [(0,1), (0,6), (6,5), (1,7), (7,8), (2,3), (2,4), (0,3),(1,4)]
-    jointPairs = [(0,1),(0,10),(10,9),(1,11),(11,12),(0,3),(3,5),(5,7),(1,4),(4,6),(6,8),(2,3),(2,4)]
+    jointPairs = [(0,1),(1,2),(2,3),(3,4),(1,5),(5,6),(6,7),(1,8),(8,9),(9,10),(10,11),(8,12),(12,13),(13,14)]
     #0:右肩,1:左肩，2:骨盤中央,3:右腰,4:左腰,5:右膝,6:左膝,7:右足首,8:左足首,9:右手首,10:右肘,11:左肘,12:左手首
     #(右肩，左肩)(右肩，右肘),(右肘，右手首),(左肩,左肘),(左肘，左手首)，(右肩，骨盤右)，(骨盤右，右膝),(右膝，右足首),\
     #(左肩，骨盤左),(骨盤左，左膝),(左膝，左足首),(右骨盤，骨盤中央),(左骨盤，骨盤中央),
@@ -105,15 +105,18 @@ def plotPosture(posedata1,posedata2,Feature_joint_list):
         ax.set_yticks(np.arange(-1, 1, step=0.5))
         ax.set_zticks(np.arange(0, 1.5, step=0.5))
         #ax.view_init(elev = 6, azim = 0)
-        ax.view_init(elev = 0, azim = -90)
+        ax.view_init(elev = 0, azim = 0)
+        plt.savefig("/home/kei/document/experiments/method/fig/" + str(frame).zfill(10) + ".png")
+        """
         plt.pause(0.0001)
         #plt.pause(10)
+        """
         plt.cla()
 if __name__ == '__main__':
     basepass = sys.argv[1]
-    posepass1 = basepass + "no31_1.csv"
+    posepass1 = basepass + "3dboneRotated.csv"
     posedata1 = pd.read_csv(posepass1)
-    posepass2 = basepass + "no9_2.csv"
+    posepass2 = basepass + "3DFiltered.csv"
     posedata2 = pd.read_csv(posepass2)
     Feature_joint_list = []
     plotPosture(posedata1,posedata2,Feature_joint_list)
