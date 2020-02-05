@@ -80,7 +80,7 @@ for subject in subjectlist:
             pose = df1[bodycolumns]
             i2 = 2
             row = 0
-            indexlist.append(str(i1) + "_" + str(j1) + "_" + str(num))
+            indexlist.append(str(i1-1) + "_" + str(j1) + "_" + str(num))
             for com_subject in subjectlist:
                 j2 = 1
                 for com_motion in com_subject:
@@ -131,21 +131,16 @@ print(Distance.shape)
 darray = distance.squareform(Distance)
 print(darray)
 print(darray.shape)
+plt.rcParams["font.family"] = "Times New Roman"
+plt.rcParams['font.size'] = 15 #フォントサイズを設定
+plt.ylabel("distance")
+plt.rcParams["ytick.direction"] = "in"
 result = linkage(darray, method = "average")
 print(result)
 dendrogram(result,labels=df.columns)
-# plt.rcParams["font.family"] = "Times New Roman"
-plt.rcParams['font.size'] = 10 #フォントサイズを設定
-#plt.title("Dendrogram")
-plt.ylabel("distance")
-# plt.show()
-<<<<<<< HEAD
-plt.savefig("./test2.png")
-"""
-=======
-plt.savefig("./dendrogram.png")
+plt.savefig(sys.argv[1] + "/dendrogram.png")
 
->>>>>>> 32943b5f60043b1049a82d6b34097c039d3db1e0
+
 NUM_CLUSTERS_RANGE = range(2,motion_num)
 silhouette_coefficient = []
 davies_bouldin_index = []
@@ -155,20 +150,14 @@ for num in NUM_CLUSTERS_RANGE:
     davies_bouldin_index.append(davies_bouldin_score(Distance, labels))
 
 fig = plt.figure()
-host = fig.add_subplot(111)
-par2 = host.twinx()
-
-p0, = host.plot(NUM_CLUSTERS_RANGE, silhouette_coefficient, 'bo-', label='Silhouette Coefficient')
+p0 = plt.plot(NUM_CLUSTERS_RANGE, silhouette_coefficient, 'bo-', label='Silhouette Coefficient')
 #p2, = par2.plot(NUM_CLUSTERS_RANGE, davies_bouldin_index, 'gs-', label='Davies Bouldin Index')
-host.set_xlabel('Number of Clusters')
-host.set_ylabel('Silhouette Coefficient')
-#par2.set_ylabel('Davies Bouldin Index')
-lines = [p0]
-host.legend(lines,
-            [l.get_label() for l in lines],
-            fontsize=10,
-            bbox_to_anchor=(0, 0.1),
-            loc='upper left')
-
+plt.xlabel('Number of Clusters')
+plt.ylabel('Silhouette Coefficient')
+plt.rcParams["font.family"] = "Times New Roman"
+plt.rcParams['font.size'] = 20 #フォントサイズを設定
+plt.rcParams["ytick.direction"] = "in"
+plt.rcParams["xtick.direction"] = "in"
+plt.yticks( np.arange(0.0, 1.2, 0.2) )
+plt.xticks( np.arange(0, 30, 5) )
 fig.savefig(sys.argv[1] + "test.png")
-"""

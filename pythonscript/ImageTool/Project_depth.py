@@ -1,6 +1,6 @@
 import sys
 import os
-# sys.path.remove('/opt/ros/kinetic/lib/python2.7/dist-packages')
+sys.path.remove('/opt/ros/kinetic/lib/python2.7/dist-packages')
 import cv2
 import glob
 import numpy as np
@@ -24,11 +24,12 @@ def depth_projection(pose_matrix,depth_image):
 
 if __name__ == '__main__':
     basepass = sys.argv[1]
-    depthimage_pass = basepass + "/render/0000000000_rendered.png"
-    csvpass = sys.argv[1] + "/pos/pos.csv"
+    """
+    depthimage_pass = basepass + "/regi_mirror/0000000000.jpg"
+    csvpass = sys.argv[1] + "/pos.csv"
     df = pd.read_csv(csvpass, header = None)
     df = df.drop(df.columns[[0,1]], axis=1)
-    #print(df[0:1])
+    print(df)
     pose = df[0:1].values
     pose_matrix = pose.reshape([int(pose.shape[1]/3),3])
     depth_image =cv2.imread(depthimage_pass,cv2.IMREAD_COLOR)
@@ -37,3 +38,16 @@ if __name__ == '__main__':
     cv2.imwrite(basepass + "/test.jpg",projected_depth)
 
     #print(projected_depth)
+    """
+    imageFilelist = glob.glob(basepass + "regi_mirror/*")
+    imageFilelist.sort()
+    csvpass = sys.argv[1] + "/pos.csv"
+    df = pd.read_csv(csvpass, header = None)
+    df = df.drop(df.columns[[0,1]], axis=1)
+    print(df)
+    for i,imageFile in enumerate(imageFilelist):
+        pose = df[i:i+1].values
+        pose_matrix = pose.reshape([int(pose.shape[1]/3),3])
+        image = cv2.imread(imageFile)
+        projected_depth = depth_projection(pose_matrix,image)
+        cv2.imwrite(basepass + "/Kinect_result/" + str(i).zfill(10) + ".jpg",projected_depth)

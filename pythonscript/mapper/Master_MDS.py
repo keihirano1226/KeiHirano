@@ -47,6 +47,7 @@ plt.scatter(x_cluster1,y_cluster1,color = "r",marker = "o", label='sofa')
 plt.scatter(x_cluster2,y_cluster2,color = "g",marker = "o", label='chair')
 plt.scatter(x_cluster3,y_cluster3,color = "b",marker = "o", label='nursing bed')
 #クラスタ数が3つの時に使う
+
 #クラスタ数が2つの時に使う
 for x,y,ID in zip(pos[:,0],pos[:,1],dflabel["class2"]):
     if ID == 1:
@@ -58,18 +59,29 @@ for x,y,ID in zip(pos[:,0],pos[:,1],dflabel["class2"]):
 plt.scatter(x_cluster1,y_cluster1,color = "r",marker = "o", label='cluster1')
 plt.scatter(x_cluster2,y_cluster2,color = "b",marker = "o", label='cluster2')
 #クラスタ数が2つの時に使う
+
 plt.legend(loc = "lower left")
 """
 #MMSE_score = dflabel["MMSE"].values
 im = plt.scatter(pos[:,0],pos[:,1],c = dflabel.BI,cmap='coolwarm', norm=Normalize(vmin=0, vmax=100),marker = "o")
 #plt.plot(x,y,color = Product(ID).name,marker = "o")
+"""
 for label, x, y, ID in zip(labels, pos[:, 0], pos[:, 1],dflabel["MMSE"]):
     #plt.plot(x,y,color = [0.0,float(ID/30),0.0],cmap=cm.Accent,marker = "o")
-    plt.annotate(
-        label,
-        xy = (x, y), xytext = (20, -20),
-        textcoords = 'offset points', ha = 'right', va = 'bottom'
-    )
+    if label == "no31_4":
+        plt.annotate(
+            "cluster1",
+            xy = (x, y), xytext = (50, -30),
+            textcoords = 'offset points', ha = 'right', va = 'bottom'
+        )
+    if label == "no32_2":
+        plt.annotate(
+            "cluster1",
+            xy = (x, y), xytext = (50, -30),
+            textcoords = 'offset points', ha = 'right', va = 'bottom'
+        )
 #ax.text(0.2, 0.2, "Chair", size = 20, color = "blue")
+"""
 plt.colorbar(im)
+
 plt.show()

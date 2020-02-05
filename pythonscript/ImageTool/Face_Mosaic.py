@@ -12,8 +12,11 @@ import pandas as pd
 import codecs
 
 def blackBox(src,x,y,width,height):
-    src[y:y + height, x:x + width] =  np.zeros((height, width, 3), np.uint8)
-    return src
+    if y+height <= src.shape[0] and x+width <= src.shape[1] and x >=0 and y>=0:
+        src[y:y + height, x:x + width] =  np.zeros((height, width, 3), np.uint8)
+        return src
+    else:
+        return src
 class JOINT(Enum):
     Nose = 0
     Neck = 1
@@ -82,5 +85,5 @@ for i,imageFileName in enumerate(imageFileList):
                     d = int(poseData[index*3+1])
                 print(a,b,c,d)
         if a < c and b < d:
-            frame = blackBox(frame,a-20,b-20,c-a+30,d-b+30)
-        cv2.imwrite('/home/kei/document/experiments/Hamano/H4_2/face/' + str(i).zfill(10) + '.jpg', frame)
+            frame = blackBox(frame,a-50,b-50,c-a+50,d-b+50)
+        cv2.imwrite(sys.argv[1] + '/face/' + str(i).zfill(10) + '.jpg', frame)

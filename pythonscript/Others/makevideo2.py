@@ -6,9 +6,10 @@ import os
 import cv2
 
 # VideoCapture を作成する。
-output_dirpath = '/home/kei/document/experiments/Master2/AJ_result/front/'
+output_dirpath = sys.argv[1] + "fig2/"
 img_path = os.path.join(output_dirpath)  # 画像ファイルのパス
 cap = cv2.VideoCapture(img_path)
+
 width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
 height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 fps = 30
@@ -16,8 +17,9 @@ print('width: {}, height: {}, fps: {}'.format(width, height, fps))
 
 # VideoWriter を作成する。
 fourcc = cv2.VideoWriter_fourcc(*'DIVX')
-writer = cv2.VideoWriter('/home/kei/document/experiments/Master2/AJ_result/output.avi', fourcc, fps, (width, height))
+writer = cv2.VideoWriter(sys.argv[1] + '/output.avi', fourcc, fps, (width, height))
 i = 0
+"""
 while True:
 
     # 1フレームずつ取得する。
@@ -29,3 +31,4 @@ while True:
     i = i + 1
 writer.release()
 cap.release()
+"""

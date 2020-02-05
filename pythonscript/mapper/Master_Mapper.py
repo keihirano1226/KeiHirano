@@ -75,23 +75,27 @@ plt.cla()
 NUM_CLUSTERS_RANGE = range(2,24)
 silhouette_coefficient = []
 davies_bouldin_index = []
+plt.xlabel('Number of Clusters')
+plt.ylabel('Silhouette Coefficient')
+plt.rcParams["ytick.direction"] = "in"
+plt.rcParams["xtick.direction"] = "in"
 for num in NUM_CLUSTERS_RANGE:
     labels = fcluster(result, t=num, criterion='maxclust')
     silhouette_coefficient.append(silhouette_score(Distance, labels, metric='precomputed' ))
     davies_bouldin_index.append(davies_bouldin_score(Distance, labels))
 p0, = plt.plot(NUM_CLUSTERS_RANGE, silhouette_coefficient, 'bo-', label='Silhouette Coefficient')
 #p2, = par2.plot(NUM_CLUSTERS_RANGE, davies_bouldin_index, 'gs-', label='Davies Bouldin Index')
-plt.xlabel('Number of Clusters')
-plt.ylabel('Silhouette Coefficient')
+
 #par2.set_ylabel('Davies Bouldin Index')
 lines = [p0]
+"""
 plt.legend(lines,
             [l.get_label() for l in lines],
             fontsize=10,
             bbox_to_anchor=(0, 0.1),
             loc='upper left')
-
-#plt.savefig("/home/kei/document/experiments/Master2/AJ_result/シルエット係数.png")
+"""
+plt.savefig("/home/kei/document/experiments/Master2/AJ_result/シルエット係数.png")
 #print(silhouette_coefficient)
 GT_labels1 = fcluster(result, t=2, criterion='maxclust')
 GT_labels2 = fcluster(result, t=11, criterion='maxclust')

@@ -31,34 +31,36 @@ for index in tqdm(range(len(list_data))):
 
 darray = distance.squareform(sum(bc.Dis_Mat_list))
 Distance = sum(bc.Dis_Mat_list)
+plt.rcParams["font.family"] = "Times New Roman"
+plt.rcParams['font.size'] = 15 #フォントサイズを設定
+plt.ylabel("distance")
+plt.rcParams["ytick.direction"] = "in"
 result = linkage(darray, method = "average")
 # print(result)
 df2 = pd.read_csv(sys.argv[1] + "1,3_2_result/Distance.csv", index_col=0)
 dendrogram(result,labels=df2.columns)
-plt.rcParams['font.size'] = 10 #フォントサイズを設定
-plt.rcParams["font.family"] = "Times New Roman"
-plt.title("Dendrogram")
+
 # plt.show()
 plt.show("./dendrogram_by_angle.png")
 print("関節角を使った階層型クラスタリングが成功しました")
 plt.cla
-NUM_CLUSTERS_RANGE = range(2,29)
+NUM_CLUSTERS_RANGE = range(2,motion_num)
 silhouette_coefficient = []
 davies_bouldin_index = []
 for num in NUM_CLUSTERS_RANGE:
     labels = fcluster(result, t=num, criterion='maxclust')
     silhouette_coefficient.append(silhouette_score(Distance, labels, metric='precomputed' ))
     davies_bouldin_index.append(davies_bouldin_score(Distance, labels))
-p0, = plt.plot(NUM_CLUSTERS_RANGE, silhouette_coefficient, 'bo-', label='Silhouette Coefficient')
+
+fig = plt.figure()
+p0 = plt.plot(NUM_CLUSTERS_RANGE, silhouette_coefficient, 'bo-', label='Silhouette Coefficient')
 #p2, = par2.plot(NUM_CLUSTERS_RANGE, davies_bouldin_index, 'gs-', label='Davies Bouldin Index')
 plt.xlabel('Number of Clusters')
 plt.ylabel('Silhouette Coefficient')
-#par2.set_ylabel('Davies Bouldin Index')
-lines = [p0]
-plt.legend(lines,
-            [l.get_label() for l in lines],
-            fontsize=10,
-            bbox_to_anchor=(0, 0.1),
-            loc='upper left')
-
-plt.savefig("/home/kei/document/experiments/method/1,3_2_result/シルエット係数.png")
+plt.rcParams["font.family"] = "Times New Roman"
+plt.rcParams['font.size'] = 20 #フォントサイズを設定
+plt.rcParams["ytick.direction"] = "in"
+plt.rcParams["xtick.direction"] = "in"
+plt.yticks( np.arange(0.0, 1.2, 0.2) )
+plt.xticks( np.arange(0, 30, 5) )
+fig.savefig(sys.argv[1] + "test.png")

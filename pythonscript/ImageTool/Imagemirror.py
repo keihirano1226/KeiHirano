@@ -7,12 +7,13 @@ sys.path.remove('/opt/ros/kinetic/lib/python2.7/dist-packages')
 import cv2
 from tqdm import tqdm
 basePath = sys.argv[1]
-"""
-for filename in tqdm(glob.glob(basePath+'/color/*.jpg')):
+colorlist = glob.glob(basePath+'/color/*.jpg')
+colorlist.sort()
+for filename in tqdm(colorlist):
     im = Image.open(filename)
     im_mirror = ImageOps.mirror(im)
     im_mirror.save(basePath+'/color_mirror/'+filename[-14:])
-"""
+
 depthimage_list = glob.glob(basePath+'/depth/*.png')
 depthimage_list.sort()
 

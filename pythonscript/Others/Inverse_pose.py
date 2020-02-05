@@ -78,7 +78,7 @@ df_pose = pd.read_csv(posefile)
 
 Origin = df_edge[0:1].values
 Pose_tra = Coordinate_inv(df_pose, Origin, R)
-Pose_tra.to_csv(sys.argv[1] + "3DFiltered2.csv", index = 0)
+Pose_tra.to_csv(sys.argv[1] + "camera_pose.csv", index = 0)
 
 """
 motion_list = glob.glob(sys.argv[1] + "MA*.csv")

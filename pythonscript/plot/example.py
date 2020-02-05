@@ -14,8 +14,7 @@ import sys
 
 
 def plotPosture(posedata1,posedata2,Feature_joint_list):
-    jointPairs = [(0,1), (0,6), (6,5), (1,7), (7,8), (2,3), (2,4), (0,3),(1,4)]
-    #0:右肩,1:左肩，2:骨盤中央,3:右骨盤,4:左骨盤,5:右手首,6:右肘,7:左肘,8:左手首
+    jointPairs = [(0,1),(0,10),(10,9),(1,11),(11,12),(0,3),(3,5),(5,7),(1,4),(4,6),(6,8),(2,3),(2,4)]
     #(右肩，左肩),(右肩，右肘),(右肘，右手首),(左肩，左肘),(左肘，左手首),(骨盤中央,骨盤右),(骨盤中央，骨盤左)，(右肩，骨盤右)，(左肩，骨盤左)
     #plotposture関数が一番描画を考える上では一番重要な関数
     fig = plt.figure()
@@ -105,10 +104,9 @@ def plotPosture(posedata1,posedata2,Feature_joint_list):
         ax.set_xticks(np.arange(-1, 1, step=0.5))
         ax.set_yticks(np.arange(-1, 1, step=0.5))
         ax.set_zticks(np.arange(0, 1.5, step=0.5))
-        ax.view_init(elev = 0, azim = -90)
+        ax.view_init(elev = 20, azim = -45)
         #ax.view_init(elev = 0, azim = -90)
-        plt.pause(0.0001)
-        #plt.pause(10)
+        plt.savefig("/home/kei/document/experiments/Normarize/chair/" + str(frame).zfill(10) + ".png")
         plt.cla()
 if __name__ == '__main__':
     basepass = sys.argv[1]
@@ -116,5 +114,5 @@ if __name__ == '__main__':
     posedata1 = pd.read_csv(posepass1)
     posepass2 = basepass + "AveragePose2.csv"
     posedata2 = pd.read_csv(posepass2)
-    Feature_joint_list = [0,1,2,3,7]
+    Feature_joint_list = []
     plotPosture(posedata1,posedata2,Feature_joint_list)
