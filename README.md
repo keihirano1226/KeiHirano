@@ -121,7 +121,7 @@ __出力__3DInterrupt2.csv
 __入力__basepath  
 __出力__3DFiltered.csv  
 5. もし，姿勢データが左手を中心としたものだった場合には5の処理が必要になる．姿勢を左右反転させて対応する関節のIDを反転させる処理．  
-[LRchange.py](pythonscript/GroundCal/LRchange.py)
+[LRchange.py](pythonscript/GroundCal/LRchange.py)  
 __入力__basepath  
 __出力__3DFiltered2.csv  
 ## 簡易作業フロー(3):変化点検出
@@ -135,8 +135,15 @@ __出力__各時間幅での開始終了に関する変化を表したグラフ�
 2. 3DFiltered.csvのファイルを開始終了時刻に合わせて切り取り，ファイル名を動作IDに変更した後解析フォルダ(今回の場合はMaster2)に移動させる．
 
 ## 簡易作業フロー(4):クラスタリング
-1. 解析フォルダに移動させた動作データについて解析を行う．解析前に"Unified"と"AJ_result"については解析用フォルダ内にフォルダを作成しておくこと.使いたい関節のセット(上半身だけとか左半身だけとか)を作成したい場合は[BodyColumn](pythonscript/BodyColumn/*)に新しい関節セットを作って14行目で旨いこと読み込んで下さい．    
+1. 解析フォルダに移動させた動作データについて解析を行う．解析前に"Unified"と"AJ_result"については解析用フォルダ内にフォルダを作成しておくこと.使いたい関節のセット(上半身だけとか左半身だけとか)を作成したい場合は/mapper/BodyColumnに新しい関節セットを作って14行目で上手いこと読み込んで下さい．    
 [Master_Mapper.py](pythonscript/mapper/Master_Mapper.py)  
 
 ## 簡易作業フロー(5):マップ作成
-1.
+1. 距離行列を使って多次元尺度構成法でマップを作成する．この時作成するマップを何と関連付けるか(製品か認知能力か身体能力か)は全てコメントアウトの外し方で調整していました．
+[Master_MDS.py]
+
+## 簡易作業フロー(6):クラスタ平均動作の作成
+1. 分類された各クラスタの平均動作を作成する．  
+[Master_average.py](pythonscript/mapper/Master_average.py)
+2. それぞれのクラスタの動作を同一製品座標系の動作として描画する．動画の作成の際に，画像として一枚ずつ吐き出したい場合は112行目あたりからいじるべし．また読み込み元のcsvファイルによって14，15行目の関節セットの書き方が変わるので注意．  
+[2pose_All.py](pythonscript/plot/2pose_All.py)

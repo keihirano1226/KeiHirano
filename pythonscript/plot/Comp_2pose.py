@@ -63,7 +63,7 @@ def plotPosture(posedata1,posedata2):
         [0.5,0.05,0.25],[0.5,0.05,0.25]]
         i = 0
         color1 = "ivory"
-        """
+        
         for origin in origins:
             length = lengths[i]
             #origin = [0,0,0]
@@ -90,7 +90,7 @@ def plotPosture(posedata1,posedata2):
             ax.plot_surface(X2,Y,Z,alpha=alpha1,color = color1)
             i+=1
             #ここまでで、ひとつの直方体がかける。
-        """
+
         ax.set_xlim(-1,1)
         ax.set_ylim(-1,1)
         ax.set_zlim(-0.5,1.5)
