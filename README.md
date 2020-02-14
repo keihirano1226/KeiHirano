@@ -124,3 +124,19 @@ __出力__3DFiltered.csv
 [LRchange.py](pythonscript/GroundCal/LRchange.py)
 __入力__basepath  
 __出力__3DFiltered2.csv  
+## 簡易作業フロー(3):変化点検出
+1. 作成した動作に対して変化点検出を用いて動作の開始点と終了点を決める．変化点検出では時間幅などのパラメータは出力結果などを見ながら確認していく必要があるので，パラメータを0.1秒から0.5秒まで0.1秒刻みで変化させるプログラムを作成した．
+[cf_svd.py](pythonscript/Changefinder/cf_svd.py)  
+__入力__basepath  
+__出力__各時間幅での開始終了に関する変化を表したグラフの画像,  
+それぞれの値を書いたcsv(end_cf_score.csv,end_diff_cf_score.csv,start_cf_score.csv,start_diff_cf_score.csv)  
+この辺の結果を見ながら開始時刻，終了時刻に関して決定を行う．
+
+2. 3DFiltered.csvのファイルを開始終了時刻に合わせて切り取り，ファイル名を動作IDに変更した後解析フォルダ(今回の場合はMaster2)に移動させる．
+
+## 簡易作業フロー(4):クラスタリング
+1. 解析フォルダに移動させた動作データについて解析を行う．解析前に"Unified"と"AJ_result"については解析用フォルダ内にフォルダを作成しておくこと.使いたい関節のセット(上半身だけとか左半身だけとか)を作成したい場合は[BodyColumn](pythonscript/BodyColumn)に新しい関節セットを作って14行目で旨いこと読み込んで下さい．    
+[Master_Mapper.py](pythonscript/mapper/Master_Mapper.py)  
+
+## 簡易作業フロー(5):マップ作成
+1.
