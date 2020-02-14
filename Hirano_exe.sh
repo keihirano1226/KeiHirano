@@ -81,7 +81,7 @@ case $ANSWER2 in
 esac
 
 echo "BoundMaker_Hirano.cpp"
-echo "Choose 10 points"
+echo "Choose 5 points"
 /usr/bin/g++ -g C++script/BoundMaker_Hirano.cpp -I/usr/local/include/opencv2 -I/usr/local/include/opencv -I/home/kei/freenect2/include -L/usr/local/lib -lopencv_core -lopencv_imgcodecs -lopencv_highgui -lopencv_imgproc -L/home/kei/freenect2/lib -lfreenect2 -o C++script/BoundMaker_Hirano
 C++script/BoundMaker_Hirano $basepath $Image_num
 
