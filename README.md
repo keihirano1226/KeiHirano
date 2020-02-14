@@ -38,93 +38,72 @@ opencvのライブラリ使用時に追加で記述している部分が有る�
 [Hirano_exe.sh](./Hirano_exe.sh)内での処理や作業フローについては，[Hirano_exe使い方.md](./Hirano_exe使い方.md)を参照
 ## 簡易作業フロー
 
-1. レジストレーション画像生成  
-[DepthMapper.cpp](C++script/DepthMapper.cpp)    
-__コード内入力__ colorDir depthDir
-__入力__ basepath  
-__出力__ regiDir
-<br>
+1. マウス手動計測によるアフィン変換パラメータの取得  
+[fix_click.cpp](C++script/fix_click.cpp)
+__入力__basepath Image_num  
+__出力__regi_2d_points.csv    
+2. 手動計測した結果を画像で出力する．  
+[click_plot.py](pythonscript/ImageTool/click_plot.py)    
+__入力__basepath Image_num  
+__出力__regi_2d_points.csv  
 
-1. ミラー画像生成  
-[regimirror.cpp](regimirror)
-__入力__ basepath
-__出力__ regiMirrorDir
-<br>
+3. 先ほどクリックで指定した点に対応する奥行き画像上の対応点をクリックで指定する．  
+[depth_click.cpp](C++script/depth_click.cpp)  
+__入力__basepath Image_num  
+__出力__depth_2d_points.csv  
 
-2. レジストレーション画像アフィン変換(option)  
-[fixregi.py](pythonscript/ImageTool/fixregi.py)  
-__入力__ basepath dx
-__出力__ regiMirrorFixDir  
-<br>
+4. color画像をアフィン変換するためのパラメータを計算しアフィン変換を行う．  
+[fixcolor.py](pythonscript/fixcolor.py)  
+__入力__basepath  
+__出力__color2 diff.csv diff_mean.csv    
 
-3. OPENPOSE解析(render生成)   
-__例__  
-`./build/examples/openpose/openpose.bin --image_dir /home/shoda/Documents/mitsu/regi_mirror -write_images /home/shoda/Documents/mitsu/render --write_json /home/shoda/Documents/mitsu/json`
-<br>
+5. color画像をアフィン変換するためのパラメータを計算しアフィン変換を行う．  
+[FixMapper.cpp](C++script/FixMapper.cpp)  
+__入力__basepath  
+__出力__regi2  
 
-4. OPENPOSE結果確認(複数人表示)(option)  
-[showOpenPoseResult.py](pythonscript/OpenPose/showOpenPoseResult.py)  
-__入力__ basepath  
-<br>
+6. color画像をアフィン変換するためのパラメータを計算しアフィン変換を行う．  
+[pngmirror.py](C++script/FixMapper.cpp)  
+__入力__basepath  
+__出力__regi2　　
 
-5. jsonfileを読み込んで一人の人の時系列データ行列に変換するためのコード  
+7. openposeの実行を行う．  
+
+8. 出力されたopenposeの出力を確認できるスクリプト．ココで，解析に使用するフレーム，及び解析開始フレームにおける対象被験者のIDを確認しておく．  
+[showOpenPoseResult_Hirano.py](pythonscript/OpenPose/showOpenPoseResult_Hirano.py)   
+__入力__basepath  
+
+9. 一つ前のスクリプトで確認した開始，終了フレーム，及び対象被験者のID番号を引数として与えてjson内の姿勢データから対象被験者のデータのみ抽出しcsvファイルにまとめる．  
 [csvposer.py](pythonscript/csvpose/csvposer.py)  
-__入力__ basepath peopleID startframe endframe  
-__出力__ output.csv probability.csv test.csv
-<br>
+__入力__ID,開始フレーム，終了フレーム  
+__出力__test.csv　　
 
-6. OPENPOSE結果確認(指定した1人表示)(option)  
-[showCSVResult.py](pythonscript/OpenPose/showCSVResult.py)  
-__入力__ regi_mirrorDir output.csv  
-__例__   
-`python pythonscript/OpenPose/showCSVResult.py /home/shoda/Documents/mitsu/regi_mirror /home/shoda/Documents/mitsu/output.csv`
-<br>
+10. csvposeに変換した二次元姿勢情報，及び奥行き情報を用いて三次元姿勢を生成する．  
+[3DPoseMaker.cpp](C++script/3DPoseMaker.cpp)  
+__入力__basepath  
+__出力__3dbone.csv  
 
-7. 両肩座標を使用したDepthとRGBの位置誤差の確認(option)   
-[joint_diff.py](pythonscript/ImageTool/joint_diff.py)  
-__入力__ basepath  
-__出力__ diff.png
-
-8. 三次元姿勢推定  
-[3DposeMaker.cpp](C++script/3DPoseMaker.cpp)  
-__入力__ basepath  
-__出力__ save.csv   
-<br>
-
-9. save.csvに３次元関節名をヘッダに記載する  
+11. 生成したテキストファイルにカラム名をつけて保存するためのスクリプト．  
 [Column.py](pythonscript/Liner/Column.py)  
-__入力__ save.csv   
-__出力__ 3dbone.csv  
-<br>
+__入力__basepath  
+__出力__3dbone.csv  
 
-10. 線形補完して各関節の時系列データを出力（カメラ座標系）(option)  
+12. 線形補間を行うスクリプト  
 [3DInterrupt.py](pythonscript/Liner/3DInterrupt.py)  
-__入力__ 3dbone.csv  
-__出力__ 3DInterrupt.csv  
-<br>
+__入力__basepath  
+__出力__3DInterrupt.csv  
 
-11. regi画像においてピクセルを指定して平面の2D点群を取得する  
-[BoundMaker.py](C++script/BoundMaker.cpp)  
-__コード内入力__ basepath 対象のregi画像  
-__出力__ 2DGround.csv
-Z平面左上→Z平面右下→X平面左上→X平面右下→原点→その他5点  
-<br>
+13. 製品座標系に変換を行うために5種類の点群を打つためのスクリプト．今回の場合，座面，背もたれとする点群の原点をそれぞれ選択する．この時領域選択の場合は，二次元画面内の左上と右下を選択するようにする．  
+[BoundMaker_Hirano.cpp](C++script/BoundMaker_Hirano.cpp)  
+__入力__basepath,注目する画像ファイル番号  
+__出力__2DGround.csv  
 
-12. 平面上のすべての3D点群を取得する  
+14. それぞれ指定した領域の三次元点群データを取得する．  
 [3DChair.cpp](C++script/3DChair.cpp)  
-__コード内入力__ basepath 対象のdepth画像  
-__出力__ Xplane.csv Zplane.csv edge.csv  
-edge.csvの一行目が原点を表す  
-<br>
+__入力__basepath,注目する画像番号  
+__出力__Zplane.csv,Xplane.csv,edge.csv
 
-13. 軸、回転行列R、製品座標系の姿勢データを生成する  
-[CalProductaxis.py](pythonscript/GroundCal/CalProductaxis.py)  
-__入力__ basepath  
-__出力__ axisData.csv 3dboneRotated.csv
-
-(その他)動画，若しくは画像にモザイク処理を行う
-もし，顔にモザイク，もしくは黒塗りにした状態にして顔が見えないようにした動画を作成したい場合
-高齢者行動ライブラリで公開されていない自分で発掘した，若しくは別途自分で顔を消した動画を作成する必要が有る場合，
-対象の元画像に対してopenposeを使用し，Face_jsonというファイルにjsonファイルを格納し，
-python3 /pythonscript/Face_Mosaic.py
-を実行すると顔に黒塗りした画像が生成できる．まだ，開発段階であるため稀に止まることがあるため鋭意開発を進めたい．
+15. 三次元姿勢データを製品座標系に座標変換するためのスクリプト．  
+[FixProductaxis.py](pythonscript/GroundCal/FixProductaxis.py)  
+__入力__basepath  
+__出力__3dboneRotated.csv
