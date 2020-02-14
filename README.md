@@ -116,10 +116,11 @@ __出力__3dboneRotated.csv
 __入力__basepath  
 __出力__3DInterrupt2.csv
 
-3. 補間された姿勢データに対して最後にフィルタ処理を行う  
+4. 補間された姿勢データに対して最後にフィルタ処理を行う  
 [3Dkalman.py](pythonscript/Filter/33Dkalman.py)  
 __入力__basepath  
 __出力__3DFiltered.csv  
-4. もし，姿勢データが左手を中心としたものだった場合には4の処理が必要になる．姿勢を左右反転させて対応する関節のIDを反転させる処理．
+5. もし，姿勢データが左手を中心としたものだった場合には5の処理が必要になる．姿勢を左右反転させて対応する関節のIDを反転させる処理．  
+[LRchange.py](pythonscript/GroundCal/LRchange.py)
 __入力__basepath  
 __出力__3DFiltered2.csv  
