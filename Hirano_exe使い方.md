@@ -64,7 +64,7 @@ __出力__3dbone.csv
 __入力__test.csv,Depth画像  
 __出力__3dbone.csv  
 
-12. 線形補間を行うスクリプト
+12. 線形補間を行うスクリプト  
 [3DInterrupt.py](pythonscript/Liner/3DInterrupt.py)  
 __入力__3dbone.csv  
 __出力__3DInterrupt.csv  
@@ -74,12 +74,12 @@ __出力__3DInterrupt.csv
 __入力__レジストレーション画像1枚  
 __出力__2DGround.csv  
 
-14. それぞれ指定した領域の三次元点群データを取得する．
+14. それぞれ指定した領域の三次元点群データを取得する．  
 [3DChair.cpp](C++script/3DChair.cpp)  
 __入力__2DGround.csv  
 __出力__Zplane.csv,Xplane.csv,edge.csv
 
 15.　三次元姿勢データを製品座標系に座標変換するためのスクリプト．  
 [FixProductaxis.py](pythonscript/GroundCal/FixProductaxis.py)  
-__入力__.csv  
-__出力__Zplane.csv,Xplane.csv,edge.csv
+__入力__basepath  
+__出力__33dboneRotated.csv
