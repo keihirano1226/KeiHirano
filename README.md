@@ -36,7 +36,7 @@ opencvのライブラリ使用時に追加で記述している部分が有る�
 [Hirano_exe.sh](./Hirano_exe.sh)
 両者でレジストレーション画像の生成方法に違いが有る．
 [Hirano_exe.sh](./Hirano_exe.sh)内での処理や作業フローについては，[Hirano_exe使い方.md](./Hirano_exe使い方.md)を参照
-## 簡易作業フロー
+## 簡易作業フロー(1):三次元動作生成
 
 1. マウス手動計測によるアフィン変換パラメータの取得  
 [fix_click.cpp](C++script/fix_click.cpp)
@@ -107,3 +107,18 @@ __出力__Zplane.csv,Xplane.csv,edge.csv
 [FixProductaxis.py](pythonscript/GroundCal/FixProductaxis.py)  
 __入力__basepath  
 __出力__3dboneRotated.csv
+
+## 簡易作業フロー(2):三次元動作の誤差修正など補間処理  
+1. 生成した動作をまずはblenderで確認してみる．引き継ぎ史料上にあるblenderファイル内に読み込みを行うためのスクリプトが内蔵されているのでまずは開いてみるべし．このときエラーが出て開けない場合にはcsvファイルに空白があるなどの場合があるので，まずは確認．空白の部分に関しては0埋めしてもいいし，前後の値と同じものをとりあえず突っ込んで読み込めるようにしてもいいと思う．
+2. 生成された動作データの問題が有る部分について一つずつ手作業で指定を行い修正を行っていく．基本的に目視で確認してダメそう明らかにおかしいなという部分に関しては，3dboRotated.csv上で編集を行い，とりあえず空欄にしていく．
+3. 空欄がたくさん出来た3dborotated.csvについて線形補完を行う．
+[FilteredInterrupt.py](pythonscript/Liner/FilteredInterrupt.py)  
+__入力__basepath  
+__出力__3DInterrupt2.csv
+
+3. 補間された姿勢データに対して最後にフィルタ処理を行う
+__入力__basepath  
+__出力__3DFiltered.csv  
+4. もし，姿勢データが左手を中心としたものだった場合には4の処理が必要になる．姿勢を左右反転させて対応する関節のIDを反転させる処理．
+__入力__basepath  
+__出力__3DFiltered2.csv  
